@@ -1,0 +1,136 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="table-responsive-sm">
+	<h4>Escalators</h4>
+	<table class="table table-striped table-hover table-bordered">
+		<thead>
+   			<tr>
+   				<th scope="col">ID</th>
+   			    <th scope="col"> Name </th>
+   			    <th scope="col"> Status </th>
+				<th scope="col"> Pic Status</th>
+   			</tr>
+   		</thead>
+ 		<tbody>
+   			{% for elevator in elevators %}
+   			<tr scpope="row">
+   				<td>{{ elevator.id }}</td>
+   			    <td>{{ elevator.name }}</td>
+   			    <td id="elevator_{{ elevator.id }}">{{ elevator.status }}</td>
+				<td><img id="el_1" src="{% static "dashboard/images/green_elev.png"%}" alt="My image"></td>
+   			   	{% if request.user.is_superuser %}
+   			   		<td>
+   			   			<form class="update_form">
+   			   				<input type="hidden" value="{{ elevator.id }}">
+   			   				<input type="submit" value="Update Status" name="">
+   			   			</form>
+   			   		</td>
+   			   	{% endif %}
+   			</tr>
+   			{% endfor %}
+   		</tbody>
+	</table>
+</div>
+<div class="table-responsive-sm">
+	<h4>Escalators</h4>
+	<table class="table table-striped table-hover table-bordered">
+		<thead>
+   			<tr>
+   			    <th scope="col"> Name </th>
+   			    <th scope="col"> Status </th>
+   			</tr>
+   		</thead>
+ 		<tbody>
+   			{% for escalator in escalators %}
+   			<tr scpope="row"> 
+   			    <td>{{ escalator.name }}</td>
+   			    <td>{{ escalator.status }}</td>
+   			</tr>
+   			{% endfor %}
+   		</tbody>
+	</table>
+</div>
+<div class="table-responsive-sm">
+	<h4>Baggage Belts</h4>
+	<table class="table table-striped table-hover table-bordered">
+		<thead>
+   			<tr>
+   			    <th scope="col"> Name </th>
+   			    <th scope="col"> Status </th>
+   			</tr>
+   		</thead>
+ 		<tbody>
+   			{% for bb in baggage_belts %}
+   			<tr scpope="row"> 
+   			    <td>{{ bb.name }}</td>
+   			    <td>{{ bb.status }}</td>
+   			</tr>
+   			{% endfor %}
+   		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+console.log(window.location)
+var loc = window.location;
+wsStart = 'ws://';
+if (loc.protocol == 'https:'){
+	wsStart = 'wss://' + window.location.host + window.location.pathname;
+}
+
+var endpoint = 'ws://127.0.0.1:8000/elevator';
+var socket = new WebSocket(endpoint);
+
+// Received message from server-side
+socket.onmessage = function(e){
+	console.log("Message", e);
+
+	var data = JSON.parse(e.data)
+	var elevator_id = data.elevator_id
+	var new_status = data.new_status
+	var newImgStat = document.getElementById("el_1")
+
+	switch(new_status){
+		case 1:
+			newImgStat.setAttribute("src","green_elev.png")
+		break;
+		case 2:
+			newImgStat.setAttribute("src","{% static "dashboard/images/red_elev.png"%}")
+
+
+	}
+
+	$('#elevator_' + elevator_id).html(new_status);
+}
+socket.onopen = function(e){
+	console.log("Open", e);
+	$('.update_form').submit(function(event){
+		event.preventDefault();
+
+		var elevator_id = $('input[type=hidden]').val()
+		var eID_name = 'elevator_' + elevator_id;
+		var elevator_status = $("#" + eID_name).html();
+
+		var final_data = {
+			'elevator': elevator_id,
+			'current_status': elevator_status,
+		}
+
+		socket.send(JSON.stringify(final_data));
+	});
+}
+socket.onerror = function(e){
+	console.log("Error", e)
+}
+socket.onclose = function(e){
+	console.log("Close", e)
+}
+</script>
+
+
+
+
+
+{% endblock %}
