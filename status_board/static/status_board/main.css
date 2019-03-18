@@ -1,0 +1,15 @@
+.flex-container{
+display: flex;
+align-content: flex-start;
+}
+
+.flex-container > div{
+  color: white;
+  width: 100px;
+  margin: 10px;
+  text-align: center;
+}
+
+#navText > li {
+    color:white;
+}

@@ -1,0 +1,44 @@
+{% extends "status_board/base.html" %}
+
+{% block cssLink %}
+{% load static %}
+<link rel="stylesheet" type="text/css"  href="{% static 'status_board/users.css' %}" />
+
+{% endblock cssLink %}
+
+{% block content %}
+
+<div id="container" syle="align-content:space-around">
+    <div class="flex flex-column" style="width:100%" >
+
+            <div class="d-flex justify-content-center p-5 ">
+
+             <div id="title">
+                 Live Airport Information System
+             </div>
+                    </div>
+
+    <div class="d-flex justify-content-center ">
+         <div >
+            <img src="{% static 'status_board/images/airplane.png'%}" alt="airplane image">
+
+         </div>
+    </div>
+<div class="d-flex justify-content-center p-5">
+        <div >
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form.as_p }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Login</button>
+                    </div>
+                </form>
+
+         </div>
+    </div>
+
+</div>
+{% endblock content%}
