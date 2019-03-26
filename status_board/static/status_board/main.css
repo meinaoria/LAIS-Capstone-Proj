@@ -13,3 +13,12 @@ align-content: flex-start;
 #navText > li {
     color:white;
 }
+
+.fixedMessage{
+    background-color:black;
+    color:white
+}
+
+#bridgeRow{
+    padding:0;
+}

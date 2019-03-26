@@ -1,7 +1,152 @@
 {% extends "status_board/base.html" %}
+{% load static %}
+ <!--for testing purposes, mainContent should be changed to cssLink and h1 tags removed-->
+{% block mainContent %}
+
+    {% if user.is_authenticated and perms.catalog.has_write_access %}
+        <span>Auth and has permission</span>
+
+    {% elif user.is_authenticated %}
+        <span> No permission</span>
+    {%else %}
+        <span>Not Auth</span>
+           <script src="{% static 'status_board/loggedOut.js' %}"></script>
+    {% endif %}
+
+{% endblock mainContent%}
 
 {% block content %}
 
+  <div class="container-fluid">
+  <div class="row">
+      <!--Bridge Table 1st Column-->
+    <div class="col-sm" id="bridgeRow">
+        <div class="max-vh-100">
+            <table class="table table-striped table-dark ">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Bridge</th>
+                      <th scope="col">PCA</th>
+                      <th scope="col">GPU</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {% for bridge in bridges %}
+                        <tr>
+
+                          <th scope="row">{{bridge.bridgeTableID}}</th>
+                          <td>
+                              {% if bridge.Bridge_Status_Choice == 'GREEN' %}
+                                  <img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                              {% elif bridge.Bridge_Status_Choice == 'RED' %}
+                                 <img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                              {% else %}
+                                     <img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                              {% endif %}
+                          </td>
+                          <td>
+                              {% if bridge.PCA_Status_Choice == 'GREEN' %}
+                                  <img src='{% static "status_board/images/green.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
+                              {% elif bridge.PCA_Status_Choice == 'RED' %}
+                                 <img src='{% static "status_board/images/red.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
+                              {% else %}
+                                     <img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
+                              {% endif %}
+                          </td>
+                          <td>
+                              {% if bridge.GPU_Status_Choice == 'GREEN' %}
+                                  <img src='{% static "status_board/images/green.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
+                              {% elif bridge.GPU_Status_Choice == 'RED' %}
+                                 <img src='{% static "status_board/images/red.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
+                              {% else %}
+                                     <img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
+                              {% endif %}
+                          </td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+    </div>
+
+        <!--<table>-->
+    <!--<tbody>-->
+        <!--<tr>-->
+          <!--<th>Row</th>-->
+            <!--<td>-->
+                   <!--{% for bridge in bridges %}-->
+                <!--{% if bridge.Bridge_Status_Choice == 'GREEN' %}-->
+                                  <!--<img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">-->
+                              <!--{% elif bridge.Bridge_Status_Choice == 'RED' %}-->
+                                 <!--<img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">-->
+                              <!--{% else %}-->
+                                     <!--<img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">-->
+                              <!--{% endif %}-->
+                <!--{% endfor %}-->
+            <!--</td>-->
+          	<!--<td>2</td>-->
+          	<!--<td>3</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<th>First Name</th>-->
+            <!--<td>John</td>-->
+            <!--<td>Peter</td>-->
+          	<!--<td>John</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<th>Last Name</th>-->
+            <!--<td>Carter</td>-->
+            <!--<td>Parker</td>-->
+            <!--<td>Rambo</td>-->
+        <!--</tr>-->
+      <!--<tr>-->
+          <!--<th>Email</th>-->
+          	<!--<td>johncarter@mail.com</td>-->
+            <!--<td>peterparker@mail.com</td>-->
+            <!--<td>johnrambo@mail.com</td>-->
+        <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
+    <!--</div>-->
+
+      <!--Elevators 2nd Row-->
+    <div class="col-sm">
+        <p style="text-align:center">Elevators</p>
+
+        <div class="d-flex flex-wrap bg-light justify-content-around">
+              {% for elev in elevators %}
+                <div class="p-2 border" >
+                    <span>{{elev.elevatorID}}</span>
+                      {% if elev.Elevator_Status_Choice == 'GREEN' %}
+                            <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}">
+                      {% elif elev.Elevator_Status_Choice == 'RED' %}
+                            <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
+                      {% endif %}
+                </div>
+            {% endfor %}
+            </div>
 
 
-{% endblock content%}
+    </div>
+    <div class="col-sm">
+      <p style="text-align:center">Escalators</p>
+
+        <div class="d-flex flex-wrap bg-light justify-content-around">
+              {% for esc in escalators %}
+                <div class="p-2 border" >
+                    <span>{{esc.escalatorID}}</span>
+                      {% if esc.Escalator_Status_Choice == 'GREEN' %}
+                            <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
+                      {% elif esc.Escalator_Status_Choice == 'RED' %}
+                            <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
+                      {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
