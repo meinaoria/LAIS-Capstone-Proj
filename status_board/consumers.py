@@ -77,12 +77,16 @@ class bridgeTableConsumer(AsyncConsumer):
        data = event.get("text", None)  # Get the data from the event called "text" and default to None if there isn"t any
        if data is not None:
            loaded_dict_data = json.loads(data)
-           bridgeTableID = loaded_dict_data.get('bridgeTable_ID')
-           #bridgeStatus = loaded_dict_data.get(yes)
+           bridgeTableID = loaded_dict_data.get('bridgeTableID')
+           bridgeStatus = loaded_dict_data.get('bridgeStat')
+           pcaStatus = loaded_dict_data.get('pcaStat')
+           gpuStatus = loaded_dict_data.get('gpuStat')
 
            response = {
                "bridgeTableID": bridgeTableID,
-             #  "new_bridgeStatus": bridgeStatus
+               'bridgeStat': bridgeStatus,
+               'pcaStat': pcaStatus,
+               'gpuStat': gpuStatus,
            }
            # Broadcasts message
            await self.channel_layer.group_send(

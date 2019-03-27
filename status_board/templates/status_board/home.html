@@ -2,7 +2,7 @@
 {% load static %}
  <!--for testing purposes, mainContent should be changed to cssLink and h1 tags removed-->
 {% block mainContent %}
-
+  <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
     {% if user.is_authenticated and perms.catalog.has_write_access %}
         <span>Auth and has permission</span>
 
@@ -10,7 +10,7 @@
         <span> No permission</span>
     {%else %}
         <span>Not Auth</span>
-           <script src="{% static 'status_board/loggedOut.js' %}"></script>
+           <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
     {% endif %}
 
 {% endblock mainContent%}
@@ -36,10 +36,14 @@
                     {% for bridge in bridges %}
                         <tr>
 
-                          <th scope="row">{{bridge.bridgeTableID}}</th>
+                          <th scope="row">
+                              <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}">  {{bridge.bridgeTableID}} </a>
+                          </th>
                           <td>
                               {% if bridge.Bridge_Status_Choice == 'GREEN' %}
-                                  <img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+
+                                    <img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+
                               {% elif bridge.Bridge_Status_Choice == 'RED' %}
                                  <img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
                               {% else %}
@@ -118,9 +122,11 @@
         <div class="d-flex flex-wrap bg-light justify-content-around">
               {% for elev in elevators %}
                 <div class="p-2 border" >
+                  <a href="{% url 'elevatorForm' elev.elevatorID%}}">
                     <span>{{elev.elevatorID}}</span>
+                  </a>
                       {% if elev.Elevator_Status_Choice == 'GREEN' %}
-                            <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}">
+                            <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
                       {% elif elev.Elevator_Status_Choice == 'RED' %}
                             <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
                       {% endif %}
@@ -133,20 +139,102 @@
     <div class="col-sm">
       <p style="text-align:center">Escalators</p>
 
-        <div class="d-flex flex-wrap bg-light justify-content-around">
-              {% for esc in escalators %}
-                <div class="p-2 border" >
-                    <span>{{esc.escalatorID}}</span>
-                      {% if esc.Escalator_Status_Choice == 'GREEN' %}
-                            <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
-                      {% elif esc.Escalator_Status_Choice == 'RED' %}
-                            <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
-                      {% endif %}
-                </div>
-            {% endfor %}
-            </div>
+        <!--<div class="d-flex flex-wrap bg-light justify-content-around">-->
+              <!--{% for esc in escalators %}-->
+                <!--<div class="p-2 border" >-->
+                    <!--<span>{{esc.escalatorID}}</span>-->
+                      <!--{% if esc.Escalator_Status_Choice == 'GREEN' %}-->
+                            <!--<img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">-->
+                      <!--{% elif esc.Escalator_Status_Choice == 'RED' %}-->
+                            <!--<img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">-->
+                      <!--{% endif %}-->
+                <!--</div>-->
+            <!--{% endfor %}-->
+            <!--</div>-->
     </div>
   </div>
 </div>
+
+<script>
+
+var loc = window.location
+//var form = $('#formData')
+var wsStart = 'ws://'
+if (loc.protocol == 'https:'){
+    wsStart = 'wss://'
+}
+var endpoint = wsStart + loc.host + loc.pathname
+console.log(loc.host)
+console.log(loc.pathname)
+
+ var socket = new WebSocket(endpoint)
+
+   socket.onmessage = function(e){
+     console.log('messageeeeeeeeee',e)
+        var data = JSON.parse(e.data)
+        var bridgeTableId = data.bridgeTableID
+        var bridgeStat = data.bridgeStat
+        var pcaStat = data.pcaStat
+        var gpuStat = data.gpuStat
+
+
+
+
+            var bridge = 'bridge ' + bridgeTableId
+            var pca = 'PCA ' + bridgeTableId
+            var gpu = 'GPU ' + bridgeTableId
+
+            <!--alert(bridge)-->
+             <!--alert(pca)-->
+              <!--alert(gpu)-->
+            <!--bridge = bridge.toString()-->
+            <!--pca = pca.toString()-->
+            <!--gpu = gpu.toString()-->
+
+           var bridgeIMG = document.getElementsByClassName(bridge)[0]
+           //console.log('brigeIMG ' + bridgeIMG)
+           var pcaIMG = document.getElementsByClassName(pca)[0]
+           var gpuIMG = document.getElementsByClassName(gpu)[0]
+
+            //  alert('about to change pic')
+            if (bridgeStat == 'GREEN')
+                bridgeIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+             else if (bridgeStat == 'YELLOW')
+                bridgeIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+             else if (bridgeStat == 'RED')
+                bridgeIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+
+             if (pcaStat == 'GREEN')
+                pcaIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+             else if (pcaStat == 'YELLOW')
+                pcaIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+             else if (pcaStat == 'RED')
+                pcaIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+
+             if (gpuStat     == 'GREEN')
+                gpuIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+             else if (gpuStat == 'YELLOW')
+                gpuIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+             else if (gpuStat == 'RED')
+                gpuIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+
+
+           <!--console.log(index)-->
+          <!--var index = $('#newTing')-->
+         <!--index.attr("src",'{% static "systems/green.png" %}')-->
+    }
+
+    socket.onopen = function(e){
+        console.log('opennnnnnnnnnnnn',e)
+        }
+
+socket.onerror = function(e){
+console.log('error',e)
+}
+socket.onclose = function(e){
+console.log('closedddddddddddddddddd',e)
+}
+
+</script>
 
 {% endblock content %}

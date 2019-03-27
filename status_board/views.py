@@ -11,11 +11,11 @@ def home(request):
 	# if request.user.is_authenticated:
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
 		elevatorData = Elevators.objects.order_by('elevatorID')
-		escalatorData = Escalators.object.order_by('escalatorID')
+		#escalatorData = Escalators.object.order_by('escalatorID')
 		context = {
 			'bridges': bridgeTableData,
 			'elevators': elevatorData,
-			'escalators': escalatorData,
+			#'escalators': escalatorData,
 		}
 		return render(request, 'status_board/home.html', context)
 
@@ -41,40 +41,47 @@ def bridgeTableUpdate(request, btID):
 	btID = int(btID)
 	tableID = bridgeTable.objects.filter(bridgeTableID=btID).first()
 	form = bridgeTableForm(request.POST or None, instance=tableID)
+	path = 'fromBridgeTable'
+
 	if form.is_valid():
 		form.save()
 		return redirect('status-board-home') #need to change redirect
 	context = {
 		'form': form,
 		'obj': tableID,
+		'path': path,
 	}
 	return render(request, 'status_board/forms.html', context)
 
 #Update the elevator table
 def elevatorUpdate(request, btID):
-	btID = int(btID)
-	tableID = Elevators.objects.filter(bridgeTableID=btID).first()
+	#btID = int(btID)
+	tableID = Elevators.objects.filter(elevatorID=btID).first()
 	form = elevatorForm(request.POST or None, instance=tableID)
+	path = 'fromElevator'
 	if form.is_valid():
 		form.save()
 		return redirect('status-board-home') #need to change redirect
 	context = {
 		'form': form,
 		'obj': tableID,
+		'path': path,
 	}
 	return render(request, 'status_board/forms.html', context)
 
 #Update the elevator table
 def escalatorUpdate(request, btID):
 	btID = int(btID)
-	tableID = Escalators.objects.filter(bridgeTableID=btID).first()
+	tableID = Escalators.objects.filter(escalatorID=btID).first()
 	form = escalatorForm(request.POST or None, instance=tableID)
+	path = 'fromEscalator'
 	if form.is_valid():
 		form.save()
 		return redirect('status-board-home') #need to change redirect
 	context = {
 		'form': form,
 		'obj': tableID,
+		'path': path,
 	}
 	return render(request, 'status_board/forms.html', context)
 
