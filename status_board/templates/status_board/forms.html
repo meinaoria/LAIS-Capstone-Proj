@@ -18,6 +18,8 @@
             <h1>{{obj.bridgeTableID}}</h1>
         {% elif path == 'fromEscalator'%}
              <h1>{{obj.escalatorID}}</h1>
+        {% elif path == 'fromDomIntBaggage'%}
+             <h1>{{obj.domIntBaggageID}}</h1>     
         {% endif %}
 
             {{ form.as_p}}
@@ -73,6 +75,16 @@ console.log(loc.pathname)
                         'gpuStat': gpuStatus,
                     }
                     socket.send(JSON.stringify(final_data));
+                    }
+             else if ('{{path}}' == 'fromDomIntBaggage'){
+                    var domIntTableID =  {{obj.domIntBaggageID}}
+                    var domIntBaggageStatus = document.myform.DomIntBaggage_Status_Choice.value
+                    var final_data = {
+                        'domIntTableID': domIntTableID,
+                        'domIntBaggageStat':domIntBaggageStatus,
+                    }
+                    socket.send(JSON.stringify(final_data));
+
                     }
              else if (sysName == 'fromElevator'){
              }

@@ -61,5 +61,70 @@ class bridgeTable(models.Model):
 
         )
 
+# Baggage Tables 
+# Dom/Int Baggage System
+class domIntBaggageSystems(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    domIntBaggageID = models.CharField(max_length=4, primary_key=True)
+
+    DomIntBaggage_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    DomIntBaggage_Status_Choice = models.CharField(max_length=5, choices=DomIntBaggage_Status, default=NA)
+
+# TB Baggage System
+class tbBaggageSystems(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    tbBaggageID = models.CharField(max_length=4, primary_key=True)
+
+    TbBaggage_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    TbBaggage_Status_Choice = models.CharField(max_length=5, choices=TbBaggage_Status, default=NA)
+
+# TB Oversize
+class tbOversize(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    tbOversizeID = models.CharField(max_length=4, primary_key=True)
+
+    TbOversize_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    TbOversize_Status_Choice = models.CharField(max_length=5, choices=TbOversize_Status, default=NA)
+
+# Dom/Int Oversize
+class domIntOversize(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    domIntOversizeID = models.CharField(max_length=4, primary_key=True)
+
+    DomIntOversize_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    DomIntOversize_Status_Choice = models.CharField(max_length=5, choices=DomIntOversize_Status, default=NA)
+
 class message(models.Model):
     message = models.CharField(max_length=240)

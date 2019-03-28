@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from status_board.models import bridgeTable, Escalators, Elevators, message
+from status_board.models import bridgeTable, Escalators, Elevators, message, domIntBaggageSystems
 from .forms import bridgeTableForm, elevatorForm, escalatorForm, messageForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -12,9 +12,11 @@ def home(request):
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
 		elevatorData = Elevators.objects.order_by('elevatorID')
 		#escalatorData = Escalators.object.order_by('escalatorID')
+		domIntBaggageData = domIntBaggageSystems.objects.order_by('domIntBaggageID')
 		context = {
 			'bridges': bridgeTableData,
 			'elevators': elevatorData,
+			'domIntBaggage': domIntBaggageData,
 			#'escalators': escalatorData,
 		}
 		return render(request, 'status_board/home.html', context)
@@ -69,7 +71,7 @@ def elevatorUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
-#Update the elevator table
+#Update the escalotor table
 def escalatorUpdate(request, btID):
 	btID = int(btID)
 	tableID = Escalators.objects.filter(escalatorID=btID).first()
@@ -87,7 +89,7 @@ def escalatorUpdate(request, btID):
 
 
 
-#Update the escalator table
+#Update the message table
 def messageUpdate(request):
 
 	tableID = message.objects.first()
@@ -98,5 +100,21 @@ def messageUpdate(request):
 	context = {
 		'form': form,
 		'obj': tableID,
+	}
+	return render(request, 'status_board/forms.html', context)
+
+# Update baggage tables 
+def domIntBaggageUpdate(request, btID): 
+	tableID = domIntBaggageSystems.objects.filter(domIntBaggageID=btID).first()
+
+	form = domIntBaggageForm(request.POST or None, instance=tableID)
+	path = 'fromDomIntBaggage'
+	if form.is_valid():
+		form.save()
+		return redirect('status-board-home') #need to change redirect
+	context = {
+		'form': form,
+		'obj': tableID,
+		'path': path,
 	}
 	return render(request, 'status_board/forms.html', context)
