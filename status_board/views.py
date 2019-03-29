@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from status_board.models import bridgeTable, Escalators, Elevators, message, domIntBaggageSystems
-from .forms import bridgeTableForm, elevatorForm, escalatorForm, messageForm
+from status_board.models import bridgeTable, Escalators, Elevators, message, domIntPBS, domIntBaggageSystems
+from .forms import bridgeTableForm, elevatorForm, escalatorForm, messageForm, domIntPBSForm, domIntBaggageForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 # Create your views here.
@@ -12,10 +12,12 @@ def home(request):
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
 		elevatorData = Elevators.objects.order_by('elevatorID')
 		#escalatorData = Escalators.object.order_by('escalatorID')
+		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		domIntBaggageData = domIntBaggageSystems.objects.order_by('domIntBaggageID')
 		context = {
 			'bridges': bridgeTableData,
 			'elevators': elevatorData,
+			'domIntPBS': domIntPBSData,
 			'domIntBaggage': domIntBaggageData,
 			#'escalators': escalatorData,
 		}
@@ -87,7 +89,54 @@ def escalatorUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+# Update pre board screening tables
+# Update domIntPBS Table
+def domIntPBSUpdate(request, btID): 
+	btID = int(btID)
+	tableID = domIntPBS.objects.filter(domIntPBSID=btID).first()
+	form = domIntPBSForm(request.POST or None, instance=tableID)
+	path = 'fromDomIntPBS'
+	if form.is_valid():
+		form.save()
+		return redirect('status-board-home') #need to change redirect
+	context = {
+		'form': form,
+		'obj': tableID,
+		'path': path,
+	}
+	return render(request, 'status_board/forms.html', context)
 
+# Update tbPBS Table
+def domIntPBSUpdate(request, btID): 
+	btID = int(btID)
+	tableID = tbPBS.objects.filter(tbPBSID=btID).first()
+	form = tbPBSForm(request.POST or None, instance=tableID)
+	path = 'fromTbPBS'
+	if form.is_valid():
+		form.save()
+		return redirect('status-board-home') #need to change redirect
+	context = {
+		'form': form,
+		'obj': tableID,
+		'path': path,
+	}
+	return render(request, 'status_board/forms.html', context)
+
+# Update baggage tables 
+def domIntBaggageUpdate(request, btID): 
+	btID = int(btID)
+	tableID = domIntBaggageSystems.objects.filter(domIntBaggageID=btID).first()
+	form = domIntBaggageForm(request.POST or None, instance=tableID)
+	path = 'fromDomIntBaggage'
+	if form.is_valid():
+		form.save()
+		return redirect('status-board-home') #need to change redirect
+	context = {
+		'form': form,
+		'obj': tableID,
+		'path': path,
+	}
+	return render(request, 'status_board/forms.html', context)
 
 #Update the message table
 def messageUpdate(request):
@@ -103,18 +152,3 @@ def messageUpdate(request):
 	}
 	return render(request, 'status_board/forms.html', context)
 
-# Update baggage tables 
-def domIntBaggageUpdate(request, btID): 
-	tableID = domIntBaggageSystems.objects.filter(domIntBaggageID=btID).first()
-
-	form = domIntBaggageForm(request.POST or None, instance=tableID)
-	path = 'fromDomIntBaggage'
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)

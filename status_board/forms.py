@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import bridgeTable, Elevators, Escalators, message
+from .models import bridgeTable, Elevators, Escalators, message, domIntPBS, domIntBaggageSystems
 
 class bridgeTableForm(forms.ModelForm):
    def __init__(self, *args, **kwargs):
@@ -33,6 +33,23 @@ class escalatorForm(forms.ModelForm):
         fields = [
             'Escalator_Status_Choice',
         ]
+
+class domIntPBSForm(forms.ModelForm): 
+    # post=forms.CharField()
+    class Meta:
+        model = domIntPBS
+        fields = [
+            'DomIntPBS_Status_Choice',
+        ]
+        
+class domIntBaggageForm(forms.ModelForm):
+    # post=forms.CharField()
+    class Meta:
+        model = domIntBaggageSystems
+        fields = [
+            'DomIntBaggage_Status_Choice',
+        ]
+
 
 class messageForm(forms.ModelForm):
    # post =forms.CharField()

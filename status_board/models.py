@@ -126,5 +126,80 @@ class domIntOversize(models.Model):
     )
     DomIntOversize_Status_Choice = models.CharField(max_length=5, choices=DomIntOversize_Status, default=NA)
 
+class domIntPBS(models.Model): 
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    domIntPBSID = models.CharField(max_length=4, primary_key=True)
+
+    DomIntPBS_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    DomIntPBS_Status_Choice = models.CharField(max_length=5, choices=DomIntPBS_Status, default=NA)
+
+class tbPBS(models.Model): 
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    tbPBSID = models.CharField(max_length=4, primary_key=True)
+
+    TbPBS_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    TbPBS_Status_Choice = models.CharField(max_length=5, choices=TbPBS_Status, default=NA)
+
+class lavaHut(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    lavaHutID = models.CharField(max_length=4, primary_key=True)
+
+    LavaHut_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    LavaHut_Status_Choice = models.CharField(max_length=5, choices=LavaHut_Status, default=NA)
+
+class electricalCharging(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    electricalChargingID = models.CharField(max_length=4, primary_key=True)
+
+    ElectricalCharging_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    ElectricalCharging_Status_Choice = models.CharField(max_length=5, choices=ElectricalCharging_Status, default=NA)
+
+class waterFill(models.Model):
+    GREEN = 'GR' 
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    waterFillID = models.CharField(max_length=4, primary_key=True)
+
+    WaterFill_Status = (
+        ('GREEN', 'Green'),
+        ('RED', 'Red'),
+        ('YELLOW', 'Yellow'),
+        ('NA', 'Not Available'),
+    )
+    WaterFill_Status_Choice = models.CharField(max_length=5, choices=WaterFill_Status, default=NA)
+
 class message(models.Model):
     message = models.CharField(max_length=240)

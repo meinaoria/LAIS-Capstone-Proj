@@ -7,4 +7,6 @@ urlpatterns = [
     path('update/elevator/<btID>/', views.elevatorUpdate, name='elevatorForm'),
     path('update/escalator/<btID>/', views.escalatorUpdate, name='escalatorForm'),
     path('update/message/', views.messageUpdate, name='messageForm'),
+    path('update/domIntPBS/<btID>/', views.domIntPBSUpdate, name='domIntPBSForm'),
+    path('update/domIntBaggage/<btID>/', views.domIntBaggageUpdate, name='domIntBaggageForm'),
 ]
