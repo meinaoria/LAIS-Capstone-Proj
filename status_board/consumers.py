@@ -8,13 +8,13 @@ from django.contrib.auth import get_user_model
 from channels.generic.websocket import WebsocketConsumer
 from channels.exceptions import StopConsumer
 
-class bridgeTableConsumer(AsyncConsumer):
+class elevatorConsumer(AsyncConsumer):
    async def websocket_connect(self, event):
         # When socket connects
         print("Connected", event)
 
         await self.channel_layer.group_add(
-            'broadcaster',
+            'elevatorBroadcaster',
             self.channel_name
         )
 
@@ -28,23 +28,24 @@ class bridgeTableConsumer(AsyncConsumer):
        data = event.get("text", None)  # Get the data from the event called "text" and default to None if there isn"t any
        if data is not None:
            loaded_dict_data = json.loads(data)
-           bridgeTableID = loaded_dict_data.get('bridgeTable_ID')
-           #bridgeStatus = loaded_dict_data.get(yes)
-
+           elevatorID = loaded_dict_data.get('elevatorID')
+           elevatorStatus = loaded_dict_data.get('elevatorStatus')
+           fromCon = 'elevator'
            response = {
-               "bridgeTableID": bridgeTableID,
-             #  "new_bridgeStatus": bridgeStatus
+               "elevatorID": elevatorID,
+               'elevatorStat': elevatorStatus,
+               'fromCon': fromCon,
            }
            # Broadcasts message
            await self.channel_layer.group_send(
-               "broadcaster",
+               "elevatorBroadcaster",
                {
-                   "type": "broadcast_message",
+                   "type": "elevatorBroadcaster_message",
                    "text": json.dumps(response)
                }
            )
 
-   async def broadcast_message(self, event):
+   async def elevatorBroadcaster_message(self, event):
        # Sends actual message
        await self.send({
            "type": "websocket.send",
@@ -77,17 +78,29 @@ class bridgeTableConsumer(AsyncConsumer):
        data = event.get("text", None)  # Get the data from the event called "text" and default to None if there isn"t any
        if data is not None:
            loaded_dict_data = json.loads(data)
-           bridgeTableID = loaded_dict_data.get('bridgeTableID')
-           bridgeStatus = loaded_dict_data.get('bridgeStat')
-           pcaStatus = loaded_dict_data.get('pcaStat')
-           gpuStatus = loaded_dict_data.get('gpuStat')
+           if (loaded_dict_data.get('from') == 'bridge'):
+               bridgeTableID = loaded_dict_data.get('bridgeTableID')
+               bridgeStatus = loaded_dict_data.get('bridgeStat')
+               pcaStatus = loaded_dict_data.get('pcaStat')
+               gpuStatus = loaded_dict_data.get('gpuStat')
+               fromCon = 'bridgeTable'
 
-           response = {
-               "bridgeTableID": bridgeTableID,
-               'bridgeStat': bridgeStatus,
-               'pcaStat': pcaStatus,
-               'gpuStat': gpuStatus,
-           }
+               response = {
+                   "bridgeTableID": bridgeTableID,
+                   'bridgeStat': bridgeStatus,
+                   'pcaStat': pcaStatus,
+                   'gpuStat': gpuStatus,
+                   'fromCon': fromCon,
+               }
+           elif (loaded_dict_data.get('from') == 'elev'):
+               elevatorID = loaded_dict_data.get('elevatorID')
+               elevatorStatus = loaded_dict_data.get('elevatorStat')
+               fromCon = 'elevator'
+               response = {
+                   "elevatorID": elevatorID,
+                   'elevatorStat': elevatorStatus,
+                   'fromCon': fromCon,
+               }
            # Broadcasts message
            await self.channel_layer.group_send(
                "broadcaster",

@@ -10,7 +10,7 @@ class Elevators(models.Model):
     Elevator_Status = (
         ('GREEN', 'Green'),
         ('RED', 'Red'),
-        ('NA', 'Not Available'),
+
     )
     Elevator_Status_Choice = models.CharField(max_length=5, choices=Elevator_Status, default=NA)
 
@@ -22,7 +22,7 @@ class Escalators(models.Model):
     Escalator_Status = (
         ('GREEN', 'Green'),
         ('RED', 'Red'),
-        ('NA', 'Not Available'),
+
     )
     Escalator_Status_Choice = models.CharField(max_length=5, choices=Escalator_Status, default=NA)
 
@@ -61,10 +61,11 @@ class bridgeTable(models.Model):
 
         )
 
-# Baggage Tables 
-# Dom/Int Baggage System
+class message(models.Model):
+    message = models.CharField(max_length=240)
+
 class domIntBaggageSystems(models.Model):
-    GREEN = 'GR' 
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -72,15 +73,16 @@ class domIntBaggageSystems(models.Model):
 
     DomIntBaggage_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
+        ('RED', 'Red'),
+
+
     )
-    DomIntBaggage_Status_Choice = models.CharField(max_length=5, choices=DomIntBaggage_Status, default=NA)
+    DomIntBaggage_Status_Choice = models.CharField(max_length=6, choices=DomIntBaggage_Status, default=NA)
 
 # TB Baggage System
 class tbBaggageSystems(models.Model):
-    GREEN = 'GR' 
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -88,15 +90,16 @@ class tbBaggageSystems(models.Model):
 
     TbBaggage_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
+        ('RED', 'Red'),
+
+
     )
-    TbBaggage_Status_Choice = models.CharField(max_length=5, choices=TbBaggage_Status, default=NA)
+    TbBaggage_Status_Choice = models.CharField(max_length=6, choices=TbBaggage_Status, default=NA)
 
 # TB Oversize
 class tbOversize(models.Model):
-    GREEN = 'GR' 
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -104,15 +107,16 @@ class tbOversize(models.Model):
 
     TbOversize_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
+        ('RED', 'Red'),
+
+
     )
-    TbOversize_Status_Choice = models.CharField(max_length=5, choices=TbOversize_Status, default=NA)
+    TbOversize_Status_Choice = models.CharField(max_length=6, choices=TbOversize_Status, default=NA)
 
 # Dom/Int Oversize
 class domIntOversize(models.Model):
-    GREEN = 'GR' 
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -120,14 +124,15 @@ class domIntOversize(models.Model):
 
     DomIntOversize_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
-    )
-    DomIntOversize_Status_Choice = models.CharField(max_length=5, choices=DomIntOversize_Status, default=NA)
+        ('RED', 'Red'),
 
-class domIntPBS(models.Model): 
-    GREEN = 'GR' 
+
+    )
+    DomIntOversize_Status_Choice = models.CharField(max_length=6, choices=DomIntOversize_Status, default=NA)
+
+class domIntPBS(models.Model):
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -135,14 +140,15 @@ class domIntPBS(models.Model):
 
     DomIntPBS_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
-    )
-    DomIntPBS_Status_Choice = models.CharField(max_length=5, choices=DomIntPBS_Status, default=NA)
+        ('RED', 'Red'),
 
-class tbPBS(models.Model): 
-    GREEN = 'GR' 
+
+    )
+    DomIntPBS_Status_Choice = models.CharField(max_length=6, choices=DomIntPBS_Status, default=NA)
+
+class tbPBS(models.Model):
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -150,29 +156,30 @@ class tbPBS(models.Model):
 
     TbPBS_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
-    )
-    TbPBS_Status_Choice = models.CharField(max_length=5, choices=TbPBS_Status, default=NA)
+        ('RED', 'Red'),
 
-class lavaHut(models.Model):
-    GREEN = 'GR' 
+
+    )
+    TbPBS_Status_Choice = models.CharField(max_length=6, choices=TbPBS_Status, default=NA)
+
+class lavHut(models.Model):
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
-    lavaHutID = models.CharField(max_length=4, primary_key=True)
+    lavHutID = models.CharField(max_length=4, primary_key=True)
 
-    LavaHut_Status = (
+    LavHut_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
+        ('RED', 'Red'),
+
     )
-    LavaHut_Status_Choice = models.CharField(max_length=5, choices=LavaHut_Status, default=NA)
+    LavHut_Status_Choice = models.CharField(max_length=6, choices=LavHut_Status, default=NA)
 
 class electricalCharging(models.Model):
-    GREEN = 'GR' 
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -180,14 +187,14 @@ class electricalCharging(models.Model):
 
     ElectricalCharging_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
+        ('RED', 'Red'),
+
     )
-    ElectricalCharging_Status_Choice = models.CharField(max_length=5, choices=ElectricalCharging_Status, default=NA)
+    ElectricalCharging_Status_Choice = models.CharField(max_length=6, choices=ElectricalCharging_Status, default=NA)
 
 class waterFill(models.Model):
-    GREEN = 'GR' 
+    GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
@@ -195,11 +202,8 @@ class waterFill(models.Model):
 
     WaterFill_Status = (
         ('GREEN', 'Green'),
-        ('RED', 'Red'),
         ('YELLOW', 'Yellow'),
-        ('NA', 'Not Available'),
-    )
-    WaterFill_Status_Choice = models.CharField(max_length=5, choices=WaterFill_Status, default=NA)
+        ('RED', 'Red'),
 
-class message(models.Model):
-    message = models.CharField(max_length=240)
+    )
+    WaterFill_Status_Choice = models.CharField(max_length=6, choices=WaterFill_Status, default=NA)

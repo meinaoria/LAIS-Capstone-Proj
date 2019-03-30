@@ -1,6 +1,8 @@
 from django import forms
 
-from .models import bridgeTable, Elevators, Escalators, message, domIntPBS, domIntBaggageSystems
+from .models import bridgeTable, Elevators, Escalators, message, domIntPBS,\
+    domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize, domIntOversize, \
+    lavHut, electricalCharging, waterFill
 
 class bridgeTableForm(forms.ModelForm):
    def __init__(self, *args, **kwargs):
@@ -34,23 +36,6 @@ class escalatorForm(forms.ModelForm):
             'Escalator_Status_Choice',
         ]
 
-class domIntPBSForm(forms.ModelForm): 
-    # post=forms.CharField()
-    class Meta:
-        model = domIntPBS
-        fields = [
-            'DomIntPBS_Status_Choice',
-        ]
-        
-class domIntBaggageForm(forms.ModelForm):
-    # post=forms.CharField()
-    class Meta:
-        model = domIntBaggageSystems
-        fields = [
-            'DomIntBaggage_Status_Choice',
-        ]
-
-
 class messageForm(forms.ModelForm):
    # post =forms.CharField()
     class Meta:
@@ -58,4 +43,67 @@ class messageForm(forms.ModelForm):
         fields = [
             'message',
         ]
+class domIntBaggageSystemsForm(forms.ModelForm):
+    class Meta:
+        model = domIntBaggageSystems
+        fields= [
+            # 'domIntBaggageID',
+            'DomIntBaggage_Status_Choice',
+        ]
 
+class tbBaggageSystemsForm (forms.ModelForm):
+    class Meta:
+        model = tbBaggageSystems
+        fields = [
+            'TbBaggage_Status_Choice',
+        ]
+
+class tbOversizeForm(forms.ModelForm):
+    class Meta:
+        model = tbOversize
+        fields = {
+            'TbOversize_Status_Choice'
+        }
+
+class domIntOversizeForm(forms.ModelForm):
+    class Meta:
+        model = domIntOversize
+        fields = {
+            'DomIntOversize_Status_Choice'
+        }
+
+class domIntPBSForm(forms.ModelForm):
+    # post=forms.CharField()
+    class Meta:
+        model = domIntPBS
+        fields = [
+            'DomIntPBS_Status_Choice',
+        ]
+
+class tbPBSForm(forms.ModelForm):
+    class Meta:
+        model = tbPBS
+        fields = {
+            'TbPBS_Status_Choice'
+        }
+
+class lavHutForm(forms.ModelForm):
+    class Meta:
+        model = lavHut
+        fields = {
+            'LavHut_Status_Choice'
+        }
+
+class electricalChargingForm(forms.ModelForm):
+    class Meta:
+        model = electricalCharging
+        fields = {
+            'ElectricalCharging_Status_Choice'
+        }
+
+class waterFillForm(forms.ModelForm):
+    class Meta:
+        model = waterFill
+        fields = {
+            'WaterFill_Status_Choice'
+        }

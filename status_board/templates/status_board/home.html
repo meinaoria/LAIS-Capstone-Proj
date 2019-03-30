@@ -8,9 +8,10 @@
 
     {% elif user.is_authenticated %}
         <span> No permission</span>
-    {%else %}
+    {% elif not user.is_authenicated %}
         <span>Not Auth</span>
            <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
     {% endif %}
 
 {% endblock mainContent%}
@@ -21,7 +22,7 @@
   <div class="row">
       <!--Bridge Table 1st Column-->
     <div class="col-sm" id="bridgeRow">
-        <div class="max-vh-50">
+        <div class="max-vh-100">
             <table class="table table-striped table-dark ">
                   <thead>
                     <tr>
@@ -75,46 +76,6 @@
             </div>
     </div>
 
-        <!--<table>-->
-    <!--<tbody>-->
-        <!--<tr>-->
-          <!--<th>Row</th>-->
-            <!--<td>-->
-                   <!--{% for bridge in bridges %}-->
-                <!--{% if bridge.Bridge_Status_Choice == 'GREEN' %}-->
-                                  <!--<img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">-->
-                              <!--{% elif bridge.Bridge_Status_Choice == 'RED' %}-->
-                                 <!--<img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">-->
-                              <!--{% else %}-->
-                                     <!--<img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">-->
-                              <!--{% endif %}-->
-                <!--{% endfor %}-->
-            <!--</td>-->
-          	<!--<td>2</td>-->
-          	<!--<td>3</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<th>First Name</th>-->
-            <!--<td>John</td>-->
-            <!--<td>Peter</td>-->
-          	<!--<td>John</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-          <!--<th>Last Name</th>-->
-            <!--<td>Carter</td>-->
-            <!--<td>Parker</td>-->
-            <!--<td>Rambo</td>-->
-        <!--</tr>-->
-      <!--<tr>-->
-          <!--<th>Email</th>-->
-          	<!--<td>johncarter@mail.com</td>-->
-            <!--<td>peterparker@mail.com</td>-->
-            <!--<td>johnrambo@mail.com</td>-->
-        <!--</tr>-->
-    <!--</tbody>-->
-<!--</table>-->
-    <!--</div>-->
-
       <!--Elevators 2nd Row-->
     <div class="col-sm">
         <p style="text-align:center">Elevators</p>
@@ -122,7 +83,7 @@
         <div class="d-flex flex-wrap bg-light justify-content-around">
               {% for elev in elevators %}
                 <div class="p-2 border" >
-                  <a href="{% url 'elevatorForm' elev.elevatorID%}}">
+                  <a href="{% url 'elevatorForm' btID=elev.elevatorID%}" class="disabled">
                     <span>{{elev.elevatorID}}</span>
                   </a>
                       {% if elev.Elevator_Status_Choice == 'GREEN' %}
@@ -133,111 +94,45 @@
                 </div>
             {% endfor %}
             </div>
-  
-  
-            <div class="container-fluid">
-    
-              <div class="row">      
-          
-                <!--Second Row in Second Column -->
-            
-                
-                <div class="max-vh-100">
-                
-                  <p style="text-align:center">Dom/Int Pre Board Screening</p>
-              
-                  <div class="d-flex flex-wrap bg-light justify-content-around">
-                    {% for pbs in domIntPBS %}
-                      
-                    <div class="p-2 border" >
-                    
-                      <a href="{% url 'domIntPBSForm' btID=pbs.domIntPBSID%}"> {{pbs.domIntPBSID}} </a>
-                            {% if pbs.DomIntPBS_Status_Choice == 'GREEN' %}
-                                  <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                            {% elif pbs.DomIntPBS_Status_Choice == 'RED' %}
-                                  <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                            {% elif pbs.DomIntPBS_Status_Choice == 'YELLOW' %}
-                                  <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                            {% endif %}
-                      
-                          </div>
-                  {% endfor %}
-                  </div>
-                </div>
-    
-              </div>
-    
-            </div>
-    </div>
-        
 
+
+    </div>
+    <div class="col-sm">
       <p style="text-align:center">Escalators</p>
 
-        <!--<div class="d-flex flex-wrap bg-light justify-content-around">-->
-              <!--{% for esc in escalators %}-->
-                <!--<div class="p-2 border" >-->
-                    <!--<span>{{esc.escalatorID}}</span>-->
-                      <!--{% if esc.Escalator_Status_Choice == 'GREEN' %}-->
-                            <!--<img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">-->
-                      <!--{% elif esc.Escalator_Status_Choice == 'RED' %}-->
-                            <!--<img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">-->
-                      <!--{% endif %}-->
-                <!--</div>-->
-            <!--{% endfor %}-->
-            <!--</div>-->
+        <div class="d-flex flex-wrap bg-light justify-content-around">
+              {% for esc in escalators %}
+                <div class="p-2 border" >
+                    <span>{{esc.escalatorID}}</span>
+                      {% if esc.Escalator_Status_Choice == 'GREEN' %}
+                            <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
+                      {% elif esc.Escalator_Status_Choice == 'RED' %}
+                            <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
+                      {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        <!--hide when user is not authenticated-->
+                <div class="col notAuth">
+                     <p style="text-align:center">Baggage</p>
+
+                     {% for domIntBag in domIntBaggage %}
+                        <div class="p-2 border" >
+                            {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
+                                 <h3 class="{{domIngBag.domIntBaggageID}}" style="color:green"> DOM/INT BAGGAGE SYSTEM </h3>
+                             {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
+                              <h3 class="{{domIngBag.domIntBaggageID}}" style="color:yellow"> DOM/INT BAGGAGE SYSTEM </h3>
+                            {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
+                              <h3 class="{{domIngBag.domIntBaggageID}}" style="color:red"> DOM/INT BAGGAGE SYSTEM </h3>
+                            {% endif %}
+                        </div>
+
+                     {% endfor %}
+
+                </div>
     </div>
   </div>
 </div>
-
-
-{% if user.is_authenticated and perms.catalog.has_write_access %}
-<!-- <div class="container-fluid">
-    <div class="row"> -->
-      <!--Second Row -->
-      <!--PBS Tables 1st Column-->
-      <!-- <div class="col-sm" id="domIntPBS">
-          <div class="max-vh-100">
-              <p style="text-align:center">Dom/Int Pre Board Screening</p>
-            <div class="d-flex flex-wrap bg-light justify-content-around">
-                  {% for pbs in domIntPBS %}
-                    <div class="p-2 border" >
-                      <a href="{% url 'domIntPBSForm' btID=pbs.domIntPBSID%}"> {{pbs.domIntPBSID}} </a>
-                          {% if pbs.DomIntPBS_Status_Choice == 'GREEN' %}
-                                <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                          {% elif pbs.DomIntPBS_Status_Choice == 'RED' %}
-                                <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                          {% elif pbs.DomIntPBS_Status_Choice == 'YELLOW' %}
-                                <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                          {% endif %}
-                    </div>
-                {% endfor %}
-                </div>
-              </div>
-        </div> -->
-      <!--Baggage Tables 2nd Column-->
-        <div class="col-sm">
-            <p style="text-align:center">Dom/Int Baggage Systems</p>
-            <div class="d-flex flex-wrap bg-light justify-content-around">
-                  {% for baggage in domIntBaggage %}
-                    <div class="p-2 border" >
-                      <a href="{% url 'domIntBaggageForm' btID=baggage.domIntBaggageID%}"> {{baggage.domIntBaggageID}} </a>
-                          {% if baggage.DomIntBaggage_Status_Choice == 'GREEN' %}
-                                <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                          {% elif baggage.DomIntBaggage_Status_Choice == 'RED' %}
-                                <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                          {% elif baggage.DomIntBaggage_Status_Choice == 'YELLOW' %}
-                                <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
-                          {% endif %}
-                    </div>
-                {% endfor %}
-                </div>
-
-        </div>
-
-      </div>  
-</div>
-
-{% endif %}
 
 <script>
 
@@ -256,51 +151,65 @@ console.log(loc.pathname)
    socket.onmessage = function(e){
      console.log('messageeeeeeeeee',e)
         var data = JSON.parse(e.data)
-        var bridgeTableId = data.bridgeTableID
-        var bridgeStat = data.bridgeStat
-        var pcaStat = data.pcaStat
-        var gpuStat = data.gpuStat
+        if (data.fromCon == 'bridgeTable'){
+                var bridgeTableId = data.bridgeTableID
+                var bridgeStat = data.bridgeStat
+                var pcaStat = data.pcaStat
+                var gpuStat = data.gpuStat
 
 
 
 
-            var bridge = 'bridge ' + bridgeTableId
-            var pca = 'PCA ' + bridgeTableId
-            var gpu = 'GPU ' + bridgeTableId
+                    var bridge = 'bridge ' + bridgeTableId
+                    var pca = 'PCA ' + bridgeTableId
+                    var gpu = 'GPU ' + bridgeTableId
 
-            <!--alert(bridge)-->
-             <!--alert(pca)-->
-              <!--alert(gpu)-->
-            <!--bridge = bridge.toString()-->
-            <!--pca = pca.toString()-->
-            <!--gpu = gpu.toString()-->
+                    <!--alert(bridge)-->
+                     <!--alert(pca)-->
+                      <!--alert(gpu)-->
+                    <!--bridge = bridge.toString()-->
+                    <!--pca = pca.toString()-->
+                    <!--gpu = gpu.toString()-->
 
-           var bridgeIMG = document.getElementsByClassName(bridge)[0]
-           //console.log('brigeIMG ' + bridgeIMG)
-           var pcaIMG = document.getElementsByClassName(pca)[0]
-           var gpuIMG = document.getElementsByClassName(gpu)[0]
+                   var bridgeIMG = document.getElementsByClassName(bridge)[0]
+                   //console.log('brigeIMG ' + bridgeIMG)
+                   var pcaIMG = document.getElementsByClassName(pca)[0]
+                   var gpuIMG = document.getElementsByClassName(gpu)[0]
 
-            //  alert('about to change pic')
-            if (bridgeStat == 'GREEN')
-                bridgeIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
-             else if (bridgeStat == 'YELLOW')
-                bridgeIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
-             else if (bridgeStat == 'RED')
-                bridgeIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+                    //  alert('about to change pic')
+                    if (bridgeStat == 'GREEN')
+                        bridgeIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+                     else if (bridgeStat == 'YELLOW')
+                        bridgeIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+                     else if (bridgeStat == 'RED')
+                        bridgeIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
 
-             if (pcaStat == 'GREEN')
-                pcaIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
-             else if (pcaStat == 'YELLOW')
-                pcaIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
-             else if (pcaStat == 'RED')
-                pcaIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+                     if (pcaStat == 'GREEN')
+                        pcaIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+                     else if (pcaStat == 'YELLOW')
+                        pcaIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+                     else if (pcaStat == 'RED')
+                        pcaIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
 
-             if (gpuStat     == 'GREEN')
-                gpuIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
-             else if (gpuStat == 'YELLOW')
-                gpuIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
-             else if (gpuStat == 'RED')
-                gpuIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+                     if (gpuStat     == 'GREEN')
+                        gpuIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+                     else if (gpuStat == 'YELLOW')
+                        gpuIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+                     else if (gpuStat == 'RED')
+                        gpuIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+        }
+        else if (data.fromCon == 'elevator'){
+             var elevatorID = data.elevatorID
+                var elevatorStat = data.elevatorStat
+
+                var elev = 'Elev ' + elevatorID
+
+                 var elevIMG = document.getElementsByClassName(elev)[0]
+                  if (elevatorStat == 'GREEN')
+                        elevIMG.setAttribute("src","{% static 'status_board/images/greenElev.png'%}")
+                     else if (elevatorStat == 'RED')
+                        elevIMG.setAttribute("src","{% static 'status_board/images/redElev.png'%}")
+        }
 
 
            <!--console.log(index)-->

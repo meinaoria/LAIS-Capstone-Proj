@@ -21,7 +21,7 @@
         {% elif path == 'fromDomIntPBS'%}
              <h1>{{obj.domIntPBSID}}</h1>
         {% elif path == 'fromDomIntBaggage'%}
-             <h1>{{obj.domIntBaggageID}}</h1>     
+             <h1>{{obj.domIntBaggageID}}</h1>
         {% endif %}
 
             {{ form.as_p}}
@@ -31,14 +31,15 @@
 <script>
    //console.log(window.location)
 var loc = window.location
+console.log(loc)
 var form = $('#formData')
 var wsStart = 'ws://'
 if (loc.protocol == 'https:'){
     wsStart = 'wss://'
 }
 var endpoint = wsStart + loc.host + loc.pathname
-console.log(loc.host)
-console.log(loc.pathname)
+console.log('host = ' + loc.host)
+console.log('pathname = ' + loc.pathname)
 
  var socket = new WebSocket(endpoint)
 
@@ -55,41 +56,66 @@ console.log(loc.pathname)
 
     socket.onopen = function(e){
         console.log('open',e)
+         var bridgeTableID
+         var bridgeStatus
+        var pcaStatus
+         var gpuStatus
+            var from
+             var elevatorID
+              var elevatorStatus
+              var domIntBaggageID
+               var domIntBaggageStatus
+
           form.submit(function(event){
-            // event.preventDefault();
+                    console.log('form saved')
+                    // event.preventDefault();
+                    var final_data
+                    <!--var result = document.myform.PCA_Status_Choice.value-->
+                    <!--alert(result)-->
+                     <!--var bridgeStatus = '{{obj.Bridge_Status_Choice}}'-->
+                            <!--var pcaStatus = '{{obj.PCA_Status_Choice}}'-->
+                            <!--var gpuStatus = '{{obj.GPU_Status_Choice}}'-->
 
-            <!--var result = document.myform.PCA_Status_Choice.value-->
-            <!--alert(result)-->
-             <!--var bridgeStatus = '{{obj.Bridge_Status_Choice}}'-->
-                    <!--var pcaStatus = '{{obj.PCA_Status_Choice}}'-->
-                    <!--var gpuStatus = '{{obj.GPU_Status_Choice}}'-->
+                    // if updating bridge table
 
-            // if updating bridge table
-            if ( '{{path}}' == 'fromBridgeTable' ){
-                    var bridgeTableID = {{obj.bridgeTableID}}
-                    var bridgeStatus = document.myform.Bridge_Status_Choice.value
-                    var pcaStatus = document.myform.PCA_Status_Choice.value
-                    var gpuStatus = document.myform.GPU_Status_Choice.value
-                    var final_data = {
-                        'bridgeTableID': bridgeTableID,
-                        'bridgeStat':bridgeStatus,
-                        'pcaStat': pcaStatus,
-                        'gpuStat': gpuStatus,
-                    }
-                    socket.send(JSON.stringify(final_data));
-                    }
-             else if ('{{path}}' == 'fromDomIntBaggage'){
-                    var domIntBaggageID =  {{obj.domIntBaggageID}}
-                    var domIntBaggageStatus = document.myform.DomIntBaggage_Status_Choice.value
-                    var final_data = {
-                        'domIntBaggageID': domIntBaggageID,
-                        'domIntBaggageStat':domIntBaggageStatus,
-                    }
-                    socket.send(JSON.stringify(final_data));
+                    if( '{{path}}' === 'fromBridgeTable' ){
+                            bridgeTableID = {{obj.bridgeTableID}}
+                            bridgeStatus = document.myform.Bridge_Status_Choice.value
+                            pcaStatus = document.myform.PCA_Status_Choice.value
+                             gpuStatus = document.myform.GPU_Status_Choice.value
+                            from = 'bridge'
+                             final_data = {
+                                'bridgeTableID': bridgeTableID,
+                                'bridgeStat':bridgeStatus,
+                                'pcaStat': pcaStatus,
+                                'gpuStat': gpuStatus,
+                                'from': from,
+                            }
 
                     }
-             else if (sysName == 'fromElevator'){
-             }
+                    else if  '{{path}}' === 'fromElevator' ) {
+                            elevatorID = '{{obj.elevatorID}}'
+                            elevatorStatus = document.myform.Elevator_Status_Choice.value
+                            from = 'elev'
+                              final_data = {
+                                'elevatorID': elevatorID,
+                                'elevatorStat':elevatorStatus,
+                                'from':from,
+
+                            }
+
+                            console.log('sent from form')
+                     }
+                    else if ('{{path}}' == 'fromDomIntBaggage'){
+                            var domIntBaggageID =  {{obj.domIntBaggageID}}
+                            var domIntBaggageStatus = document.myform.DomIntBaggage_Status_Choice.value
+                            final_data = {
+                                'domIntBaggageID': domIntBaggageID,
+                                'domIntBaggageStat':domIntBaggageStatus,
+                            }
+                            socket.send(JSON.stringify(final_data));
+                    }
+                     socket.send(JSON.stringify(final_data));
         });
     }
     socket.onerror = function(e){
