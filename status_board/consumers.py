@@ -101,6 +101,16 @@ class bridgeTableConsumer(AsyncConsumer):
                    'elevatorStat': elevatorStatus,
                    'fromCon': fromCon,
                }
+           elif (loaded_dict_data.get('from') == 'domIntBag'):
+               domIntBagId = loaded_dict_data.get('domIntBaggageID')
+               domIntBagStat = loaded_dict_data.get('domIntBaggageStat')
+               fromCon = 'domIntBag'
+               response = {
+                   "domIntBagId": domIntBagId,
+                   'domIntBagStat': domIntBagStat,
+                   'fromCon': fromCon,
+               }
+
            # Broadcasts message
            await self.channel_layer.group_send(
                "broadcaster",

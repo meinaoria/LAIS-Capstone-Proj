@@ -93,7 +93,7 @@ console.log('pathname = ' + loc.pathname)
                             }
 
                     }
-                    else if  '{{path}}' === 'fromElevator' ) {
+                    else if  ('{{path}}' === 'fromElevator' ) {
                             elevatorID = '{{obj.elevatorID}}'
                             elevatorStatus = document.myform.Elevator_Status_Choice.value
                             from = 'elev'
@@ -107,13 +107,16 @@ console.log('pathname = ' + loc.pathname)
                             console.log('sent from form')
                      }
                     else if ('{{path}}' == 'fromDomIntBaggage'){
-                            var domIntBaggageID =  {{obj.domIntBaggageID}}
-                            var domIntBaggageStatus = document.myform.DomIntBaggage_Status_Choice.value
+                             domIntBaggageID =  {{obj.domIntBaggageID}}
+                             domIntBaggageStatus = document.myform.DomIntBaggage_Status_Choice.value
+                             from = 'domIntBag'
                             final_data = {
                                 'domIntBaggageID': domIntBaggageID,
                                 'domIntBaggageStat':domIntBaggageStatus,
+                                'from': from,
                             }
-                            socket.send(JSON.stringify(final_data));
+                            console.log('sending')
+
                     }
                      socket.send(JSON.stringify(final_data));
         });

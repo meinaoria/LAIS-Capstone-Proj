@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from status_board.models import *
+from django.contrib.auth.decorators import login_required
 # bridgeTable, Escalators, Elevators, message, domIntPBS,domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize
 
 from .forms import *
@@ -17,6 +18,9 @@ def home(request):
 		escalatorData = Escalators.objects.order_by('escalatorID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		domIntBaggageData = domIntBaggageSystems.objects.order_by('domIntBaggageID')
+		tbBaggageSystemData = tbBaggageSystems.objects.order_by('tbBaggageID')
+		domIntOversizeData = domIntOversize.objects.order_by('domIntOversizeID')
+		tbOversizeData = tbOversize.objects.order_by('tbOversizeID')
 
 		context = {
 			'bridges': bridgeTableData,
@@ -24,6 +28,9 @@ def home(request):
 			'escalators': escalatorData,
 			'domIntPBS': domIntPBSData,
 			'domIntBaggage': domIntBaggageData,
+			'tbBaggage': tbBaggageSystemData,
+			'domIntOversize': domIntOversizeData,
+			'tbOversize': tbOversizeData,
 		}
 		return render(request, 'status_board/home.html', context)
 
@@ -43,7 +50,7 @@ def home(request):
 	# 	return render(request, 'status_board/home.html', context)
 
 
-
+@login_required
 #Update the bridge table
 def bridgeTableUpdate(request, btID):
 	btID = int(btID)
@@ -61,6 +68,7 @@ def bridgeTableUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@login_required
 #Update the elevator table
 def elevatorUpdate(request, btID):
 	#btID = int(btID)

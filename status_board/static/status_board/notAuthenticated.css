@@ -1,7 +1,9 @@
+/*to hide systems when not logged in*/
 .notAuth{
     display:none;
 }
 
+/*to disable the a tags*/
 .disabled{
       pointer-events: none;
     cursor: default;
