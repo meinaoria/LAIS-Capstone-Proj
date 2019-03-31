@@ -110,6 +110,34 @@ class bridgeTableConsumer(AsyncConsumer):
                    'domIntBagStat': domIntBagStat,
                    'fromCon': fromCon,
                }
+           elif (loaded_dict_data.get('from') == 'tbBag'):
+               tbBagID = loaded_dict_data.get('tbBagID')
+               tbBagStatus = loaded_dict_data.get('tbBagStat')
+               fromCon = 'tbBag'
+               response = {
+                   "tbBagID": tbBagID,
+                   'tbBagStat': tbBagStatus,
+                   'fromCon': fromCon,
+               }
+           elif (loaded_dict_data.get('from') == 'domIntOversize'):
+               domIntOversizeID = loaded_dict_data.get('domIntOversizeID')
+               domIntOversizeStat = loaded_dict_data.get('domIntOversizeStat')
+               fromCon = 'domIntOversize'
+               response = {
+                   "domIntOversizeID": domIntOversizeID,
+                   'domIntOversizeStat': domIntOversizeStat,
+                   'fromCon': fromCon,
+               }
+           elif (loaded_dict_data.get('from') == 'tbOversize'):
+               tbOversizeID = loaded_dict_data.get('tbOversizeID')
+               tbOversizeStat = loaded_dict_data.get('tbOversizeStat')
+               fromCon = 'tbOversize'
+               response = {
+                   "tbOversizeID": tbOversizeID,
+                   'tbOversizeStatus': tbOversizeStat,
+                   'fromCon': fromCon,
+               }
+
 
            # Broadcasts message
            await self.channel_layer.group_send(

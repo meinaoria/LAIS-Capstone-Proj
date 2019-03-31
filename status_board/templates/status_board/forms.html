@@ -1,6 +1,6 @@
 {% extends "status_board/base.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 <!--for testing purposes, mainContent should be changed to cssLink and h1 tags removed-->
 {% block cssLink %}
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -22,9 +22,17 @@
              <h1>{{obj.domIntPBSID}}</h1>
         {% elif path == 'fromDomIntBaggage'%}
              <h1>{{obj.domIntBaggageID}}</h1>
+        {% elif path == 'fromTbBaggage'%}
+            <h1>{{obj.tbBaggageID}}</h1>
+        {% elif path == 'fromDomIntOversize'%}
+            <h1>{{obj.domIntOversizeID}}</h1>
+        {% elif path == 'fromTbOversize'%}
+            <h1>{{obj.tbOversizeID}}</h1>
         {% endif %}
 
-            {{ form.as_p}}
+
+            <!--{{ form.as_p}}-->
+            {{ form|crispy }}
             <input type="submit" value="save"/>
         </form>
 
@@ -65,6 +73,12 @@ console.log('pathname = ' + loc.pathname)
               var elevatorStatus
               var domIntBaggageID
                var domIntBaggageStatus
+               var tbBagID
+               var tbBagStatus
+               var domIntOversizeID
+               var domIntOversizeStatus
+               var tbOversizeID
+               var tbOversizeStatus
 
           form.submit(function(event){
                     console.log('form saved')
@@ -104,7 +118,7 @@ console.log('pathname = ' + loc.pathname)
 
                             }
 
-                            console.log('sent from form')
+
                      }
                     else if ('{{path}}' == 'fromDomIntBaggage'){
                              domIntBaggageID =  {{obj.domIntBaggageID}}
@@ -115,9 +129,48 @@ console.log('pathname = ' + loc.pathname)
                                 'domIntBaggageStat':domIntBaggageStatus,
                                 'from': from,
                             }
-                            console.log('sending')
 
                     }
+                    else if ('{{path}}' == 'fromTbBaggage'){
+                            tbBagID = {{obj.tbBaggageID}}
+                            tbBagStatus =  document.myform.TbBaggage_Status_Choice.value
+                            from = 'tbBag'
+
+                            final_data = {
+                                'tbBagID': tbBagID,
+                                'tbBagStat':tbBagStatus,
+                                'from': from,
+                            }
+
+                     }
+                    else if ('{{path}}' == 'fromDomIntOversize'){
+                            domIntOversizeID = {{obj.domIntOversizeID}}
+                            domIntOversizeStatus =  document.myform.DomIntOversize_Status_Choice.value
+                            from = 'domIntOversize'
+
+                            final_data = {
+                                'domIntOversizeID': domIntOversizeID,
+                                'domIntOversizeStat':domIntOversizeStatus,
+                                'from': from,
+                            }
+
+                     }
+                    else if ('{{path}}' == 'fromTbOversize'){
+                            tbOversizeID = {{obj.tbOversizeID}}
+                            tbOversizeStatus =  document.myform.TbOversize_Status_Choice.value
+                            from = 'tbOversize'
+
+                            final_data = {
+                                'tbOversizeID': tbOversizeID,
+                                'tbOversizeStat':tbOversizeStatus,
+                                'from': from,
+                            }
+
+                     }
+
+
+
+
                      socket.send(JSON.stringify(final_data));
         });
     }

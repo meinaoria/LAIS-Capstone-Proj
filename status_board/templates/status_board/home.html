@@ -129,11 +129,11 @@
                      {% for domIntBag in domIntBaggage %}
                         <div class="p-2 border" >
                             {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
-                            <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </h3>
+                            <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </h3>
                              {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
-                              <h3 class="domBag{{domIntBag.domIntBaggageID}}" style="color:#F1C40F"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
+                              <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#F1C40F"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
                             {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
-                              <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
+                              <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
                             {% endif %}
                         </div>
 
@@ -142,16 +142,14 @@
 
              <!-- TB Baggage System-->
                 <div class="col notAuth">
-
-
                      {% for tbBag in tbBaggage %}
                         <div class="p-2 border" >
                             {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
-                                 <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71"> TB BAGGAGE SYSTEM </h3>
+                            <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
                              {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
-                              <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F"> TB BAGGAGE SYSTEM </h3>
+                              <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
                             {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
-                              <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C"> TB BAGGAGE SYSTEM </h3>
+                              <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
                             {% endif %}
                         </div>
 
@@ -165,11 +163,11 @@
                      {% for domOversize in domIntOversize %}
                         <div class="p-2 border" >
                             {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
-                                 <h3 class="domBagOVer {{domOversize.domIntOversizeID}}" style="color:#2ECC71"> DOM / INT OVERSIZE </h3>
+                            <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
                              {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
-                              <h3 class="domBagOVer {{domOversize.domIntOversizeID}}" style="color:#F1C40F"> DOM / INT OVERSIZE </h3>
+                              <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
                             {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
-                              <h3 class="domBagOVer {{domOversize.domIntOversizeID}}" style="color:#E74C3C"> DOM / INT OVERSIZE </h3>
+                              <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
                             {% endif %}
                         </div>
 
@@ -183,11 +181,11 @@
                      {% for tbOver in tbOversize %}
                         <div class="p-2 border" >
                             {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
-                                 <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71"> <a href="#" > <span>TB OVERSIZE</span> </a>  </h3>
+                                 <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </h3>
                              {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
-                              <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F"> <a href="#"> <span>TB OVERSIZE</span> </a> </h3>
+                              <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
                             {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
-                              <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C"> <a href="#" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
+                              <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
                             {% endif %}
                         </div>
 
@@ -289,15 +287,63 @@ console.log(loc.pathname)
 
             var domIntBag = 'domBag ' + domIntBagID
 
-            var domIntBagIMG = document.getElementsByClassName(domIntBag)[0]
-                 if (domIntBagStat == 'GREEN')
-                        domIntBagIMG.style.color = green
-                   else if (domIntBagStat == 'YELLOW')
-                        domIntBagIMG.setAttribute("color",yellow)
-                     else if (domIntBagStat == 'RED')
-                        domIntBagIMG.setAttribute("color",red)
+            var domIntBagTXT = document.getElementsByClassName(domIntBag)[0]
 
+                 if (domIntBagStat == 'GREEN')
+                        domIntBagTXT.style.color = green
+                   else if (domIntBagStat == 'YELLOW')
+                        domIntBagTXT.style.color = yellow
+                     else if (domIntBagStat == 'RED')
+                        domIntBagTXT.style.color = red
         }
+
+        else if (data.fromCon == 'tbBag'){
+            var tbBagID = data.tbBagID
+            var tbBagStat = data.tbBagStat
+
+            var tbBag = 'tbBag ' + tbBagID
+
+            var tbBagTXT = document.getElementsByClassName(tbBag)[0]
+
+                 if (tbBagStat == 'GREEN')
+                        tbBagTXT.style.color = green
+                   else if (tbBagStat == 'YELLOW')
+                        tbBagTXT.style.color = yellow
+                     else if (tbBagStat == 'RED')
+                        tbBagTXT.style.color = red
+        }
+        else if (data.fromCon == 'domIntOversize'){
+            var domIntOversizeID = data.domIntOversizeID
+            var domIntOversizeStat = data.domIntOversizeStat
+
+            var domIntOversize = 'domBagOver ' + domIntOversizeID
+
+            var domIntOverTXT = document.getElementsByClassName(domIntOversize)[0]
+
+                 if (domIntOversizeStat == 'GREEN')
+                        domIntOverTXT.style.color = green
+                   else if (domIntOversizeStat == 'YELLOW')
+                        domIntOverTXT.style.color = yellow
+                     else if (domIntOversizeStat == 'RED')
+                        domIntOverTXT.style.color = red
+        }
+        else if (data.fromCon == 'tbOversize'){
+            var tbOversizeID = data.tbOversizeID
+            var tbOversizeStatus = data.tbOversizeStatus
+
+            var tbOversize = 'tbOver ' + tbOversizeID
+
+            var tbBagOverTXT = document.getElementsByClassName(tbOversize)[0]
+
+                 if (tbOversizeStatus == 'GREEN')
+                        tbBagOverTXT.style.color = green
+                   else if (tbOversizeStatus == 'YELLOW')
+                        tbBagOverTXT.style.color = yellow
+                     else if (tbOversizeStatus == 'RED')
+                        tbBagOverTXT.style.color = red
+        }
+
+
 
 
            <!--console.log(index)-->

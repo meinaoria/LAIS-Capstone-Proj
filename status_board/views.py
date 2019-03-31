@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import *
 # bridgeTableForm, elevatorForm, escalatorForm, messageForm, domIntPBSForm, domIntBaggageSystemsForm, tbPBSForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 # Create your views here.
 
@@ -50,7 +50,7 @@ def home(request):
 	# 	return render(request, 'status_board/home.html', context)
 
 
-@login_required
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the bridge table
 def bridgeTableUpdate(request, btID):
 	btID = int(btID)
@@ -68,7 +68,7 @@ def bridgeTableUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
-@login_required
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the elevator table
 def elevatorUpdate(request, btID):
 	#btID = int(btID)
@@ -85,6 +85,7 @@ def elevatorUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the elevator table
 def escalatorUpdate(request, btID):
 	btID = int(btID)
@@ -101,6 +102,7 @@ def escalatorUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the escalator table
 def messageUpdate(request):
 
@@ -115,6 +117,7 @@ def messageUpdate(request):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update pre board screening tables
 # Update domIntPBS Table
 def domIntPBSUpdate(request, btID):
@@ -132,6 +135,7 @@ def domIntPBSUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update tbPBS Table
 def tbPBSUpdate(request, btID):
 	btID = int(btID)
@@ -148,6 +152,7 @@ def tbPBSUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update baggage table
 def domIntBaggageUpdate(request, btID):
 	btID = int(btID)
@@ -164,10 +169,12 @@ def domIntBaggageUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update tb baggage table
 def tbBaggageSystemsUpdate(request, btID):
 	btID = int(btID)
-	tableID = tbBaggageSystems.objects.filter(domIntBaggageID=btID).first()
+	tableID = tbBaggageSystems.objects.filter(tbBaggageID=btID).first()
 	form = tbBaggageSystemsForm(request.POST or None, instance=tableID)
 	path = 'fromTbBaggage'
 	if form.is_valid():
@@ -180,10 +187,11 @@ def tbBaggageSystemsUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update tb oversize table
 def tbOversizeUpdate(request, btID):
 	btID = int(btID)
-	tableID = tbOversize.objects.filter(domIntBaggageID=btID).first()
+	tableID = tbOversize.objects.filter(tbOversizeID=btID).first()
 	form = tbOversizeForm(request.POST or None, instance=tableID)
 	path = 'fromTbOversize'
 	if form.is_valid():
@@ -196,10 +204,11 @@ def tbOversizeUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update domInt oversize table
 def domIntOversizeUpdate(request, btID):
 	btID = int(btID)
-	tableID = domIntOversize.objects.filter(domIntBaggageID=btID).first()
+	tableID = domIntOversize.objects.filter(domIntOversizeID=btID).first()
 	form = domIntOversizeForm(request.POST or None, instance=tableID)
 	path = 'fromDomIntOversize'
 	if form.is_valid():
@@ -212,6 +221,7 @@ def domIntOversizeUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update lav hut table
 def lavHutUpdate(request, btID):
 	btID = int(btID)
@@ -228,6 +238,7 @@ def lavHutUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update electrical Charging table
 def electricalChargingUpdate(request, btID):
 	btID = int(btID)
@@ -244,6 +255,7 @@ def electricalChargingUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
+@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update water Fill table
 def waterFillUpdate(request, btID):
 	btID = int(btID)
