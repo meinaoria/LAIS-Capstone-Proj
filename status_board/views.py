@@ -17,20 +17,24 @@ def home(request):
 		elevatorData = Elevators.objects.order_by('elevatorID')
 		escalatorData = Escalators.objects.order_by('escalatorID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
+		tbPBSData = tbPBS.objects.order_by('tbPBSID')
 		domIntBaggageData = domIntBaggageSystems.objects.order_by('domIntBaggageID')
 		tbBaggageSystemData = tbBaggageSystems.objects.order_by('tbBaggageID')
 		domIntOversizeData = domIntOversize.objects.order_by('domIntOversizeID')
 		tbOversizeData = tbOversize.objects.order_by('tbOversizeID')
+		lavHutData = lavHut.objects.order_by('lavHutID')
+		waterFillData = waterFill.objects.order_by('waterFillID')
 
 		context = {
 			'bridges': bridgeTableData,
 			'elevators': elevatorData,
 			'escalators': escalatorData,
 			'domIntPBS': domIntPBSData,
+			'tbPBS': tbPBSData,
 			'domIntBaggage': domIntBaggageData,
 			'tbBaggage': tbBaggageSystemData,
 			'domIntOversize': domIntOversizeData,
-			'tbOversize': tbOversizeData,
+			'tbOversize': tbOversizeData
 		}
 		return render(request, 'status_board/home.html', context)
 
@@ -225,7 +229,7 @@ def domIntOversizeUpdate(request, btID):
 # Update lav hut table
 def lavHutUpdate(request, btID):
 	btID = int(btID)
-	tableID = lavHut.objects.filter(domIntBaggageID=btID).first()
+	tableID = lavHut.objects.filter(lavHutID=btID).first()
 	form = lavHutForm(request.POST or None, instance=tableID)
 	path = 'fromLavHut'
 	if form.is_valid():

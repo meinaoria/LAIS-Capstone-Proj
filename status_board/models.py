@@ -63,7 +63,8 @@ class bridgeTable(models.Model):
 
 class message(models.Model):
     message = models.CharField(max_length=240)
-
+# Baggage systems
+# Dom/Int Baggage Systems
 class domIntBaggageSystems(models.Model):
     GREEN = 'GR'
     RED = 'RE'
@@ -97,7 +98,7 @@ class tbBaggageSystems(models.Model):
     )
     TbBaggage_Status_Choice = models.CharField(max_length=6, choices=TbBaggage_Status, default=NA)
 
-# TB Oversize
+# TB Oversize Baggage
 class tbOversize(models.Model):
     GREEN = 'GR'
     RED = 'RE'
@@ -114,7 +115,7 @@ class tbOversize(models.Model):
     )
     TbOversize_Status_Choice = models.CharField(max_length=6, choices=TbOversize_Status, default=NA)
 
-# Dom/Int Oversize
+# Dom/Int Oversize Baggage
 class domIntOversize(models.Model):
     GREEN = 'GR'
     RED = 'RE'
@@ -131,6 +132,8 @@ class domIntOversize(models.Model):
     )
     DomIntOversize_Status_Choice = models.CharField(max_length=6, choices=DomIntOversize_Status, default=NA)
 
+# Pre Board Screening Systems
+# Dom/Int PBS
 class domIntPBS(models.Model):
     GREEN = 'GR'
     RED = 'RE'
@@ -146,7 +149,7 @@ class domIntPBS(models.Model):
 
     )
     DomIntPBS_Status_Choice = models.CharField(max_length=6, choices=DomIntPBS_Status, default=NA)
-
+# tb PBS
 class tbPBS(models.Model):
     GREEN = 'GR'
     RED = 'RE'
@@ -163,6 +166,7 @@ class tbPBS(models.Model):
     )
     TbPBS_Status_Choice = models.CharField(max_length=6, choices=TbPBS_Status, default=NA)
 
+# Other Systems
 class lavHut(models.Model):
     GREEN = 'GR'
     RED = 'RE'
