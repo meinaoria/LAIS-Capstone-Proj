@@ -34,7 +34,9 @@ def home(request):
 			'domIntBaggage': domIntBaggageData,
 			'tbBaggage': tbBaggageSystemData,
 			'domIntOversize': domIntOversizeData,
-			'tbOversize': tbOversizeData
+			'tbOversize': tbOversizeData, 
+			'lavHut': lavHutData, 
+			'waterFill': waterFillData
 		}
 		return render(request, 'status_board/home.html', context)
 

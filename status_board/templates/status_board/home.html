@@ -18,9 +18,7 @@
 {% endblock mainContent%}
 
 {% block content %}
-
-  <div class="container-fluid">
-  <div class="row">
+  <div class="row no-gutters">
       <!--Bridge Table 1st Column-->
     <div class="col-sm" id="bridgeRow">
         <div class="max-vh-100">
@@ -79,13 +77,15 @@
             </div>
     </div>
 
-      <!--Elevators 2nd Column-->
-    <div class="col-sm">
+    <!--Elevators 2nd Column-->
+    
+    <div class="col-sm text-white">
+      <body style="background-color:black">
+        <div class="border" id="elevators">
         <p style="text-align:center">Elevators</p>
-
-        <div class="d-flex flex-wrap bg-light justify-content-around">
+        <div class="d-flex flex-wrap justify-content-around" style="background-color:black">
               {% for elev in elevators %}
-                <div class="p-2 border" >
+                <div class="p-2" style="margin:10px; height:100px;" >
                   <a href="{% url 'elevatorForm' btID=elev.elevatorID%}" class="disabled">
                     <span>{{elev.elevatorID}}</span>
                   </a>
@@ -97,94 +97,98 @@
                 </div>
             {% endfor %}
             </div>
-
-                    <!--hide when user is not authenticated-->
+          </div>
+          </body>
+              <!--hide when user is not authenticated-->
             <!--DOM / INT Baggage System-->
         <div  style="height:50vh">
-          <div class="col notAuth">
-
-               <p style="text-align:center">Baggage</p>
-
-               {% for domIntBag in domIntBaggage %}
-                  <div class="p-2 border" >
-                      {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
-                      <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </h3>
-                       {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
-                        <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#F1C40F"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
-                      {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
-                        <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
-                      {% endif %}
-                  </div>
-
-               {% endfor %}
+            <div class="col notAuth">
+  
+                 <p style="text-align:center">Baggage</p>
+  
+                 {% for domIntBag in domIntBaggage %}
+                    <div class="p-2 border" >
+                        {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
+                        <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </h3>
+                         {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
+                          <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#F1C40F"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
+                        {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
+                          <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
+                        {% endif %}
+                    </div>
+  
+                 {% endfor %}
+            </div>
+  
+         <!-- TB Baggage System-->
+            <div class="col notAuth">
+                 {% for tbBag in tbBaggage %}
+                    <div class="p-2 border" >
+                        {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
+                        <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
+                         {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
+                          <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
+                        {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
+                          <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
+                        {% endif %}
+                    </div>
+  
+                 {% endfor %}
+            </div>
+  
+                 <!-- DOM / INT Baggage Oversize -->
+            <div class="col notAuth">
+                 {% for domOversize in domIntOversize %}
+                    <div class="p-2 border" >
+                        {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
+                        <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
+                         {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
+                          <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
+                        {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
+                          <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
+                        {% endif %}
+                    </div>
+  
+                 {% endfor %}
+            </div>
+  
+                    <!-- TB Oversize -->
+                 <div class="col notAuth">
+  
+  
+                 {% for tbOver in tbOversize %}
+                    <div class="p-2 border" >
+                        {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
+                             <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </h3>
+                         {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
+                          <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
+                        {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
+                          <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
+                        {% endif %}
+                    </div>
+  
+                 {% endfor %}
+            </div>
           </div>
-
-       <!-- TB Baggage System-->
-          <div class="col notAuth">
-               {% for tbBag in tbBaggage %}
-                  <div class="p-2 border" >
-                      {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
-                      <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
-                       {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
-                        <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
-                      {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
-                        <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
-                      {% endif %}
-                  </div>
-
-               {% endfor %}
-          </div>
-
-               <!-- DOM / INT Baggage Oversize -->
-          <div class="col notAuth">
-               {% for domOversize in domIntOversize %}
-                  <div class="p-2 border" >
-                      {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
-                      <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
-                       {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
-                        <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
-                      {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
-                        <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
-                      {% endif %}
-                  </div>
-
-               {% endfor %}
-          </div>
-
-                  <!-- TB Oversize -->
-               <div class="col notAuth">
-
-
-               {% for tbOver in tbOversize %}
-                  <div class="p-2 border" >
-                      {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
-                           <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </h3>
-                       {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
-                        <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
-                      {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
-                        <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
-                      {% endif %}
-                  </div>
-
-               {% endfor %}
-          </div>
-  </div>
-
+        
 
     </div>
-    <!--Escalators 2nd Column-->
+    
+    
+    <!--Escalators 3rd Column-->
     <div class="col-sm">
-        <div class="forEsc" style="height:50vh">
+        <div class="border bg-dark text-white" id="escalators" style="height:50vh">
       <p style="text-align:center">Escalators</p>
 
-        <div class="d-flex flex-wrap bg-light justify-content-around">
+        <div class="d-flex flex-wrap bg-light justify-content-around bg-dark text-white">
+            
               {% for esc in escalators %}
-                <div class="p-2 border" >
+                <div class="p-2" style="flex:1 0 21%; height:100px;">
                     <a href="{% url 'escalatorForm' btID=esc.escalatorID%}" class="disabled">
                         <span>{{esc.escalatorID}}</span>
                     </a>
                       {% if esc.Escalator_Status_Choice == 'GREEN' %}
-                            <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
+                            <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}} ">
                       {% elif esc.Escalator_Status_Choice == 'RED' %}
                             <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
                       {% endif %}
@@ -192,8 +196,6 @@
             {% endfor %}
             </div>
             </div>
-
-
 
 
         <!--hide when user is not authenticated-->
@@ -239,31 +241,35 @@
                 {% for lHut in lavHut %}
                    <div class="p-2 border" >
                        {% if lHut.LavHut_Status_Choice == 'GREEN' %}
-                       <h3 class="tPBS {{lHut.lavHutID}}" style="color: #2ECC71"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
+                       <h3 class="lHut {{lHut.lavHutID}}" style="color: #2ECC71"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
                         {% elif lHut.LavHut_Status_Choice == 'YELLOW' %}
-                         <h3 class="tPBS {{lHut.lavHutID}}" style="color:#F1C40F"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
+                         <h3 class="lHut {{lHut.lavHutID}}" style="color:#F1C40F"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
                        {% elif  lHut.LavHut_Status_Choice == 'RED' %}
-                         <h3 class="tPBS {{lHut.lavHutID}}" style="color:#E74C3C"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
+                         <h3 class="lHut {{lHut.lavHutID}}" style="color:#E74C3C"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
                        {% endif %}
                    </div>
 
                 {% endfor %}
            </div>
+           <!-- Water Fill -->
+           <div class="col notAuth">
+            {% for wFill in waterFill %}
+               <div class="p-2 border" >
+                   {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
+                   <h3 class="wFill {{wFill.waterFillID}}" style="color: #2ECC71"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h5>
+                    {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
+                     <h3 class="wFill {{wFill.waterFillID}}" style="color:#F1C40F"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h5>
+                   {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
+                     <h3 class="wFill {{wFill.waterFillID}}" style="color:#E74C3C"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h5>
+                   {% endif %}
+               </div>
+
+            {% endfor %}
+       </div>
       </div>
-
-
-
-
-
-
-
-
-
-
 
     </div>
   </div>
-</div>
 
 <script>
 
