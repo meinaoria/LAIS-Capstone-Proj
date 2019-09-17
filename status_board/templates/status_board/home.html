@@ -10,7 +10,7 @@
         <span> No permission</span>
         <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
     {% elif not user.is_authenicated %}
-        <span>Not Auth</span>
+        <!--<span>Not Auth</span>-->
            <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
         <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
     {% endif %}
@@ -18,10 +18,173 @@
 {% endblock mainContent%}
 
 {% block content %}
-  <div class="row no-gutters">
+  <div class="row no-gutters" style="height:85vh;">
       <!--Bridge Table 1st Column-->
-    <div class="col-sm" id="bridgeRow">
-        <div class="max-vh-100">
+    <div class="col-sm" id="bridgeRow" style="">
+        <!--&lt;!&ndash;<div class="max-vh-100" >&ndash;&gt;-->
+
+            <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>#</div>-->
+                <!--<div>BRIDGE</div>-->
+                <!--<div>PCA</div>-->
+                <!--<div>GPU</div>-->
+            <!--</div>-->
+        <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>17</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>18</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+         <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+
             <table class="table table-striped table-dark ">
                   <thead>
                     <tr>
@@ -75,17 +238,49 @@
                   </tbody>
                 </table>
             </div>
-    </div>
+    <!--</div>-->
+      <!--<div class="col-sm" id="bridgeRowTwo" style="">-->
+            <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>#</div>-->
+                <!--<div>BRIDGE</div>-->
+                <!--<div>PCA</div>-->
+                <!--<div>GPU</div>-->
+            <!--</div>-->
+        <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>1</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+
+        <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>2</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+
+        <!--<div style="display: flex;-->
+  <!--justify-content: space-around;">-->
+                <!--<div>3</div>-->
+                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
+            <!--</div>-->
+      <!--</div>-->
 
     <!--Elevators 2nd Column-->
-    
-    <div class="col-sm text-white">
-      <body style="background-color:#282828">
-        <div class="border" id="elevators">
-        <p style="text-align:center">Elevators</p>
-        <div class="d-flex flex-wrap justify-content-around" style="background-color:#282828">
+    <div class="col-sm text-white" style="height:100%">
+        <div style="background-color:#282828;height:50%">
+            <div class="border" id="elevators" style="height:100%">
+            <p style="text-align:center">Elevators</p>
+        <!--<div class="d-flex flex-wrap justify-content-around" style="background-color:#282828">-->
+                   <div style="background-color:#282828; display:flex;justify-content: end; flex-wrap:wrap; ">
               {% for elev in elevators %}
-                <div class="p-2" style="margin:10px; height:100px;" >
+                <div class="p-2 " style="flex:0 0 50%; text-align:center " >
                   <a href="{% url 'elevatorForm' btID=elev.elevatorID%}" class="disabled">
                     <span>{{elev.elevatorID}}</span>
                   </a>
@@ -97,55 +292,58 @@
                 </div>
             {% endfor %}
             </div>
-          </div>
-          </body>
+            </div>
+            </div>
                   <!--hide when user is not authenticated-->
             <!--DOM / INT PBS-->
-            <div  style="height:50vh">
-              <div class="bg-dark border" id ="pbs">
-                <div class="col notAuth">
+            <div  style="height:50%">
+              <div class="bg-dark border" id ="pbs" style="height:50%">
+                <div class="col notAuth" style="display:flex; justify-content: center; flex-wrap:wrap;height:100%">
   
                      <p style="text-align:center">Pre Board Screening</p>
-  
+
                      {% for dmPBS  in domIntPBS %}
-                        <div class="p-2ss" >
+                        <div  style="flex:0 0 100%; text-align:center ">
                             {% if dmPBS.DomIntPBS_Status_Choice == 'GREEN' %}
                             <h3 class="domPBS {{dmPBS.domIntPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a> </h3>
                              {% elif dmPBS.DomIntPBS_Status_Choice == 'YELLOW' %}
-                              <h3 class="domBag {{dmPBS.domIntPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </h3>
+                              <h3 class="domPBS {{dmPBS.domIntPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </h3>
                             {% elif  dmPBS.DomIntPBS_Status_Choice == 'RED' %}
-                              <h3 class="domBag {{dmPBS.domIntPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </h3>
+                              <h3 class="domPBS {{dmPBS.domIntPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </h3>
                             {% endif %}
-                        </div>
+
   
                      {% endfor %}
-                </div>
+
+                    </div>
   
              <!-- Yellow selection does not work for below!!!!-->
              <!-- TB PBS System-->
-                <div class="col notAuth">
+                <!--<div class="col notAuth">-->
                      {% for tPBS in tbPBS %}
-                        <div class="p-2" >
+                        <div style="flex:0 0 100%; text-align:center ">
                             {% if tPBS.TbPBS_Status_Choice == 'GREEN' %}
-                            <h3 class="tPBS {{tPBS.tbPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
+                            <h3 class="tbPBS {{tPBS.tbPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
                              {% elif tPBS.TbPBS_Status_Choice == 'YELLOW' %}
-                              <h3 class="tPBS {{tPBS.tbPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
+                              <h3 class="tbPBS {{tPBS.tbPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
                             {% elif  tPBS.TbPBS_Status_Choice == 'RED' %}
-                              <h3 class="tPBS {{tPBS.tbPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
+                              <h3 class="tbPBS {{tPBS.tbPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
                             {% endif %}
                         </div>
   
                      {% endfor %}
+                      </div>
                 </div>
-              </div>
+
 
               <!-- Other Systems-->
                 <!-- Lav Hut -->
-                <div class="border" style="background-color: #282828" id ="other">
-                <div class="col notAuth">
-                    <p style="text-align:center">Other Systems</p>
+                <div class="border" style="background-color: #282828;height:50%" id ="other">
+                <div class="col notAuth" style="display:flex; justify-content: center; flex-wrap:wrap; height:100%">
+                    <p style="text-align:center flex:0 0 100%; ">Other Systems</p>
+
                   {% for lHut in lavHut %}
-                     <div class="p-2" >
+                     <div style="flex:0 0 100%; text-align:center ">
                          {% if lHut.LavHut_Status_Choice == 'GREEN' %}
                          <h3 class="lHut {{lHut.lavHutID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
                           {% elif lHut.LavHut_Status_Choice == 'YELLOW' %}
@@ -156,38 +354,61 @@
                      </div>
   
                   {% endfor %}
-             </div>
+
+
              <!-- Water Fill -->
-             <div class="col notAuth">
+
               {% for wFill in waterFill %}
-                 <div class="p-2" >
+                 <div  style="flex:0 0 100%; text-align:center " >
                      {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
-                     <h3 class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h5>
+                     <h3 class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
                       {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
-                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h5>
+                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
                      {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
-                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h5>
+                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
                      {% endif %}
                  </div>
   
               {% endfor %}
+
+
+                         <!--Electrical Charging-->
+
+
+              {% for wFill in waterFill %}
+                 <div  style="flex:0 0 100%; text-align:center ">
+                     {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
+                     <h3 class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                      {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
+                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                     {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
+                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                     {% endif %}
+                 </div>
+
+              {% endfor %}
+
+
          </div>
         </div>
         </div>
-  
-      </div>
+  </div>
+
+
              
     
     
     <!--Escalators 3rd Column-->
-    <div class="col-sm">
-        <div class="border bg-dark text-white" id="escalators" style="height:50vh">
-      <p style="text-align:center">Escalators</p>
+    <div class="col-sm text-white">
+
+        <div class="border bg-dark " id="escalators" >
+            <p style="text-align:center">Escalators</p>
 
         <div class="d-flex flex-wrap justify-content-around text-white">
-            
+
               {% for esc in escalators %}
-                <div class="p-2" style="flex:1 0 21%; height:100px;">
+
+            <div class="p-2 align-self-center" style="width:50%;" >
                     <a href="{% url 'escalatorForm' btID=esc.escalatorID%}" class="disabled">
                         <span>{{esc.escalatorID}}</span>
                     </a>
@@ -199,16 +420,17 @@
                 </div>
             {% endfor %}
             </div>
-            </div>
+           </div>
 
              <!--hide when user is not authenticated-->
             <!--DOM / INT Baggage System-->
+
         <div  style="height:50vh">
            <div class ="border text-white" id="baggagge">
             <div class="col notAuth">
-  
+
                  <p style="text-align:center">Baggage</p>
-  
+
                  {% for domIntBag in domIntBaggage %}
                     <div class="p-2" >
                         {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
@@ -278,7 +500,7 @@
 
     </div>
 
-  </div>
+</div>
 
 <script>
 
@@ -360,6 +582,19 @@ console.log(loc.pathname)
                      else if (elevatorStat == 'RED')
                         elevIMG.setAttribute("src","{% static 'status_board/images/redElev.png'%}")
         }
+        else if (data.fromCon == 'escalator'){
+             var escalatorID = data.escalatorID
+                var escalatorStat = data.escalatorStat
+
+                var esc = 'Esc ' + escalatorID
+
+                 var escIMG = document.getElementsByClassName(esc)[0]
+                  if (escalatorStat == 'GREEN')
+                        escIMG.setAttribute("src","{% static 'status_board/images/greenEsc.png'%}")
+                     else if (escalatorStat == 'RED')
+                        escIMG.setAttribute("src","{% static 'status_board/images/redEsc.png'%}")
+        }
+
         else if (data.fromCon == 'domIntBag'){
             var domIntBagID = data.domIntBagId
             var domIntBagStat = data.domIntBagStat

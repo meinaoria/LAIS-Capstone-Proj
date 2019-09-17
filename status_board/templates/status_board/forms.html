@@ -71,6 +71,8 @@ console.log('pathname = ' + loc.pathname)
             var from
              var elevatorID
               var elevatorStatus
+              var escalatorID
+              var escalatorStatus
               var domIntBaggageID
                var domIntBaggageStatus
                var tbBagID
@@ -115,10 +117,18 @@ console.log('pathname = ' + loc.pathname)
                                 'elevatorID': elevatorID,
                                 'elevatorStat':elevatorStatus,
                                 'from':from,
+                            }
+                            }
+                    else if  ('{{path}}' === 'fromEscalator' ) {
+                            escalatorID = '{{obj.escalatorID}}'
+                            escalatorStatus = document.myform.Escalator_Status_Choice.value
+                            from = 'esc'
+                              final_data = {
+                                'escalatorID': escalatorID,
+                                'escalatorStatus':escalatorStatus,
+                                'from':from,
 
                             }
-
-
                      }
                     else if ('{{path}}' == 'fromDomIntBaggage'){
                              domIntBaggageID =  {{obj.domIntBaggageID}}
