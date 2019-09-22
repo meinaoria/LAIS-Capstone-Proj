@@ -11,9 +11,9 @@
 
 	<title> Status Board</title>
 </head>
-<body class="bodyClass" style="height:100%; ">
+<body class="bodyClass" style="height:100%; " id="body">
  	<!--Nav Bar-->
-	<nav class="navbar navbar-expand-sm " style="background-color:#263238; padding:0">
+	<nav class="navbar navbar-expand-sm " style="background-color:#263238; padding:0" id="navBar">
 
 		<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
    			 <span class="navbar-toggler-icon"></span>
@@ -69,10 +69,10 @@
 				</div>
 			{% endfor %}
 		{% endif %}
-
+		<div style="display: flex;height: 100%; flex-direction: column;justify-content: start">
 		{% block content %}
 		{% endblock %}
-
+				
 		{% block mainContent %}
 		{% endblock %}
 
@@ -81,11 +81,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<footer class="fixed-bottom fixedMessage" style="height:6vh">
+<footer class="fixed-bottom fixedMessage"  id="fixedFooter">
 	F I X E D  M E S S A G E
 </footer>
+
+</div>
 <!--<div class="fixed-bottom fixedMessage">-->
  <!--F I X E D  M E S S AGE-->
 <!--</div>-->
+
+<script>
+		// var navBar = document.getElementById('navBar').offsetHeight;
+		// console.log('nav ' + navBar);
+		var footer = document.getElementById('fixedFooter').offsetHeight;
+		console.log('footer ' + footer);
+		// var bodyHeight = document.getElementById('body').offsetHeight;
+		// console.log('body ' + bodyHeight);
+		// var mainHeight = bodyHeight -navBar - footer;
+		var mainHeight =  document.getElementById('main').offsetHeight;
+		console.log('main ' + mainHeight);
+		var newMainH = mainHeight - footer;
+		var main = document.getElementById('main').style.height = 40;
+		console.log(newMainH);
+	  
+	  </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
   <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
     {% if user.is_authenticated and perms.catalog.has_write_access %}
         <span>Auth and has permission</span>
-
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
     {% elif user.is_authenticated %}
         <span> No permission</span>
         <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
@@ -18,7 +18,8 @@
 {% endblock mainContent%}
 
 {% block content %}
-  <div class="row no-gutters" style="height:85vh;">
+<section role="main" style="height: 94.5%">
+  <div class="row no-gutters" id="main" style="height: 100%">
       <!--Bridge Table 1st Column-->
     <div class="col-sm" id="bridgeRow" style="">
         <!--&lt;!&ndash;<div class="max-vh-100" >&ndash;&gt;-->
@@ -273,14 +274,14 @@
       <!--</div>-->
 
     <!--Elevators 2nd Column-->
-    <div class="col-sm text-white" style="height:100%">
-        <div style="background-color:#282828;height:50%">
-            <div class="border" id="elevators" style="height:100%">
+    <div class="col-sm text-white" style="height: inherit" >
+        <div class="height" style="background-color:#282828;" >
+            <div class="border" id="elevators" style="height: 100%">
             <p style="text-align:center">Elevators</p>
         <!--<div class="d-flex flex-wrap justify-content-around" style="background-color:#282828">-->
-                   <div style="background-color:#282828; display:flex;justify-content: end; flex-wrap:wrap; ">
+                   <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
-                <div class="p-2 " style="flex:0 0 50%; text-align:center " >
+                <div class="flexItem" >
                   <a href="{% url 'elevatorForm' btID=elev.elevatorID%}" class="disabled">
                     <span>{{elev.elevatorID}}</span>
                   </a>
@@ -296,20 +297,18 @@
             </div>
                   <!--hide when user is not authenticated-->
             <!--DOM / INT PBS-->
-            <div  style="height:50%">
+            <div  class="notAuth" style="height:50%">
               <div class="bg-dark border" id ="pbs" style="height:50%">
-                <div class="col notAuth" style="display:flex; justify-content: center; flex-wrap:wrap;height:100%">
-  
                      <p style="text-align:center">Pre Board Screening</p>
-
+                     <div class="col sysContainer"  >
                      {% for dmPBS  in domIntPBS %}
                         <div  style="flex:0 0 100%; text-align:center ">
                             {% if dmPBS.DomIntPBS_Status_Choice == 'GREEN' %}
-                            <h3 class="domPBS {{dmPBS.domIntPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a> </h3>
+                            <p class="domPBS {{dmPBS.domIntPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a> </p>
                              {% elif dmPBS.DomIntPBS_Status_Choice == 'YELLOW' %}
-                              <h3 class="domPBS {{dmPBS.domIntPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </h3>
+                              <p class="domPBS {{dmPBS.domIntPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </p>
                             {% elif  dmPBS.DomIntPBS_Status_Choice == 'RED' %}
-                              <h3 class="domPBS {{dmPBS.domIntPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </h3>
+                              <p class="domPBS {{dmPBS.domIntPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </p>
                             {% endif %}
 
   
@@ -323,11 +322,11 @@
                      {% for tPBS in tbPBS %}
                         <div style="flex:0 0 100%; text-align:center ">
                             {% if tPBS.TbPBS_Status_Choice == 'GREEN' %}
-                            <h3 class="tbPBS {{tPBS.tbPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
+                            <p class="tbPBS {{tPBS.tbPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </p>
                              {% elif tPBS.TbPBS_Status_Choice == 'YELLOW' %}
-                              <h3 class="tbPBS {{tPBS.tbPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
+                              <p class="tbPBS {{tPBS.tbPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </p>
                             {% elif  tPBS.TbPBS_Status_Choice == 'RED' %}
-                              <h3 class="tbPBS {{tPBS.tbPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </h3>
+                              <p class="tbPBS {{tPBS.tbPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </p>
                             {% endif %}
                         </div>
   
@@ -339,17 +338,17 @@
               <!-- Other Systems-->
                 <!-- Lav Hut -->
                 <div class="border" style="background-color: #282828;height:50%" id ="other">
-                <div class="col notAuth" style="display:flex; justify-content: center; flex-wrap:wrap; height:100%">
-                    <p style="text-align:center flex:0 0 100%; ">Other Systems</p>
-
+                
+                    <p style="text-align:center ;flex:0 0 100%; ">Other Systems</p>
+                    <div class="col notAuth othSysContainer" >
                   {% for lHut in lavHut %}
                      <div style="flex:0 0 100%; text-align:center ">
                          {% if lHut.LavHut_Status_Choice == 'GREEN' %}
-                         <h3 class="lHut {{lHut.lavHutID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
+                         <p class="lHut {{lHut.lavHutID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </p>
                           {% elif lHut.LavHut_Status_Choice == 'YELLOW' %}
-                           <h3 class="lHut {{lHut.lavHutID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
+                           <p class="lHut {{lHut.lavHutID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </p>
                          {% elif  lHut.LavHut_Status_Choice == 'RED' %}
-                           <h3 class="lHut {{lHut.lavHutID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </h3>
+                           <p class="lHut {{lHut.lavHutID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </p>
                          {% endif %}
                      </div>
   
@@ -361,11 +360,11 @@
               {% for wFill in waterFill %}
                  <div  style="flex:0 0 100%; text-align:center " >
                      {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
-                     <h3 class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                     <p class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
                       {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
-                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                       <p class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
                      {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
-                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                       <p class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
                      {% endif %}
                  </div>
   
@@ -378,11 +377,11 @@
               {% for wFill in waterFill %}
                  <div  style="flex:0 0 100%; text-align:center ">
                      {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
-                     <h3 class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                     <p class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
                       {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
-                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                       <p class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
                      {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
-                       <h3 class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </h3>
+                       <p class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
                      {% endif %}
                  </div>
 
@@ -399,9 +398,9 @@
     
     
     <!--Escalators 3rd Column-->
-    <div class="col-sm text-white">
+    <div class="col-sm text-white" style="height:100%">
 
-        <div class="border bg-dark " id="escalators" >
+        <div class="border bg-dark notAuthHeight" id="escalators" style="height:min-content">
             <p style="text-align:center">Escalators</p>
 
         <div class="d-flex flex-wrap justify-content-around text-white">
@@ -425,7 +424,7 @@
              <!--hide when user is not authenticated-->
             <!--DOM / INT Baggage System-->
 
-        <div  style="height:50vh">
+        <div  style="height:min-content">
            <div class ="border text-white" id="baggagge">
             <div class="col notAuth">
 
@@ -434,11 +433,11 @@
                  {% for domIntBag in domIntBaggage %}
                     <div class="p-2" >
                         {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
-                        <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </h3>
+                        <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </p>
                          {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
-                          <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
+                          <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </p>
                         {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
-                          <h3 class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </h3>
+                          <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </p>
                         {% endif %}
                     </div>
   
@@ -450,11 +449,11 @@
                  {% for tbBag in tbBaggage %}
                     <div class="p-2" >
                         {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
-                        <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
+                        <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
                          {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
-                          <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
+                          <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
                         {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
-                          <h3 class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </h3>
+                          <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
                         {% endif %}
                     </div>
   
@@ -466,11 +465,11 @@
                  {% for domOversize in domIntOversize %}
                     <div class="p-2" >
                         {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
-                        <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
+                        <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
                          {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
-                          <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
+                          <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
                         {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
-                          <h3 class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </h3>
+                          <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
                         {% endif %}
                     </div>
   
@@ -484,11 +483,11 @@
                  {% for tbOver in tbOversize %}
                     <div class="p-2" >
                         {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
-                             <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </h3>
+                             <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </p>
                          {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
-                          <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
+                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
                         {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
-                          <h3 class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </h3>
+                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
                         {% endif %}
                     </div>
   
@@ -501,7 +500,7 @@
     </div>
 
 </div>
-
+</section>
 <script>
 
 var loc = window.location

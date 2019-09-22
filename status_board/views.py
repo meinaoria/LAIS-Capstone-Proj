@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from status_board.models import *
 from django.contrib.auth.decorators import login_required
+from django.db.models import IntegerField
+from django.db.models.functions import Cast, Substr
 # bridgeTable, Escalators, Elevators, message, domIntPBS,domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize
 
 from .forms import *
@@ -9,12 +11,15 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 # Create your views here.
 
+from django.db.models.expressions import F, Value, Func 
 
 def home(request):
 	# Display all systems ie user is authenticated
 	# if request.user.is_authenticated:
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
 		elevatorData = Elevators.objects.order_by('elevatorID')
+	# 	elevatorData = Elevators.objects.extra(
+    # select={'myinteger': 'CAST(elevatorID AS INTEGER)'}).order_by('myinteger')
 		escalatorData = Escalators.objects.order_by('escalatorID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		tbPBSData = tbPBS.objects.order_by('tbPBSID')
