@@ -1,3 +1,3 @@
 web: gunicorn LAIS-Capstone-Proj.wsgi
 
-web: python manage.py runserver 70.30.91.65:8000
+web: python manage.py runserver 0.0.0.0:$PORT
