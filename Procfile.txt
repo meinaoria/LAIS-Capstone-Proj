@@ -1,0 +1,1 @@
+web: gunicorn LAIS-Capstone-Proj.wsgi
