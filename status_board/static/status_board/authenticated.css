@@ -1,5 +1,75 @@
-.disabled{
+html{
+  height: 100vh;
+}
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main{
+  flex-grow: 1;
+  flex-shrink:1;
+  
+}
+footer{
+  height:5%;
+}
+
+/* .disabled{
   pointer-events: none;
 cursor: default;
 color:white;
+} */
+
+/* 2nd and 3rd row 50% when authenticated */
+.height{
+  height:50%;
+  background-color:#282828;
+}
+
+.flexContainer{
+  display:flex;
+  justify-content: end;
+   flex-wrap:wrap;
+  
+   align-content: stretch;
+}
+
+.flexItem{
+  flex-basis: 33%; 
+  text-align:center ;
+}
+
+#pbs{
+  height:50%;
+}
+
+.sysContainer{
+  padding: 0%;
+  display:flex;
+  justify-content: end;
+   flex-wrap:wrap;
+   align-content: stretch;
+   height: 60%;
+   font-size: 1.5em;
+   font-weight: bold;
+   margin: 0;
+}
+
+.othSysContainer{
+  padding: 0%;
+  display:flex;
+  justify-content: end;
+   flex-wrap:wrap;
+   align-content: stretch;
+   height: 50%;
+   font-size: 0.9em;
+   font-weight: bold;
+   margin: 0;
+}
+
+.sysContainer > p {
+  
+ color:blue;
+  margin: 0em;
 }

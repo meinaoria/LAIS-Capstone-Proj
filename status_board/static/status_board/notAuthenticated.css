@@ -1,3 +1,19 @@
+html{
+    height: 100vh;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main{
+    flex-grow: 1;
+    flex-shrink:1;
+    
+}
+footer{
+    height:5%;
+}
 /*to hide systems when not logged in*/
 .notAuth{
     display:none;
@@ -9,4 +25,29 @@
     cursor: default;
     color:white;
 }
+
+/* 2nd and 3rd row 100% when not authenticated */
+.height{
+    height:100%;
+    background-color:#282828;
+}
+
+.flexContainer{
+    display:flex;
+    justify-content: end;
+     flex-wrap:wrap;
+    
+     align-content: stretch;
+}
+
+.flexItem{
+    flex-basis: 50%; 
+    text-align:center ;
+    
+}
+
+@media(min-width:575.98px){
+    body{overflow: hidden;} 
+}
+
 
