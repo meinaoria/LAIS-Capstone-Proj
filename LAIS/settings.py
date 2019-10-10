@@ -131,6 +131,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
 LOGIN_REDIRECT_URL = 'status-board-home'
 LOGOUT_REDIRECT_URL = 'status-board-home'
 
@@ -142,6 +145,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
