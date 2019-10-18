@@ -29,7 +29,6 @@ pyasn1-modules==0.2.7
 pycparser==2.19
 PyHamcrest==1.9.0
 pytz==2019.2
-pywin32==225
 redis==2.10.6
 service-identity==18.1.0
 setuptools==41.2.0
