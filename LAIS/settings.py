@@ -144,8 +144,7 @@ CHANNEL_LAYERS = {
             "hosts": [('localhost', 6379)],
             "channel_capacity": {
                 "http.request": 20,
-                "http.response!*": 10,
-                re.compile(r"^websocket.send\!.+"): 20,
+                "http.response!*": 10
             },
         },
     },
