@@ -142,6 +142,11 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [('localhost', 6379)],
+            "channel_capacity": {
+                "http.request": 20,
+                "http.response!*": 10,
+                re.compile(r"^websocket.send\!.+"): 20,
+            },
         },
     },
 }
