@@ -6,13 +6,25 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="{% static 'status_board/main.css' %}">
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  -->
+		
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>	
 	{% block cssLink%}
 	{% endblock %}
 
 	<title> Status Board</title>
 </head>
 <body class="bodyClass" style="height:100%; " id="body">
- 	<!--Nav Bar-->
+		<!--Nav Bar-->
+	
 	<nav class="navbar navbar-expand-sm " style="background-color:#263238; padding:0" id="navBar">
 
 		<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -60,8 +72,6 @@
 				</div>
 		  </div>
 	</nav>
-
-
 		{% if messages %}
 			{% for message in messages %}
 				<div class="alert alert-{{message.tags}}">
@@ -76,19 +86,49 @@
 		{% block mainContent %}
 		{% endblock %}
 
+	
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<footer class="fixed-bottom fixedMessage"  id="fixedFooter">
-	F I X E D  M E S S A G E
+
+<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
+	F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E
 </footer>
 
 </div>
 <!--<div class="fixed-bottom fixedMessage">-->
  <!--F I X E D  M E S S AGE-->
 <!--</div>-->
+<!-- <script>
+	function change_left() {
+    $('div').removeClass('slide-right').addClass('slide-left');
+}
+
+function change_right() {
+    $('div').removeClass('slide-left').addClass('slide-right');
+    change_title();
+}
+
+function to_left() {
+setInterval(change_left, 10000);
+};
+
+function to_right() {
+    setInterval(change_right, 20000);
+};
+
+to_left();
+to_right();
+</script> -->
+
+<script>
+		function openNav() {
+		  document.getElementById("mySidenav").style.width = "250px";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidenav").style.width = "0";
+		}
+		</script>
 
 <script>
 		// var navBar = document.getElementById('navBar').offsetHeight;
@@ -105,5 +145,7 @@
 		console.log(newMainH);
 	  
 	  </script>
+
+
 </body>
 </html>

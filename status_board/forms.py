@@ -1,8 +1,10 @@
 from django import forms
-
+from bootstrap_modal_forms.forms import BSModalForm
 from .models import bridgeTable, Elevators, Escalators, message, domIntPBS,\
     domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize, domIntOversize, \
     lavHut, electricalCharging, waterFill
+from django.urls import reverse
+
 
 class bridgeTableForm(forms.ModelForm):
    def __init__(self, *args, **kwargs):
@@ -19,7 +21,7 @@ class bridgeTableForm(forms.ModelForm):
             'PCA_Status_Choice',
             'GPU_Status_Choice',
         ]
-
+   
 class elevatorForm(forms.ModelForm):
    # post =forms.CharField()
     class Meta:
@@ -27,6 +29,11 @@ class elevatorForm(forms.ModelForm):
         fields = [
             'Elevator_Status_Choice',
         ]
+
+    def get_absolute_url(self):
+            print('in get absolute url')
+            return reverse("bsForm", kwargs={'pk':self.pk})
+
 
 class escalatorForm(forms.ModelForm):
    # post =forms.CharField()

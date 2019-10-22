@@ -1,10 +1,15 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+from .views import UpdateForm
+
 
 urlpatterns = [
     path('', views.home, name='status-board-home'),
+    path('updateForm/<pk>',UpdateForm.as_view(),name='updateForm'),
+    path('bsForm/', views.bsForm, name = 'bsForm'),
     path('update/bridge/<btID>/', views.bridgeTableUpdate, name='bridgeTableForm'),
-    path('update/elevator/<btID>/', views.elevatorUpdate, name='elevatorForm'),
+    path('update/elevator/<elevBtID>/', views.elevatorUpdate, name='elevatorForm'),
     path('update/escalator/<btID>/', views.escalatorUpdate, name='escalatorForm'),
     path('update/message/', views.messageUpdate, name='messageForm'),
     path('update/domIntPBS/<btID>/', views.domIntPBSUpdate, name='domIntPBSForm'),
@@ -18,4 +23,5 @@ urlpatterns = [
     path('update/lavHut/<btID>/', views.lavHutUpdate, name='lavHutForm'),
     path('update/electricalCharging/<btID>/', views.electricalChargingUpdate, name='electricalChargingForm'),
     path('update/waterFill/<btID>/', views.waterFillUpdate, name='waterFillForm'),
+  
 ]

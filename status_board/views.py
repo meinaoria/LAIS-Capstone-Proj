@@ -3,23 +3,63 @@ from status_board.models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import IntegerField
 from django.db.models.functions import Cast, Substr
+from django.views.generic.edit import UpdateView
 # bridgeTable, Escalators, Elevators, message, domIntPBS,domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize
 
 from .forms import *
 # bridgeTableForm, elevatorForm, escalatorForm, messageForm, domIntPBSForm, domIntBaggageSystemsForm, tbPBSForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from bootstrap_modal_forms.generic import BSModalCreateView
 # Create your views here.
 
 from django.db.models.expressions import F, Value, Func 
+
+# def ElevCreateView(request,btID):
+# 		btID = int(btID)
+# 		tableID = Elevators.objects.filter(elevatorID=btID).first()
+# 		form = elevatorForm(request.POST or None, instance=tableID)
+# 		path = 'fromElevator'
+# 		if form.is_valid():
+# 			form.save()
+# 			return redirect('status-board-home') #need to change redirect
+# 		context = {
+# 			'form': form,
+# 			'obj': tableID,
+# 			'path': path,
+# 		}
+# 		return render(request, 'status_board/forms.html', context)
+
+def bsForm(request):
+	return render(request, 'status_board/forms.html', context)
+
+class UpdateForm(UpdateView):
+	
+	fields = ['Elevator_Status_Choice']
+
+	def get_object(self):
+		id = self.kwargs.get('pk')
+		return get_object_or_404(Elevators, elevatorID=id)
+	
+	def get_queryset(self):
+			return Elevators.objects.all()
+
+	
+
+	def form_valid(self, form):
+			self.object = form.save()
+			print('VALIDAAAAAAAAATE')       
+			return render(self.request,'status_board/form_saved.html')
+        
+	
 
 def home(request):
 	# Display all systems ie user is authenticated
 	# if request.user.is_authenticated:
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
 		elevatorData = Elevators.objects.order_by('elevatorID')
-	# 	elevatorData = Elevators.objects.extra(
-    # select={'myinteger': 'CAST(elevatorID AS INTEGER)'}).order_by('myinteger')
 		escalatorData = Escalators.objects.order_by('escalatorID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		tbPBSData = tbPBS.objects.order_by('tbPBSID')
@@ -81,9 +121,9 @@ def bridgeTableUpdate(request, btID):
 
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the elevator table
-def elevatorUpdate(request, btID):
-	#btID = int(btID)
-	tableID = Elevators.objects.filter(elevatorID=btID).first()
+def elevatorUpdate(request, elevBtID):
+	#elevBtID = int(elevBtID)
+	tableID = Elevators.objects.filter(elevatorID=elevBtID).first()
 	form = elevatorForm(request.POST or None, instance=tableID)
 	path = 'fromElevator'
 	if form.is_valid():
@@ -94,10 +134,10 @@ def elevatorUpdate(request, btID):
 		'obj': tableID,
 		'path': path,
 	}
-	return render(request, 'status_board/forms.html', context)
+	return render(request, 'status_board/forms.html',context)
 
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-#Update the elevator table
+#Update the escalator table
 def escalatorUpdate(request, btID):
 	btID = int(btID)
 	tableID = Escalators.objects.filter(escalatorID=btID).first()
@@ -283,6 +323,5 @@ def waterFillUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
-
-
+		
 
