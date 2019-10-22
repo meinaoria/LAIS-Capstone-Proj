@@ -3,12 +3,14 @@
  <!--for testing purposes, mainContent should be changed to cssLink and h1 tags removed-->
 {% block mainContent %}
   <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
+  <script src="http://malsup.github.com/jquery.form.js"></script>
     {% if user.is_authenticated and perms.catalog.has_write_access %}
         <span>Auth and has permission</span>
         <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
     {% elif user.is_authenticated %}
         <span> No permission</span>
-        <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}"> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
     {% elif not user.is_authenicated %}
         <!--<span>Not Auth</span>-->
            <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
@@ -18,10 +20,168 @@
 {% endblock mainContent%}
 
 {% block content %}
-<section role="main" style="height: 94.5%">
+<section role="main" style="height: 95%">
   <div class="row no-gutters" id="main" style="height: 100%">
+
+      <!-- <div class="col-sm"  style="height: inherit;"> -->
+    <!-- Vertical navbar -->
+    
+<!-- <div class="vertical-nav bg-white" id="sidebar">
+    <div class="py-4 px-3 mb-4 bg-light">
+      <div class="media d-flex align-items-center">
+          <h4 class="m-0">Live Airport Information System</h4>
+      </div>
+    </div>
+  
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
+  
+    <ul class="nav flex-column bg-white mb-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link " href="#" style="color:black">Legend</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link " href="{% url 'logout' %}" style="color:black">Logout</a>
+          </li>
+          {% else %}
+					  <li class="nav-item">
+						  <a class="nav-link " href="#" style="color:black">Legend</a>
+					  </li>
+					  <li class="nav-item">
+						 <a class="nav-link " href="{% url 'login' %}" style="color:black">Login</a>
+            </li>
+            {% endif %}
+            <li class="nav-item" style="color:black">
+                <a class="nav-link " > OPERATIONS <br>613-248-2200 </a>
+              </li>
+              <li class="nav-item " style="color:black">
+                  <a class="nav-link " > EMERGENCY <br>613-248-2111 </a>
+              </li>
+         
+    </ul>
+      
+
+  </div>
+</div> -->
+  <!-- End vertical navbar -->
       <!--Bridge Table 1st Column-->
-    <div class="col-sm" id="bridgeRow" style="">
+      <div class="col-sm-6"  style="height: inherit;background-color:#282828">
+        <!-- <div>
+        <div style="width: 50%; color:white">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Bridge</th>
+                  <th scope="col">PCA</th>
+                  <th scope="col">GPU</th>
+                </tr>
+              </thead>
+        </div>
+        <div style="width: 50%; color:white"">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Bridge</th>
+                  <th scope="col">PCA</th>
+                  <th scope="col">GPU</th>
+                </tr>
+              </thead>
+        </div>
+      </div> -->
+          <div class="bridgeFlexContainer border border-left-0">
+              <!-- <div style="width: 50%; color:white">
+                  <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bridge</th>
+                        <th scope="col">PCA</th>
+                        <th scope="col">GPU</th>
+                      </tr>
+                    </thead>
+              </div>
+               -->
+               
+               <div style="display: inline-block;width:50%;">
+             
+                  <div style="display: inline-block;">#</div>
+                    <div style="display: inline-block;width:25%;text-align: center;">Bridge</div>
+                    <div style="display: inline-block;width:25%;text-align: center;">PCA</div>
+                      <div style="display: inline-block;width:25%;text-align: center;">GPU</div>
+               
+               </div>
+               <div style="display: inline-block;width:50%;">
+             
+                  <div style="display: inline-block;">#</div>
+                    <div style="display: inline-block;width:25%;text-align: center;">Bridge</div>
+                    <div style="display: inline-block;width:25%;text-align: center;">PCA</div>
+                      <div style="display: inline-block;width:25%;text-align: center;">GPU</div>
+               
+               </div>
+               <!-- <div style="display: inline-block;width:50%;">
+                  aksfhn
+                 </div> -->
+              {% for bridge in bridges %}
+              <div id="bridgeFlexItem">
+
+                {%if bridge.bridgeTableID <= 9  %}
+                <span style="display: inline-block;">
+                    <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
+                        <span> {{bridge.bridgeTableID}}<span style="visibility: hidden;">0</span></span>
+                    </a>
+                  </span>
+                {% else%}
+                  <span style="display: inline-block;">
+                    <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
+                        <span> {{bridge.bridgeTableID}} </span>
+                    </a>
+                  </span>
+                 {%endif%}
+                  {% if bridge.Bridge_Status_Choice == 'GREEN' %}
+                  <span style="display: inline-block;width:25%;text-align: center;">
+                      <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                    </span>
+                      {% elif bridge.Bridge_Status_Choice == 'RED' %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                        <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" >
+                      </span>
+                      {% else %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                            <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" >
+                          </span>
+                  {% endif %}
+                  {% if bridge.PCA_Status_Choice == 'GREEN' %}
+                  <span style="display: inline-block;width:25%;text-align: center;">
+                      <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                    </span>
+                        {% elif bridge.PCA_Status_Choice == 'RED' %}
+                        <span style="display: inline-block;width:25%;text-align: center;">
+                          <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                        </span>
+                        {% else %}
+                        <span style="display: inline-block;width:25%;text-align: center;">
+                              <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                            </span>
+                  {% endif %}
+                      {% if bridge.GPU_Status_Choice == 'GREEN' %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                              <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                            </span>
+                          {% elif bridge.GPU_Status_Choice == 'RED' %}
+                          <span style="display: inline-block;width:25%;text-align: center;">
+                        
+                            <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                          </span>
+                          {% else %}
+                          <span style="display: inline-block;width:25%;text-align: center;">
+                                <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                              </span>
+                          {% endif %}
+                          
+              </div>
+              {% endfor %}
+          </div>
+    </div>
+    <!-- <div class="col-sm" id="bridgeRow" style="height: inherit;"> -->
         <!--&lt;!&ndash;<div class="max-vh-100" >&ndash;&gt;-->
 
             <!--<div style="display: flex;-->
@@ -185,8 +345,8 @@
                 <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
                 <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
             <!--</div>-->
-
-            <table class="table table-striped table-dark ">
+          <!-- STARRRT -->
+            <!-- <table class="table table-striped table-dark table-sm " style="height: inherit;">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -198,8 +358,7 @@
                   <tbody>
 
                     {% for bridge in bridges %}
-                        <tr>
-
+                        <tr style="line-height: 1em;" > 
                           <th scope="row">
                               <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
                                   <span>{{bridge.bridgeTableID}} </span>
@@ -208,37 +367,37 @@
                           <td>
                               {% if bridge.Bridge_Status_Choice == 'GREEN' %}
 
-                                    <img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                                    <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
 
                               {% elif bridge.Bridge_Status_Choice == 'RED' %}
-                                 <img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                                 <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
                               {% else %}
-                                     <img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                                     <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
                               {% endif %}
                           </td>
                           <td>
                               {% if bridge.PCA_Status_Choice == 'GREEN' %}
-                                  <img src='{% static "status_board/images/green.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
+                                  <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
                               {% elif bridge.PCA_Status_Choice == 'RED' %}
-                                 <img src='{% static "status_board/images/red.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
+                                 <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
                               {% else %}
-                                     <img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
+                                     <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
                               {% endif %}
                           </td>
                           <td>
                               {% if bridge.GPU_Status_Choice == 'GREEN' %}
-                                  <img src='{% static "status_board/images/green.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
+                                  <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
                               {% elif bridge.GPU_Status_Choice == 'RED' %}
-                                 <img src='{% static "status_board/images/red.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
+                                 <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
                               {% else %}
-                                     <img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
+                                     <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
                               {% endif %}
                           </td>
                         </tr>
                     {% endfor %}
                   </tbody>
                 </table>
-            </div>
+            </div> -->
     <!--</div>-->
       <!--<div class="col-sm" id="bridgeRowTwo" style="">-->
             <!--<div style="display: flex;-->
@@ -274,17 +433,20 @@
       <!--</div>-->
 
     <!--Elevators 2nd Column-->
-    <div class="col-sm text-white" style="height: inherit" >
+    <div class="col-sm-3 text-white" style="height: inherit" >
         <div class="height" style="background-color:#282828;" >
             <div class="border" id="elevators" style="height: 100%">
             <p style="text-align:center">Elevators</p>
         <!--<div class="d-flex flex-wrap justify-content-around" style="background-color:#282828">-->
                    <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
-                <div class="flexItem" >
-                  <a href="{% url 'elevatorForm' btID=elev.elevatorID%}" class="disabled">
-                    <span>{{elev.elevatorID}}</span>
-                  </a>
+                <div class="flexItem" >       
+                  <a  href="{% url 'elevatorForm' elevBtID=elev.elevatorID %}" class="disabled">  
+                    <!-- 'elevatorForm' elevBtID=elev.elevatorID -->
+                    <span onclick="setGetParameter('elev','{{elev.elevatorID}}')">{{elev.elevatorID}}</span>
+                </a>
+                <!-- 
+                "onclick=setGetParameter('elev','{{elev.elevatorID}}')" -->
                       {% if elev.Elevator_Status_Choice == 'GREEN' %}
                             <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
                       {% elif elev.Elevator_Status_Choice == 'RED' %}
@@ -398,16 +560,17 @@
     
     
     <!--Escalators 3rd Column-->
-    <div class="col-sm text-white" style="height:100%">
-
-        <div class="border bg-dark notAuthHeight" id="escalators" style="height:min-content">
+    <div class="col-sm-3 text-white" style="height: inherit;">
+      <div class="height" style="background-color:#343a40;" >
+        <div class="border" id="escalator" style="height: 100%">
+        <!-- <div class="border bg-dark notAuthHeight" id="escalators" style="height:min-content"> -->
             <p style="text-align:center">Escalators</p>
 
-        <div class="d-flex flex-wrap justify-content-around text-white">
-
+        <!-- <div class="d-flex flex-wrap justify-content-around text-white"> -->
+          <div class="flexContainer" style="height: 80%">
               {% for esc in escalators %}
-
-            <div class="p-2 align-self-center" style="width:50%;" >
+            <div class="flexItem">
+            <!-- <div class="p-2 align-self-center" style="width:50%;" > -->
                     <a href="{% url 'escalatorForm' btID=esc.escalatorID%}" class="disabled">
                         <span>{{esc.escalatorID}}</span>
                     </a>
@@ -420,18 +583,22 @@
             {% endfor %}
             </div>
            </div>
+           </div>
 
              <!--hide when user is not authenticated-->
             <!--DOM / INT Baggage System-->
 
-        <div  style="height:min-content">
-           <div class ="border text-white" id="baggagge">
-            <div class="col notAuth">
-
+        <!-- <div  style="height:min-content"> -->
+          <div class="notAuth" style="height:50%">
+           <!-- <div class ="border text-white" id="baggagge"> -->
+              <div class="bg-dark border" id ="baggagge" style="height:100%">
+            <!-- <div class="col notAuth"> -->
                  <p style="text-align:center">Baggage</p>
-
+                 <div class="col sysContainer"  >
+                    <div  style="flex:0 0 100%; text-align:center ">
                  {% for domIntBag in domIntBaggage %}
-                    <div class="p-2" >
+                    <!-- <div class="p-2" > -->
+                        
                         {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
                         <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </p>
                          {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
@@ -439,12 +606,53 @@
                         {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
                           <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </p>
                         {% endif %}
+                 {% endfor %}
+
+                 <!-- TB Baggage -->
+                 {% for tbBag in tbBaggage %}
+                 <div class="p-2" >
+                     {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
+                     <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
+                      {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
+                       <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
+                     {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
+                       <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
+                     {% endif %}
+                 </div>
+
+              {% endfor %}
+
+            <!-- DOM/INT  -->
+            {% for domOversize in domIntOversize %}
+            <div class="p-2" >
+                {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
+                <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
+                 {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
+                  <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
+                {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
+                  <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
+                {% endif %}
+            </div>
+
+         {% endfor %}
+
+         <!-- TB OVERSIZE -->
+         {% for tbOver in tbOversize %}
+                    <div class="p-2" >
+                        {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
+                             <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </p>
+                         {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
+                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
+                        {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
+                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
+                        {% endif %}
                     </div>
   
                  {% endfor %}
+                </div>
             </div>
   
-         <!-- TB Baggage System-->
+         <!-- TB Baggage System
             <div class="col notAuth">
                  {% for tbBag in tbBaggage %}
                     <div class="p-2" >
@@ -460,7 +668,7 @@
                  {% endfor %}
             </div>
   
-                 <!-- DOM / INT Baggage Oversize -->
+                 DOM / INT Baggage Oversize 
             <div class="col notAuth">
                  {% for domOversize in domIntOversize %}
                     <div class="p-2" >
@@ -476,7 +684,7 @@
                  {% endfor %}
             </div>
   
-                    <!-- TB Oversize -->
+                 TB Oversize 
                  <div class="col notAuth">
   
   
@@ -492,7 +700,7 @@
                     </div>
   
                  {% endfor %}
-            </div>
+            </div> -->
           </div>
           </div>
         
@@ -501,6 +709,38 @@
 
 </div>
 </section>
+
+<!-- modal container -->
+<div class="modal" id="modal"></div>
+
+<!-- script for sending ID of a system to the view through AJAX-->
+<script>
+var sys
+      var id 
+    function setGetParameter(system, ID){
+      sys = system;
+      id = ID;
+
+    }
+    </script>
+
+ <!-- script for showing BS modal -->
+ <script>
+    $('#modal').on('show.bs.modal', function (event) {
+      console.log('im in modal before show');
+      console.log('id is ' + id + ' system ' + sys)
+        var modal = $(this)
+        $.ajax({
+            type : "POST",
+            url: "{% url 'updateForm' pk=0 %}".replace(/0/, id.toString()),
+            data: { system: sys, ID: id, csrfmiddlewaretoken:"{{csrf_token}}"},
+            context: document.body
+        }).done(function(response) {
+            modal.html(response);
+        });
+    })
+    </script>
+
 <script>
 
 var loc = window.location
@@ -549,25 +789,25 @@ console.log(loc.pathname)
 
                     //  alert('about to change pic')
                     if (bridgeStat == 'GREEN')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+                        bridgeIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
                      else if (bridgeStat == 'YELLOW')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+                        bridgeIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
                      else if (bridgeStat == 'RED')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+                        bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
 
                      if (pcaStat == 'GREEN')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+                        pcaIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
                      else if (pcaStat == 'YELLOW')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+                        pcaIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
                      else if (pcaStat == 'RED')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+                        pcaIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
 
                      if (gpuStat     == 'GREEN')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/green.png'%}")
+                        gpuIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
                      else if (gpuStat == 'YELLOW')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/yellow.png'%}")
+                        gpuIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
                      else if (gpuStat == 'RED')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/red.png'%}")
+                        gpuIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
         }
         else if (data.fromCon == 'elevator'){
              var elevatorID = data.elevatorID
