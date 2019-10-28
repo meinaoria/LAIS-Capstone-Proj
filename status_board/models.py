@@ -7,12 +7,14 @@ class Elevators(models.Model):
     RED = 'RE'
     NA = 'N/A'
     elevatorID = models.CharField(max_length=4, primary_key=True)
+    elevatorTableID = models.IntegerField(null=False,unique=True)
     Elevator_Status = (
         ('GREEN', 'Green'),
         ('RED', 'Red'),
-
     )
     Elevator_Status_Choice = models.CharField(max_length=5, choices=Elevator_Status, default=NA)
+    updated = models.DateTimeField(auto_now=True)
+
 
 class Escalators(models.Model):
     GREEN = 'GR'

@@ -121,8 +121,11 @@
                   aksfhn
                  </div> -->
               {% for bridge in bridges %}
-              <div id="bridgeFlexItem">
-
+                {% if bridge.bridgeTableID in rows %}
+                  <div id="bridgeFlexItem" style="background-color:#454d55">
+                  {%else%}
+                  <div id="bridgeFlexItem" >
+                {%endif%}
                 {%if bridge.bridgeTableID <= 9  %}
                 <span style="display: inline-block;">
                     <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
@@ -138,42 +141,53 @@
                  {%endif%}
                   {% if bridge.Bridge_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
-                      <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                      <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"> -->
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled" id="bridge {{bridge.bridgeTableID}}"> 
+                        <!-- <span class="fas fa-check-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:lime;"></span> -->
+                        <i class="fas fa-check-circle fa-lg"  style="color:lime;"></i>
+                        </a>
                     </span>
                       {% elif bridge.Bridge_Status_Choice == 'RED' %}
-                      <span style="display: inline-block;width:25%;text-align: center;">
-                        <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" >
+                      <span style="display: inline-block;width:25%;text-align: center;"></span>
+                        <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" > -->
+                        <i class="fas fa-times-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:red"></i>
                       </span>
                       {% else %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                            <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" >
+                            <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" > -->
+                            <i class="fas fa-minus-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:gold"></i>
                           </span>
                   {% endif %}
                   {% if bridge.PCA_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
-                      <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                      <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
+                      <i class="fas fa-check-circle fa-lg" class="PCA {{bridge.bridgeTableID}}" style="color:lime;"></i>
                     </span>
                         {% elif bridge.PCA_Status_Choice == 'RED' %}
                         <span style="display: inline-block;width:25%;text-align: center;">
-                          <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                          <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
+                          <i class="fas fa-times-circle fa-lg" class="PCA {{bridge.bridgeTableID}}" style="color:red"></i>
                         </span>
                         {% else %}
                         <span style="display: inline-block;width:25%;text-align: center;">
-                              <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                              <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
+                              <i class="fas fa-minus-circle fa-lg" class="PCA {{bridge.bridgeTableID}}" style="color:gold"></i>
                             </span>
                   {% endif %}
                       {% if bridge.GPU_Status_Choice == 'GREEN' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                              <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                              <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
+                              <i class="fas fa-check-circle fa-lg " class="GPU {{bridge.bridgeTableID}}" style="color:lime;"></i>
                             </span>
                           {% elif bridge.GPU_Status_Choice == 'RED' %}
                           <span style="display: inline-block;width:25%;text-align: center;">
-                        
-                            <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                            <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
+                            <i class="fas fa-times-circle fa-lg" class="GPU {{bridge.bridgeTableID}}" style="color:red"></i>
                           </span>
                           {% else %}
                           <span style="display: inline-block;width:25%;text-align: center;">
-                                <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                                <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >-->
+                                <i class="fas fa-minus-circle fa-lg" class="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
                               </span>
                           {% endif %}
                           
@@ -441,9 +455,9 @@
                    <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
                 <div class="flexItem" >       
-                  <a  href="{% url 'elevatorForm' elevBtID=elev.elevatorID %}" class="disabled">  
+                  <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('elev','{{elev.elevatorID}}')" class="disabled">  
                     <!-- 'elevatorForm' elevBtID=elev.elevatorID -->
-                    <span onclick="setGetParameter('elev','{{elev.elevatorID}}')">{{elev.elevatorID}}</span>
+                    <span >{{elev.elevatorID}}</span>
                 </a>
                 <!-- 
                 "onclick=setGetParameter('elev','{{elev.elevatorID}}')" -->
@@ -713,6 +727,9 @@
 <!-- modal container -->
 <div class="modal" id="modal"></div>
 
+<script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+
 <!-- script for sending ID of a system to the view through AJAX-->
 <script>
 var sys
@@ -732,7 +749,7 @@ var sys
         var modal = $(this)
         $.ajax({
             type : "POST",
-            url: "{% url 'updateForm' pk=0 %}".replace(/0/, id.toString()),
+            url: "{% url 'updateSys' %}",
             data: { system: sys, ID: id, csrfmiddlewaretoken:"{{csrf_token}}"},
             context: document.body
         }).done(function(response) {
@@ -754,7 +771,7 @@ console.log(loc.host)
 console.log(loc.pathname)
 
  var socket = new WebSocket(endpoint)
-
+console.log('CONNECTED TO RECIEVE')
    socket.onmessage = function(e){
      console.log('messageeeeeeeeee',e)
 
@@ -775,39 +792,49 @@ console.log(loc.pathname)
                     var pca = 'PCA ' + bridgeTableId
                     var gpu = 'GPU ' + bridgeTableId
 
-                    <!--alert(bridge)-->
-                     <!--alert(pca)-->
-                      <!--alert(gpu)-->
-                    <!--bridge = bridge.toString()-->
-                    <!--pca = pca.toString()-->
-                    <!--gpu = gpu.toString()-->
+             
 
-                   var bridgeIMG = document.getElementsByClassName(bridge)[0]
+                  //  var bridgeIMG = document.getElementsByClassName(bridge)[0]
+                  var bridgeIMG = document.getElementById(bridge)
                    //console.log('brigeIMG ' + bridgeIMG)
                    var pcaIMG = document.getElementsByClassName(pca)[0]
                    var gpuIMG = document.getElementsByClassName(gpu)[0]
 
                     //  alert('about to change pic')
-                    if (bridgeStat == 'GREEN')
+                    if (bridgeStat == 'GREEN'){
                         bridgeIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                     else if (bridgeStat == 'YELLOW')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                     else if (bridgeStat == 'RED')
+                    }
+                     else if (bridgeStat == 'YELLOW'){
+                       console.log('bridge  IS ' + bridge)
+                     var oldClassList = bridgeIMG.classList
+                    
+                     console.log('CLAsS LSIT ' + oldClassList)
+                      $('bridgeIMG').find('[data-fa-i2svg]').removeClass('fa-check-circle').addClass('fa-minus-circle').attr('data-icon', 'minus-circle');
+                     
+                     
+                     //console.log('BEFORE DD CLAsS LSIT '  + bridgeIMG.classList)
+                  
+                    var classList2 = bridgeIMG.classList
+                     console.log('NEWW CLAsS LSIT ' + classList2)
+                      //   bridgeIMG.setAttribute("class","fas fa-check-circle fa-lg")
+                     }
+                     else if (bridgeStat == 'RED'){
                         bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+                     }
+                        
+                    //  if (pcaStat == 'GREEN')
+                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
+                    //  else if (pcaStat == 'YELLOW')
+                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
+                    //  else if (pcaStat == 'RED')
+                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
 
-                     if (pcaStat == 'GREEN')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                     else if (pcaStat == 'YELLOW')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                     else if (pcaStat == 'RED')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
-
-                     if (gpuStat     == 'GREEN')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                     else if (gpuStat == 'YELLOW')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                     else if (gpuStat == 'RED')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+                    //  if (gpuStat     == 'GREEN')
+                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
+                    //  else if (gpuStat == 'YELLOW')
+                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
+                    //  else if (gpuStat == 'RED')
+                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
         }
         else if (data.fromCon == 'elevator'){
              var elevatorID = data.elevatorID
