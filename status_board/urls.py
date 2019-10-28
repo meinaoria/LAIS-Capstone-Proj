@@ -6,7 +6,9 @@ from .views import UpdateForm
 
 urlpatterns = [
     path('', views.home, name='status-board-home'),
-    path('updateForm/<pk>',UpdateForm.as_view(),name='updateForm'),
+    path('updateSys/',views.updateSys, name='updateSys'),
+    path('update/<id>/<sys>/',views.update, name='update'),
+    path('updateForm/<pk>/',UpdateForm.as_view(),name='updateForm'),
     path('bsForm/', views.bsForm, name = 'bsForm'),
     path('update/bridge/<btID>/', views.bridgeTableUpdate, name='bridgeTableForm'),
     path('update/elevator/<elevBtID>/', views.elevatorUpdate, name='elevatorForm'),
