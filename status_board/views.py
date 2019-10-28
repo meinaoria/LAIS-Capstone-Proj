@@ -5,7 +5,7 @@ from django.db.models import IntegerField
 from django.db.models.functions import Cast, Substr
 from django.views.generic.edit import UpdateView
 # bridgeTable, Escalators, Elevators, message, domIntPBS,domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize
-
+from datetime import datetime
 from .forms import *
 # bridgeTableForm, elevatorForm, escalatorForm, messageForm, domIntPBSForm, domIntBaggageSystemsForm, tbPBSForm
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -17,8 +17,60 @@ from bootstrap_modal_forms.generic import BSModalCreateView
 
 from django.db.models.expressions import F, Value, Func 
 
+def updateSys(request):
+	if request.method == 'POST':
+		sys = request.POST.get('system')
+		id = request.POST.get('ID') 
+		if sys == 'elev':
+			id = request.POST.get('ID') 
+			elevator = Elevators.objects.filter(elevatorID=id).first()
+			#get_object_or_404(Elevators, elevatorID=id)
+			print(elevator.Elevator_Status_Choice)
+			form = elevatorForm(instance=elevator)
+			downTime = elevator.updated
+			diff = datetime.now()- downTime
+			dif = format_timedelta(diff)
+			print((diff))
+			print('the diff time is')
+			
+			context= {
+				'system':sys,
+				'id':id,
+				'downTime':dif,
+				'form':form,
+			}
+		elif sys == 'bridge':
+			context = updateBridge(sys,id)
+	return render(request, 'status_board/ModalForms.html', context)
+
+def updateBridge(sys,id):
+	bridge = bridgeTable.objects.filter(bridgeTableID=id).first()
+	form = bridgeTableForm(instance=bridge)
+	context = {
+		'system':sys,
+				'id':id,
+				'form':form,
+	}
+	return context
+def format_timedelta(td):
+    minutes, seconds = divmod(td.seconds + td.days * 86400, 60)
+    hours, minutes = divmod(minutes, 60)
+    return '{:d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
+
+def update(request,id,sys):
+	if request.method == 'POST':
+		if sys == 'elev':
+			elevator=get_object_or_404(Elevators, elevatorID=id)
+			form = elevatorForm(request.POST, instance=elevator)
+		elif sys == 'bridge':
+			bridge=get_object_or_404(bridgeTable, bridgeTableID=id)
+			form = bridgeTableForm(request.POST, instance = bridge)
+		if form.is_valid():
+			form.save()
+	return render(request, 'status_board/form_saved.html')
+
 # def ElevCreateView(request,btID):
-# 		btID = int(btID)
+# 	
 # 		tableID = Elevators.objects.filter(elevatorID=btID).first()
 # 		form = elevatorForm(request.POST or None, instance=tableID)
 # 		path = 'fromElevator'
@@ -33,6 +85,7 @@ from django.db.models.expressions import F, Value, Func
 # 		return render(request, 'status_board/forms.html', context)
 
 def bsForm(request):
+	
 	return render(request, 'status_board/forms.html', context)
 
 class UpdateForm(UpdateView):
@@ -59,7 +112,8 @@ def home(request):
 	# Display all systems ie user is authenticated
 	# if request.user.is_authenticated:
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
-		elevatorData = Elevators.objects.order_by('elevatorID')
+		rows = {1,2,5,6,9,10,13,14,17,18,21,22,25,26,29,30}
+		elevatorData = Elevators.objects.order_by('elevatorTableID')
 		escalatorData = Escalators.objects.order_by('escalatorID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		tbPBSData = tbPBS.objects.order_by('tbPBSID')
@@ -72,6 +126,7 @@ def home(request):
 
 		context = {
 			'bridges': bridgeTableData,
+			 'rows':rows,
 			'elevators': elevatorData,
 			'escalators': escalatorData,
 			'domIntPBS': domIntPBSData,
@@ -88,7 +143,7 @@ def home(request):
 
 	# Display only bridgeTable, elevaotrData, escalatorData ie view for airline employees
 	# else:
-	# 	bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
+	
 # 		elevatorData = Elevators.objects.order_by('elevatorID')
 # 		escalatorData = Escalators.object.order_by('escalatorID')
 	#
@@ -104,8 +159,8 @@ def home(request):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the bridge table
 def bridgeTableUpdate(request, btID):
-	btID = int(btID)
-	tableID = bridgeTable.objects.filter(bridgeTableID=btID).first()
+	
+	
 	form = bridgeTableForm(request.POST or None, instance=tableID)
 	path = 'fromBridgeTable'
 
@@ -122,7 +177,7 @@ def bridgeTableUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the elevator table
 def elevatorUpdate(request, elevBtID):
-	#elevBtID = int(elevBtID)
+	
 	tableID = Elevators.objects.filter(elevatorID=elevBtID).first()
 	form = elevatorForm(request.POST or None, instance=tableID)
 	path = 'fromElevator'
@@ -139,7 +194,7 @@ def elevatorUpdate(request, elevBtID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 #Update the escalator table
 def escalatorUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = Escalators.objects.filter(escalatorID=btID).first()
 	form = escalatorForm(request.POST or None, instance=tableID)
 	path = 'fromEscalator'
@@ -172,7 +227,7 @@ def messageUpdate(request):
 # Update pre board screening tables
 # Update domIntPBS Table
 def domIntPBSUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = domIntPBS.objects.filter(domIntPBSID=btID).first()
 	form = domIntPBSForm(request.POST or None, instance=tableID)
 	path = 'fromDomIntPBS'
@@ -189,7 +244,7 @@ def domIntPBSUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update tbPBS Table
 def tbPBSUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = tbPBS.objects.filter(tbPBSID=btID).first()
 	form = tbPBSForm(request.POST or None, instance=tableID)
 	path = 'fromTbPBS'
@@ -206,7 +261,7 @@ def tbPBSUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update baggage table
 def domIntBaggageUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = domIntBaggageSystems.objects.filter(domIntBaggageID=btID).first()
 	form = domIntBaggageSystemsForm(request.POST or None, instance=tableID)
 	path = 'fromDomIntBaggage'
@@ -224,7 +279,7 @@ def domIntBaggageUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update tb baggage table
 def tbBaggageSystemsUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = tbBaggageSystems.objects.filter(tbBaggageID=btID).first()
 	form = tbBaggageSystemsForm(request.POST or None, instance=tableID)
 	path = 'fromTbBaggage'
@@ -241,7 +296,7 @@ def tbBaggageSystemsUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update tb oversize table
 def tbOversizeUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = tbOversize.objects.filter(tbOversizeID=btID).first()
 	form = tbOversizeForm(request.POST or None, instance=tableID)
 	path = 'fromTbOversize'
@@ -258,7 +313,7 @@ def tbOversizeUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update domInt oversize table
 def domIntOversizeUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = domIntOversize.objects.filter(domIntOversizeID=btID).first()
 	form = domIntOversizeForm(request.POST or None, instance=tableID)
 	path = 'fromDomIntOversize'
@@ -275,7 +330,7 @@ def domIntOversizeUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update lav hut table
 def lavHutUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = lavHut.objects.filter(lavHutID=btID).first()
 	form = lavHutForm(request.POST or None, instance=tableID)
 	path = 'fromLavHut'
@@ -292,7 +347,7 @@ def lavHutUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update electrical Charging table
 def electricalChargingUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = electricalCharging.objects.filter(domIntBaggageID=btID).first()
 	form = electricalChargingForm(request.POST or None, instance=tableID)
 	path = 'fromElectricalCharging'
@@ -309,7 +364,7 @@ def electricalChargingUpdate(request, btID):
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update water Fill table
 def waterFillUpdate(request, btID):
-	btID = int(btID)
+	
 	tableID = waterFill.objects.filter(domIntBaggageID=btID).first()
 	form = waterFillForm(request.POST or None, instance=tableID)
 	path = 'fromWaterFill'
