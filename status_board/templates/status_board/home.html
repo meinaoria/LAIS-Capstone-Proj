@@ -60,6 +60,7 @@
          
     </ul>
       
+
   </div>
 </div> -->
   <!-- End vertical navbar -->
@@ -120,8 +121,11 @@
                   aksfhn
                  </div> -->
               {% for bridge in bridges %}
-              <div id="bridgeFlexItem">
-
+                {% if bridge.bridgeTableID in rows %}
+                  <div id="bridgeFlexItem" style="background-color:#454d55">
+                  {%else%}
+                  <div id="bridgeFlexItem" >
+                {%endif%}
                 {%if bridge.bridgeTableID <= 9  %}
                 <span style="display: inline-block;">
                     <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
@@ -137,42 +141,69 @@
                  {%endif%}
                   {% if bridge.Bridge_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
-                      <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+                      <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"> -->
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                        <!-- <span class="fas fa-check-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:lime;"></span> -->
+                        <i id="bridge {{bridge.bridgeTableID}}" class="myClass fas fa-check-circle fa-lg"  style="color:lime;"></i>
+                        </a>
                     </span>
                       {% elif bridge.Bridge_Status_Choice == 'RED' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                        <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" >
+                        <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" > -->
+                        <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                        <i class="fas fa-times-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:red"></i>
+                          </a>
                       </span>
                       {% else %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                            <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" >
+                            <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" > -->
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                              <i class="fas fa-minus-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:yellow" ></i>
+                            </a>
                           </span>
                   {% endif %}
                   {% if bridge.PCA_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
-                      <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                      <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                        <i class="fas fa-check-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:lime;"></i>
+                      </a>
                     </span>
                         {% elif bridge.PCA_Status_Choice == 'RED' %}
                         <span style="display: inline-block;width:25%;text-align: center;">
-                          <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                          <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
+                          <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                          <i class="fas fa-times-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:red"></i>
+                          </a>
                         </span>
                         {% else %}
                         <span style="display: inline-block;width:25%;text-align: center;">
-                              <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" >
+                              <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
+                              <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                              <i class="fas fa-minus-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:gold"></i>
+                              </a>
                             </span>
                   {% endif %}
                       {% if bridge.GPU_Status_Choice == 'GREEN' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                              <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                              <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
+                              <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                              <i class="fas fa-check-circle fa-lg " class="GPU {{bridge.bridgeTableID}}" style="color:lime;"></i>
+                              </a>
                             </span>
                           {% elif bridge.GPU_Status_Choice == 'RED' %}
                           <span style="display: inline-block;width:25%;text-align: center;">
-                        
-                            <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                            <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                            <i class="fas fa-times-circle fa-lg" class="GPU {{bridge.bridgeTableID}}" style="color:red"></i>
+                              </a>
                           </span>
                           {% else %}
                           <span style="display: inline-block;width:25%;text-align: center;">
-                                <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >
+                                <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >-->
+                                <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                                <i class="fas fa-minus-circle fa-lg" class="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
+                                </a>
                               </span>
                           {% endif %}
                           
@@ -355,6 +386,7 @@
                     </tr>
                   </thead>
                   <tbody>
+
                     {% for bridge in bridges %}
                         <tr style="line-height: 1em;" > 
                           <th scope="row">
@@ -364,7 +396,9 @@
                           </th>
                           <td>
                               {% if bridge.Bridge_Status_Choice == 'GREEN' %}
+
                                     <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
+
                               {% elif bridge.Bridge_Status_Choice == 'RED' %}
                                  <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
                               {% else %}
@@ -437,16 +471,16 @@
                    <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
                 <div class="flexItem" >       
-                  <a  href="{% url 'elevatorForm' elevBtID=elev.elevatorID %}" class="disabled">  
+                  <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('elev','{{elev.elevatorID}}')" class="disabled">  
                     <!-- 'elevatorForm' elevBtID=elev.elevatorID -->
-                    <span onclick="setGetParameter('elev','{{elev.elevatorID}}')">{{elev.elevatorID}}</span>
+                    <span >{{elev.elevatorID}}</span>
                 </a>
                 <!-- 
                 "onclick=setGetParameter('elev','{{elev.elevatorID}}')" -->
                       {% if elev.Elevator_Status_Choice == 'GREEN' %}
-                            <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
+                            <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}">
                       {% elif elev.Elevator_Status_Choice == 'RED' %}
-                            <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}">
+                            <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on : {{elev.updated}}">
                       {% endif %}
                 </div>
             {% endfor %}
@@ -709,6 +743,9 @@
 <!-- modal container -->
 <div class="modal" id="modal"></div>
 
+<script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+
 <!-- script for sending ID of a system to the view through AJAX-->
 <script>
 var sys
@@ -716,6 +753,7 @@ var sys
     function setGetParameter(system, ID){
       sys = system;
       id = ID;
+
     }
     </script>
 
@@ -727,7 +765,7 @@ var sys
         var modal = $(this)
         $.ajax({
             type : "POST",
-            url: "{% url 'updateForm' pk=0 %}".replace(/0/, id.toString()),
+            url: "{% url 'updateSys' %}",
             data: { system: sys, ID: id, csrfmiddlewaretoken:"{{csrf_token}}"},
             context: document.body
         }).done(function(response) {
@@ -737,6 +775,7 @@ var sys
     </script>
 
 <script>
+
 var loc = window.location
 //var form = $('#formData')
 var wsStart = 'ws://'
@@ -746,9 +785,12 @@ if (loc.protocol == 'https:'){
 var endpoint = wsStart + loc.host + loc.pathname
 console.log(loc.host)
 console.log(loc.pathname)
+
  var socket = new WebSocket(endpoint)
+console.log('CONNECTED TO RECIEVE')
    socket.onmessage = function(e){
      console.log('messageeeeeeeeee',e)
+
             var green = '#2ECC71'
             var yellow = '#F1C40F'
             var red = '#E74C3C'
@@ -758,43 +800,77 @@ console.log(loc.pathname)
                 var bridgeStat = data.bridgeStat
                 var pcaStat = data.pcaStat
                 var gpuStat = data.gpuStat
+
+
+
+
                     var bridge = 'bridge ' + bridgeTableId
                     var pca = 'PCA ' + bridgeTableId
                     var gpu = 'GPU ' + bridgeTableId
-                    <!--alert(bridge)-->
-                     <!--alert(pca)-->
-                      <!--alert(gpu)-->
-                    <!--bridge = bridge.toString()-->
-                    <!--pca = pca.toString()-->
-                    <!--gpu = gpu.toString()-->
-                   var bridgeIMG = document.getElementsByClassName(bridge)[0]
+
+             
+
+                  //  var bridgeIMG = document.getElementsByClassName(bridge)[0]
+                  var bridgeIMG = document.getElementById(bridge)
                    //console.log('brigeIMG ' + bridgeIMG)
-                   var pcaIMG = document.getElementsByClassName(pca)[0]
+                   //var pcaIMG = document.getElementsByClassName(pca)[0]
+                   var pcaIMG = document.getElementById(pca)
                    var gpuIMG = document.getElementsByClassName(gpu)[0]
+
                     //  alert('about to change pic')
-                    if (bridgeStat == 'GREEN')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                     else if (bridgeStat == 'YELLOW')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                     else if (bridgeStat == 'RED')
-                        bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
-                     if (pcaStat == 'GREEN')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                     else if (pcaStat == 'YELLOW')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                     else if (pcaStat == 'RED')
-                        pcaIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
-                     if (gpuStat     == 'GREEN')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                     else if (gpuStat == 'YELLOW')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                     else if (gpuStat == 'RED')
-                        gpuIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+                    if (bridgeStat == 'GREEN'){
+                        // bridgeIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
+                        $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                         bridgeIMG.style.color = "lime"
+                    }
+                     else if (bridgeStat == 'YELLOW'){
+                      $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+                      bridgeIMG.style.color = "gold"
+
+                      //   bridgeIMG.setAttribute("class","fas fa-check-circle fa-lg")
+                     }
+                     else if (bridgeStat == 'RED'){
+                        // bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+                        $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                          bridgeIMG.style.color = "red"
+                     }
+
+                     if (pcaStat == 'GREEN'){
+                      $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                      pcaIMG.style.color = "lime"
+                     }
+                     else if (pcaStat == 'YELLOW'){
+                      $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+                      bridgeIMG.style.color = "gold"
+
+                      //   bridgeIMG.setAttribute("class","fas fa-check-circle fa-lg")
+                     }
+                     else if (pcaStat == 'RED'){
+                        // bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+                        $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                          bridgeIMG.style.color = "red"
+                     }
+                        
+                    //  if (pcaStat == 'GREEN')
+                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
+                    //  else if (pcaStat == 'YELLOW')
+                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
+                    //  else if (pcaStat == 'RED')
+                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+
+                    //  if (gpuStat     == 'GREEN')
+                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
+                    //  else if (gpuStat == 'YELLOW')
+                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
+                    //  else if (gpuStat == 'RED')
+                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
         }
         else if (data.fromCon == 'elevator'){
              var elevatorID = data.elevatorID
                 var elevatorStat = data.elevatorStat
+
                 var elev = 'Elev ' + elevatorID
+
                  var elevIMG = document.getElementsByClassName(elev)[0]
                   if (elevatorStat == 'GREEN')
                         elevIMG.setAttribute("src","{% static 'status_board/images/greenElev.png'%}")
@@ -804,18 +880,24 @@ console.log(loc.pathname)
         else if (data.fromCon == 'escalator'){
              var escalatorID = data.escalatorID
                 var escalatorStat = data.escalatorStat
+
                 var esc = 'Esc ' + escalatorID
+
                  var escIMG = document.getElementsByClassName(esc)[0]
                   if (escalatorStat == 'GREEN')
                         escIMG.setAttribute("src","{% static 'status_board/images/greenEsc.png'%}")
                      else if (escalatorStat == 'RED')
                         escIMG.setAttribute("src","{% static 'status_board/images/redEsc.png'%}")
         }
+
         else if (data.fromCon == 'domIntBag'){
             var domIntBagID = data.domIntBagId
             var domIntBagStat = data.domIntBagStat
+
             var domIntBag = 'domBag ' + domIntBagID
+
             var domIntBagTXT = document.getElementsByClassName(domIntBag)[0]
+
                  if (domIntBagStat == 'GREEN')
                         domIntBagTXT.style.color = green
                    else if (domIntBagStat == 'YELLOW')
@@ -823,11 +905,15 @@ console.log(loc.pathname)
                      else if (domIntBagStat == 'RED')
                         domIntBagTXT.style.color = red
         }
+
         else if (data.fromCon == 'tbBag'){
             var tbBagID = data.tbBagID
             var tbBagStat = data.tbBagStat
+
             var tbBag = 'tbBag ' + tbBagID
+
             var tbBagTXT = document.getElementsByClassName(tbBag)[0]
+
                  if (tbBagStat == 'GREEN')
                         tbBagTXT.style.color = green
                    else if (tbBagStat == 'YELLOW')
@@ -838,8 +924,11 @@ console.log(loc.pathname)
         else if (data.fromCon == 'domIntOversize'){
             var domIntOversizeID = data.domIntOversizeID
             var domIntOversizeStat = data.domIntOversizeStat
+
             var domIntOversize = 'domBagOver ' + domIntOversizeID
+
             var domIntOverTXT = document.getElementsByClassName(domIntOversize)[0]
+
                  if (domIntOversizeStat == 'GREEN')
                         domIntOverTXT.style.color = green
                    else if (domIntOversizeStat == 'YELLOW')
@@ -850,8 +939,11 @@ console.log(loc.pathname)
         else if (data.fromCon == 'tbOversize'){
             var tbOversizeID = data.tbOversizeID
             var tbOversizeStatus = data.tbOversizeStatus
+
             var tbOversize = 'tbOver ' + tbOversizeID
+
             var tbBagOverTXT = document.getElementsByClassName(tbOversize)[0]
+
                  if (tbOversizeStatus == 'GREEN')
                         tbBagOverTXT.style.color = green
                    else if (tbOversizeStatus == 'YELLOW')
@@ -859,19 +951,26 @@ console.log(loc.pathname)
                      else if (tbOversizeStatus == 'RED')
                         tbBagOverTXT.style.color = red
         }
+
+
+
+
            <!--console.log(index)-->
           <!--var index = $('#newTing')-->
          <!--index.attr("src",'{% static "systems/green.png" %}')-->
     }
+
     socket.onopen = function(e){
         console.log('opennnnnnnnnnnnn',e)
         }
+
 socket.onerror = function(e){
 console.log('error',e)
 }
 socket.onclose = function(e){
 console.log('closedddddddddddddddddd',e)
 }
+
 </script>
 
-{% endblock content %}  
+{% endblock content %}
