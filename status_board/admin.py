@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import Elevators,Escalators,bridgeTable, message,\
-    domIntPBS, domIntBaggageSystems, tbPBS, tbBaggageSystems,\
-    tbOversize, domIntOversize, lavHut, electricalCharging, waterFill
+from .models import *
 # Register your models here.
 
 admin.site.register(Escalators)
@@ -17,3 +15,4 @@ admin.site.register(domIntOversize)
 admin.site.register(lavHut)
 admin.site.register(electricalCharging)
 admin.site.register(waterFill)
+

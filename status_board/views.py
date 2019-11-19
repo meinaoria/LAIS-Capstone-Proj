@@ -96,6 +96,7 @@ def home(request):
 		rows = {1,2,5,6,9,10,13,14,17,18,21,22,25,26,29,30}
 		elevatorData = Elevators.objects.order_by('elevatorTableID')
 		escalatorData = Escalators.objects.order_by('escalatorID')
+		messageData = message.objects.order_by('messageID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		tbPBSData = tbPBS.objects.order_by('tbPBSID')
 		domIntBaggageData = domIntBaggageSystems.objects.order_by('domIntBaggageID')
@@ -110,6 +111,7 @@ def home(request):
 			 'rows':rows,
 			'elevators': elevatorData,
 			'escalators': escalatorData,
+			'fixedMessages': messageData,
 			'domIntPBS': domIntPBSData,
 			'tbPBS': tbPBSData,
 			'domIntBaggage': domIntBaggageData,
@@ -190,10 +192,9 @@ def escalatorUpdate(request, btID):
 	return render(request, 'status_board/forms.html', context)
 
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-#Update the escalator table
-def messageUpdate(request):
-
-	tableID = message.objects.first()
+#Update the message table
+def messageUpdate(request, btID ):
+	tableID = message.objects.filter(messageID=btID).first()
 	form = messageForm(request.POST or None, instance=tableID)
 	if form.is_valid():
 		form.save()
@@ -201,6 +202,7 @@ def messageUpdate(request):
 	context = {
 		'form': form,
 		'obj': tableID,
+		'path': path,
 	}
 	return render(request, 'status_board/forms.html', context)
 

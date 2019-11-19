@@ -75,32 +75,30 @@
 				</div>
 		  </div>
 	</nav>
-		{% if messages %}
+		<!-- {% if messages %}
 			{% for message in messages %}
 				<div class="alert alert-{{message.tags}}">
 					{{ message }}
 				</div>
 			{% endfor %}
-		{% endif %}
+		{% endif %} -->
 		<div style="display: flex;height: 100%; flex-direction: column;justify-content: start">
+	
+		
 		{% block content %}
 		{% endblock %}
 				
 		{% block mainContent %}
 		{% endblock %}
+		
 
-	
+		{% block footer %}		
+		<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
+			F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E
+		</footer>
+		{% endblock footer%}
 
-
-
-<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
-	F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E
-</footer>
-
-</div>
-<!--<div class="fixed-bottom fixedMessage">-->
- <!--F I X E D  M E S S AGE-->
-<!--</div>-->
+	</div>
 <!-- <script>
 	function change_left() {
     $('div').removeClass('slide-right').addClass('slide-left');
