@@ -1,6 +1,6 @@
 from django import forms
 from bootstrap_modal_forms.forms import BSModalForm
-from .models import bridgeTable, Elevators, Escalators, message, domIntPBS,\
+from .models import bridgeTable, Elevators, Escalators, domIntPBS, message, \
     domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize, domIntOversize, \
     lavHut, electricalCharging, waterFill
 from django.urls import reverse

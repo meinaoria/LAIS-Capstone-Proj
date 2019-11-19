@@ -598,7 +598,7 @@
             </div>
            </div>
            </div>
-
+    
              <!--hide when user is not authenticated-->
             <!--DOM / INT Baggage System-->
 
@@ -720,6 +720,8 @@
         
 
     </div>
+
+</div>
 
 </div>
 </section>
@@ -945,3 +947,13 @@ console.log('closedddddddddddddddddd',e)
 </script>
 
 {% endblock content %}
+
+{% block footer %}
+<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
+  {% for mes in fixedMessages %}
+    <a href="{% url 'messageForm' btID=mes.messageID %}" class="disabled">
+        <span>{{mes.message}}</span>
+    </a> 
+  {% endfor %}
+</footer>
+{% endblock footer%}

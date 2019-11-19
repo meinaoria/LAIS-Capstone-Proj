@@ -65,6 +65,8 @@ class bridgeTable(models.Model):
 
 class message(models.Model):
     message = models.CharField(max_length=240)
+    messageID = models.IntegerField(primary_key=True)
+
 # Baggage systems
 # Dom/Int Baggage Systems
 class domIntBaggageSystems(models.Model):
@@ -78,8 +80,6 @@ class domIntBaggageSystems(models.Model):
         ('GREEN', 'Green'),
         ('YELLOW', 'Yellow'),
         ('RED', 'Red'),
-
-
     )
     DomIntBaggage_Status_Choice = models.CharField(max_length=6, choices=DomIntBaggage_Status, default=NA)
 
@@ -112,7 +112,6 @@ class tbOversize(models.Model):
         ('GREEN', 'Green'),
         ('YELLOW', 'Yellow'),
         ('RED', 'Red'),
-
 
     )
     TbOversize_Status_Choice = models.CharField(max_length=6, choices=TbOversize_Status, default=NA)
