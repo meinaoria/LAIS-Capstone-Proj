@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 
-<div class="modal-dialog modal-lg" role="document">
+<div class="modal-dialog modal-sm" role="document">
     <form action="{% url 'update' id=id sys=system%}" method="post" id="form" name="myform" class="form">{% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">
@@ -8,13 +8,16 @@
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title">Add News</h4>
             </div>
             <div class="modal-body">
                 {{system}}
                 {{id}}
                 {{ form|crispy }}
+               {%if status == 'GREEN' %}
+               <p>UpTime is {{downTime}}</p>
+               {%elif status == 'RED'%}
                 <p>DownTIme is {{downTime}}</p>
+                {%endif%}
                 
             </div>
             <div class="modal-footer">
@@ -58,7 +61,7 @@ console.log('pathname = ' + loc.pathname)
                                 'from':from,
                             }
                             }
-                    else if( '{{system}}' === 'bridge' ){
+                    else if( '{{system}}' === 'bridge'  || '{{system}}' === 'PCA'  || '{{system}}' === 'GPU' ){
                        
                         bridgeTableID = '{{id}}'
                             bridgeStatus = document.myform.Bridge_Status_Choice.value

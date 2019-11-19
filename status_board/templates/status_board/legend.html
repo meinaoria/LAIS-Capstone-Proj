@@ -1,0 +1,204 @@
+{% extends "status_board/base.html" %}
+{% load static %}
+{% block mainContent %}
+  <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+    {% if user.is_authenticated and perms.catalog.has_write_access %}
+        <!-- <span>Auth and has permission</span> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
+    {% elif user.is_authenticated %}
+        <span> No permission</span>
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}"> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
+    {% elif not user.is_authenicated %}
+        <!--<span>Not Auth</span>-->
+           <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
+    {% endif %}
+
+{% endblock mainContent%}
+
+
+{% block content %}
+<section role="main" style="height: 95%">
+    <div class="row no-gutters" id="main" style="height: 100%">
+        <!-- <div class="col-sm"  style="height: inherit"> -->
+        <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
+            <thead>
+            <tr>
+                <th>Elevator</th>
+                <th>Floors</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1A & 1B</td>
+                <td>0,1,2,3</td>
+                <td>US CBP Transborder North (Secure).</td>
+            </tr>
+            <!-- <tr>
+                <td>1B</td>
+                <td>0,1,2,3</td>
+                <td>US CBP Transborder North (Secure).</td>
+            </tr> -->
+            <tr>
+                <td>2</td>
+                <td>0,1,2,3</td>
+                <td>North PTB, behind US checking counters (Public).</td>
+            </tr>
+            <tr>
+                    <td>3</td>
+                    <td>0,1,2,3</td>
+                    <td>By Tim Hortons, 3rd level, Freight Elevator (Public).</td>
+                </tr>
+                <tr>
+                        <td>5A & 5B</td>
+                        <td>1, 2, 3</td>
+                        <td>Main lobby North PTB (Public).</td>
+                    </tr>
+                    <!-- <tr>
+                        <td>5B</td>
+                        <td>1, 2, 3</td>
+                        <td>Main lobby North PTB (Public).</td>
+                    </tr> -->
+                    <tr>
+                    <td>6A & 6B</td>
+                    <td>1, 2, 3</td>
+                    <td>Main lobby South PTB (Public).</td>
+                </tr>
+                <!-- <tr>
+                        <td>6B</td>
+                        <td>1, 2, 3</td>
+                        <td>Main lobby South PTB (Public).</td>
+                    </tr> -->
+                    <tr>
+                            <td>7</td>
+                            <td>1, 2/td>
+                            <td>Arrivals, by carrousel 5 (Public).</td>
+                        </tr>
+                        <tr>
+                                <td>8</td>
+                                <td>2, 3</td>
+                                <td>Maple Leaf Lounge (Secure).</td>
+                            </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>0,1,2</td>
+                            <td>Elev. beside Freight Elev. 10, by gate 19 (Secure).</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>0,1,2</td>
+                            <td>Freight Elev. beside Freight Elev. 10, by gate 19 (Secure).</td>
+                        </tr>
+                        <tr>
+                                <td>11</td>
+                                <td>1,2,3,4</td>
+                                <td>Parkade North Lobby.</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>1,2,3,4</td>
+                                <td>Parkade South Lobby.</td>
+                            </tr>
+                           
+            </tbody>
+        </table>
+        <!-- </div> -->
+        <!-- <div class="col-sm"  style="height: inherit"> -->
+                <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
+                        <thead>
+                        <tr>
+                            <th>Escalator</th>
+                            <th>Floors</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>3</td>
+                                    <td>1 to 2</td>
+                                    <td>By Pass control office, North PTB</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>1 to 2</td>
+                                    <td>Near Baggage Claims, South PTB</td>
+                                    </tr>
+                                    <tr>
+                                            <td>5</td>
+                                            <td>2 to 1</td>
+                                            <td>Domestic arrivals, waterfall, Central PTB</td>
+                                            </tr>
+                                            <tr>
+                                                    <td>6</td>
+                                                    <td>2 to 1</td>
+                                                    <td>Domestic arrivals, waterfall, Central PTB</td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>7</td>
+                                                            <td>3 to 2</td>
+                                                            <td>US CBP, by the Tim Hortons Transborder North (Secure).</td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td>8</td>
+                                                                    <td>2 to 3</td>
+                                                                    <td>By pass control to Departures, North PTB</td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                            <td>9</td>
+                                                                            <td>2 to 3</td>
+                                                                            <td>Level 2 to Departures, South PTB</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                            <td>10</td>
+                                                                            <td>3 to 2</td>
+                                                                            <td>Departures- food court to domestic checking, South PTB</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                    <td>11</td>
+                                                                                    <td>2 to 3</td>
+                                                                                    <td>Domestic checking to Departures- food court, South PTB</td>
+                                                                                    </tr>
+                                                                                     <tr>
+                                                                         
+                            </tbody>
+                            </table>
+        
+        <!-- </div> -->
+        <!-- <div class="col-sm"  style="height: inherit;background-color:#282828"> -->
+                <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
+                        <thead>
+                        <tr>
+                            <th>Carousel</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Canada Customs</td>
+                        </tr>
+                        <tr>
+                                <td>2</td>
+                                <td>Canada Customs</td>
+                            </tr>
+                            <tr>
+                                    <td>3</td>
+                                    <td>Domestic Arrivals</td>
+                                </tr>
+                                <tr>
+                                        <td>4</td>
+                                        <td>Domestic Arrivals</td>
+                                    </tr>
+                                    <tr>
+                                            <td>5</td>
+                                            <td>Domestic Arrivals</td>
+                                        </tr>
+        
+        <!-- </div>  -->
+  </div>
+  </section>
+  {% endblock content %}

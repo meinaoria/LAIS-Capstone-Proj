@@ -17,31 +17,46 @@ from bootstrap_modal_forms.generic import BSModalCreateView
 
 from django.db.models.expressions import F, Value, Func 
 
+
+def legend(request):
+	return render(request, 'status_board/legend.html')
+
+#@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 def updateSys(request):
 	if request.method == 'POST':
 		sys = request.POST.get('system')
 		id = request.POST.get('ID') 
 		if sys == 'elev':
-			id = request.POST.get('ID') 
-			elevator = Elevators.objects.filter(elevatorID=id).first()
-			#get_object_or_404(Elevators, elevatorID=id)
-			print(elevator.Elevator_Status_Choice)
-			form = elevatorForm(instance=elevator)
-			downTime = elevator.updated
-			diff = datetime.now()- downTime
-			dif = format_timedelta(diff)
-			print((diff))
-			print('the diff time is')
-			
-			context= {
-				'system':sys,
-				'id':id,
-				'downTime':dif,
-				'form':form,
-			}
-		elif sys == 'bridge':
+			context = updateElev(sys,id)
+		elif sys == 'bridge' or  sys == 'PCA' or  sys == 'GPU':
 			context = updateBridge(sys,id)
+		elif sys == 'carousel':
+			context = updateCarousel(sys,id)
 	return render(request, 'status_board/ModalForms.html', context)
+
+def updateCarousel(sys,id):
+	return
+
+def updateElev(sys,id):
+	elevator = Elevators.objects.filter(elevatorID=id).first()
+			#get_object_or_404(Elevators, elevatorID=id)
+	# print(elevator.Elevator_Status_Choice)
+	form = elevatorForm(instance=elevator)
+	downTime = elevator.updated
+	dif
+	f = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	# print((diff))
+	# print('the diff time is')
+	Status = elevator.Elevator_Status_Choice
+	context= {
+		'system':sys,
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
 
 def updateBridge(sys,id):
 	bridge = bridgeTable.objects.filter(bridgeTableID=id).first()
@@ -62,51 +77,17 @@ def update(request,id,sys):
 		if sys == 'elev':
 			elevator=get_object_or_404(Elevators, elevatorID=id)
 			form = elevatorForm(request.POST, instance=elevator)
-		elif sys == 'bridge':
+		elif sys == 'bridge' or  sys =='PCA' or sys == 'GPU':
 			bridge=get_object_or_404(bridgeTable, bridgeTableID=id)
 			form = bridgeTableForm(request.POST, instance = bridge)
 		if form.is_valid():
 			form.save()
 	return render(request, 'status_board/form_saved.html')
 
-# def ElevCreateView(request,btID):
-# 	
-# 		tableID = Elevators.objects.filter(elevatorID=btID).first()
-# 		form = elevatorForm(request.POST or None, instance=tableID)
-# 		path = 'fromElevator'
-# 		if form.is_valid():
-# 			form.save()
-# 			return redirect('status-board-home') #need to change redirect
-# 		context = {
-# 			'form': form,
-# 			'obj': tableID,
-# 			'path': path,
-# 		}
-# 		return render(request, 'status_board/forms.html', context)
-
-def bsForm(request):
-	
-	return render(request, 'status_board/forms.html', context)
-
-class UpdateForm(UpdateView):
-	
-	fields = ['Elevator_Status_Choice']
-
-	def get_object(self):
-		id = self.kwargs.get('pk')
-		return get_object_or_404(Elevators, elevatorID=id)
-	
-	def get_queryset(self):
-			return Elevators.objects.all()
-
-	
-
-	def form_valid(self, form):
-			self.object = form.save()
-			print('VALIDAAAAAAAAATE')       
-			return render(self.request,'status_board/form_saved.html')
-        
-	
+# def form_valid(self, form):
+# 			self.object = form.save()
+# 			print('VALIDAAAAAAAAATE')       
+# 			return render(self.request,'status_board/form_saved.html')	
 
 def home(request):
 	# Display all systems ie user is authenticated
