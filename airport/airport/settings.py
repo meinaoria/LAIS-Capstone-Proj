@@ -79,11 +79,11 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'LAIS-db',
+        'NAME': 'postgres2',
         'USER': 'postgres',
         'PASSWORD': 'Kotebe10',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 

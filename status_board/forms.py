@@ -1,8 +1,6 @@
 from django import forms
 from bootstrap_modal_forms.forms import BSModalForm
-from .models import bridgeTable, Elevators, Escalators, domIntPBS, message, \
-    domIntBaggageSystems, tbPBS, tbBaggageSystems, tbOversize, domIntOversize, \
-    lavHut, electricalCharging, waterFill
+from .models import *
 from django.urls import reverse
 
 
@@ -10,17 +8,36 @@ class bridgeTableForm(forms.ModelForm):
    def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
        self.fields['Bridge_Status_Choice'].widget.attrs['name'] = 'bridgeChoice'
-       self.fields['PCA_Status_Choice'].widget.attrs['name'] = 'pcaChoice'
-       self.fields['GPU_Status_Choice'].widget.attrs['name'] = 'gpuChoice'
+      
        # post =forms.CharField()
 
    class Meta:
         model = bridgeTable
         fields = [
             'Bridge_Status_Choice',
+        ]
+
+class pcaTableForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+       super().__init__(*args, **kwargs)
+       self.fields['PCA_Status_Choice'].widget.attrs['name'] = 'pcaChoice'
+
+    class Meta:
+        model = bridgeTable
+        fields = [
             'PCA_Status_Choice',
+        ]
+class gpuTableForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+       super().__init__(*args, **kwargs)
+       self.fields['GPU_Status_Choice'].widget.attrs['name'] = 'gpuChoice'
+
+    class Meta:
+        model = bridgeTable
+        fields = [
             'GPU_Status_Choice',
         ]
+ 
    
 class elevatorForm(forms.ModelForm):
    # post =forms.CharField()
@@ -30,9 +47,7 @@ class elevatorForm(forms.ModelForm):
             'Elevator_Status_Choice',
         ]
 
-    def get_absolute_url(self):
-            print('in get absolute url')
-            return reverse("bsForm", kwargs={'pk':self.pk})
+    
 
 
 class escalatorForm(forms.ModelForm):
@@ -94,12 +109,7 @@ class tbPBSForm(forms.ModelForm):
             'TbPBS_Status_Choice'
         }
 
-class lavHutForm(forms.ModelForm):
-    class Meta:
-        model = lavHut
-        fields = {
-            'LavHut_Status_Choice'
-        }
+
 
 class electricalChargingForm(forms.ModelForm):
     class Meta:

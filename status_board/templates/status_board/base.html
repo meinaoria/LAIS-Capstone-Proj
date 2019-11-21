@@ -92,12 +92,22 @@
 		{% endblock %}
 		
 
-		{% block footer %}		
+		<!-- 	
 		<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
 			F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E F I X E D  M E S S A G E
 		</footer>
-		{% endblock footer%}
+	-->
 
+		
+{% block footer %}
+<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
+  {% for mes in fixedMessages %}
+    <a  data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('mes','{{mes.messageID}}')"  class="disabled">
+        <span id='adHocMsg'>{{mes.message}}</span>
+    </a> 
+  {% endfor %}
+</footer>
+{% endblock footer%}
 	</div>
 <!-- <script>
 	function change_left() {
@@ -131,7 +141,7 @@ to_right();
 		}
 		</script>
 
-<script>
+<!-- <script>
 		// var navBar = document.getElementById('navBar').offsetHeight;
 		// console.log('nav ' + navBar);
 		var footer = document.getElementById('fixedFooter').offsetHeight;
@@ -145,7 +155,7 @@ to_right();
 		var main = document.getElementById('main').style.height = 40;
 		console.log(newMainH);
 	  
-	  </script>
+	  </script> -->
 
 
 </body>

@@ -21,12 +21,14 @@ class Escalators(models.Model):
     RED = 'RE'
     NA = 'N/A'
     escalatorID = models.CharField(max_length=4, primary_key=True)
+    escalatorTableID = models.IntegerField(null=False,unique=True)
     Escalator_Status = (
         ('GREEN', 'Green'),
         ('RED', 'Red'),
 
     )
     Escalator_Status_Choice = models.CharField(max_length=5, choices=Escalator_Status, default=NA)
+    updated = models.DateTimeField(auto_now=True)
 
 class bridgeTable(models.Model):
     GREEN = 'GR'
@@ -42,6 +44,7 @@ class bridgeTable(models.Model):
     )
 
     Bridge_Status_Choice = models.CharField(max_length=6, choices=Bridge_Status, default=NA)
+    bridgeUpdated = models.DateTimeField(auto_now=True)
 
     PCA_Status = (
         ('GREEN', 'Green'),
@@ -49,6 +52,7 @@ class bridgeTable(models.Model):
         ('RED', 'Red'),
     )
     PCA_Status_Choice = models.CharField(max_length=6, choices=PCA_Status, default=NA)
+    pcaUpdated = models.DateTimeField(auto_now=True)
 
     GPU_Status = (
         ('GREEN', 'Green'),
@@ -56,7 +60,8 @@ class bridgeTable(models.Model):
         ('RED', 'Red'),
     )
     GPU_Status_Choice = models.CharField(max_length=6, choices=GPU_Status, default=NA)
-
+    gpuUpdated = models.DateTimeField(auto_now=True)
+    
     class Meta:
         permissions = (
             ("has_write_access", "Can change the status"),
@@ -65,7 +70,23 @@ class bridgeTable(models.Model):
 
 class message(models.Model):
     message = models.CharField(max_length=240)
-    messageID = models.IntegerField(primary_key=True)
+    messageID = models.IntegerField(primary_key=True,default = 0)
+
+class lavHut(models.Model):
+    GREEN = 'GR'
+    RED = 'RE'
+    YELLOW = 'YE'
+    NA = 'N/A'
+    lavHutID = models.CharField(max_length=4, primary_key=True)
+
+    LavHut_Status = (
+        ('GREEN', 'Green'),
+        ('YELLOW', 'Yellow'),
+        ('RED', 'Red'),
+
+    )
+    LavHut_Status_Choice = models.CharField(max_length=6, choices=LavHut_Status, default=NA)
+
 
 # Baggage systems
 # Dom/Int Baggage Systems
@@ -167,21 +188,6 @@ class tbPBS(models.Model):
     )
     TbPBS_Status_Choice = models.CharField(max_length=6, choices=TbPBS_Status, default=NA)
 
-# Other Systems
-class lavHut(models.Model):
-    GREEN = 'GR'
-    RED = 'RE'
-    YELLOW = 'YE'
-    NA = 'N/A'
-    lavHutID = models.CharField(max_length=4, primary_key=True)
-
-    LavHut_Status = (
-        ('GREEN', 'Green'),
-        ('YELLOW', 'Yellow'),
-        ('RED', 'Red'),
-
-    )
-    LavHut_Status_Choice = models.CharField(max_length=6, choices=LavHut_Status, default=NA)
 
 class electricalCharging(models.Model):
     GREEN = 'GR'

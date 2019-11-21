@@ -128,15 +128,11 @@
                 {%endif%}
                 {%if bridge.bridgeTableID <= 9  %}
                 <span style="display: inline-block;">
-                    <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
-                        <span> {{bridge.bridgeTableID}}<span style="visibility: hidden;">0</span></span>
-                    </a>
+                        <span> {{bridge.bridgeTableID}}<span style="visibility: hidden;">0</span></span>                 
                   </span>
                 {% else%}
-                  <span style="display: inline-block;">
-                    <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
-                        <span> {{bridge.bridgeTableID}} </span>
-                    </a>
+                  <span style="display: inline-block;">                   
+                        <span> {{bridge.bridgeTableID}} </span>              
                   </span>
                  {%endif%}
                   {% if bridge.Bridge_Status_Choice == 'GREEN' %}
@@ -188,21 +184,21 @@
                       <span style="display: inline-block;width:25%;text-align: center;">
                               <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
                               <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                              <i class="fas fa-check-circle fa-lg " class="GPU {{bridge.bridgeTableID}}" style="color:lime;"></i>
+                              <i class="fas fa-check-circle fa-lg " id="GPU {{bridge.bridgeTableID}}" style="color:lime;"></i>
                               </a>
                             </span>
                           {% elif bridge.GPU_Status_Choice == 'RED' %}
                           <span style="display: inline-block;width:25%;text-align: center;">
                             <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                            <i class="fas fa-times-circle fa-lg" class="GPU {{bridge.bridgeTableID}}" style="color:red"></i>
+                            <i class="fas fa-times-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:red"></i>
                               </a>
                           </span>
                           {% else %}
                           <span style="display: inline-block;width:25%;text-align: center;">
                                 <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >-->
                                 <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                                <i class="fas fa-minus-circle fa-lg" class="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
+                                <i class="fas fa-minus-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
                                 </a>
                               </span>
                           {% endif %}
@@ -211,257 +207,6 @@
               {% endfor %}
           </div>
     </div>
-    <!-- <div class="col-sm" id="bridgeRow" style="height: inherit;"> -->
-        <!--&lt;!&ndash;<div class="max-vh-100" >&ndash;&gt;-->
-
-            <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>#</div>-->
-                <!--<div>BRIDGE</div>-->
-                <!--<div>PCA</div>-->
-                <!--<div>GPU</div>-->
-            <!--</div>-->
-        <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>17</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>18</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-         <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-          <!-- STARRRT -->
-            <!-- <table class="table table-striped table-dark table-sm " style="height: inherit;">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Bridge</th>
-                      <th scope="col">PCA</th>
-                      <th scope="col">GPU</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    {% for bridge in bridges %}
-                        <tr style="line-height: 1em;" > 
-                          <th scope="row">
-                              <a href="{% url 'bridgeTableForm' btID=bridge.bridgeTableID%}" class="disabled">
-                                  <span>{{bridge.bridgeTableID}} </span>
-                              </a>
-                          </th>
-                          <td>
-                              {% if bridge.Bridge_Status_Choice == 'GREEN' %}
-
-                                    <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
-
-                              {% elif bridge.Bridge_Status_Choice == 'RED' %}
-                                 <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
-                              {% else %}
-                                     <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}">
-                              {% endif %}
-                          </td>
-                          <td>
-                              {% if bridge.PCA_Status_Choice == 'GREEN' %}
-                                  <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
-                              {% elif bridge.PCA_Status_Choice == 'RED' %}
-                                 <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
-                              {% else %}
-                                     <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}">
-                              {% endif %}
-                          </td>
-                          <td>
-                              {% if bridge.GPU_Status_Choice == 'GREEN' %}
-                                  <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
-                              {% elif bridge.GPU_Status_Choice == 'RED' %}
-                                 <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
-                              {% else %}
-                                     <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}">
-                              {% endif %}
-                          </td>
-                        </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-            </div> -->
-    <!--</div>-->
-      <!--<div class="col-sm" id="bridgeRowTwo" style="">-->
-            <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>#</div>-->
-                <!--<div>BRIDGE</div>-->
-                <!--<div>PCA</div>-->
-                <!--<div>GPU</div>-->
-            <!--</div>-->
-        <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>1</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-
-        <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>2</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-
-        <!--<div style="display: flex;-->
-  <!--justify-content: space-around;">-->
-                <!--<div>3</div>-->
-                <!--<div><img src='{% static "status_board/images/green.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/yellow.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-                <!--<div><img src='{% static "status_board/images/red.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"></div>-->
-            <!--</div>-->
-      <!--</div>-->
-
     <!--Elevators 2nd Column-->
     <div class="col-sm-3 text-white" style="height: inherit" >
         <div class="height" style="background-color:#282828;" >
@@ -471,16 +216,25 @@
                    <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
                 <div class="flexItem" >       
-                  <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('elev','{{elev.elevatorID}}')" class="disabled">  
+                  <!-- <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled">  
+                  </a> -->
                     <!-- 'elevatorForm' elevBtID=elev.elevatorID -->
-                    <span >{{elev.elevatorID}}</span>
-                </a>
-                <!-- 
-                "onclick=setGetParameter('elev','{{elev.elevatorID}}')" -->
+                    {%if elev.elevatorID == '2' or elev.elevatorID == '3' or elev.elevatorID == '4' or elev.elevatorID == '7'  or elev.elevatorID == '8' or elev.elevatorID == '9'  %} 
+                    <spans><span style="visibility: hidden;">0</span>{{elev.elevatorID}} </span>
+                    {%else%}
+                    <spans>{{elev.elevatorID}} </span>
+                    {%endif%}
+    
                       {% if elev.Elevator_Status_Choice == 'GREEN' %}
-                            <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}">
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled"  > 
+                        <i class="fas fa-check-circle fa-lg " id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:lime;"></i>
+                        </a>
+                            <!-- <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}"> -->
                       {% elif elev.Elevator_Status_Choice == 'RED' %}
-                            <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on : {{elev.updated}}">
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled"  > 
+                        <i class="fas fa-times-circle fa-lg" id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:red"></i>
+                        </a>      
+                      <!-- <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on : {{elev.updated}}"> -->
                       {% endif %}
                 </div>
             {% endfor %}
@@ -549,35 +303,11 @@
 
              <!-- Water Fill -->
 
-              {% for wFill in waterFill %}
-                 <div  style="flex:0 0 100%; text-align:center " >
-                     {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
-                     <p class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
-                      {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
-                       <p class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
-                     {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
-                       <p class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
-                     {% endif %}
-                 </div>
-  
-              {% endfor %}
+         
 
 
                          <!--Electrical Charging-->
 
-
-              {% for wFill in waterFill %}
-                 <div  style="flex:0 0 100%; text-align:center ">
-                     {% if wFill.WaterFill_Status_Choice == 'GREEN' %}
-                     <p class="wFill {{wFill.waterFillID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
-                      {% elif wFill.WaterFill_Status_Choice == 'YELLOW' %}
-                       <p class="wFill {{wFill.waterFillID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
-                     {% elif  wFill.WaterFill_Status_Choice == 'RED' %}
-                       <p class="wFill {{wFill.waterFillID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'waterFillForm' btID=wFill.waterFillID%}" class="disabled" style="color:inherit"> <span>WATER FILL</span></a> </p>
-                     {% endif %}
-                 </div>
-
-              {% endfor %}
 
 
          </div>
@@ -601,13 +331,22 @@
               {% for esc in escalators %}
             <div class="flexItem">
             <!-- <div class="p-2 align-self-center" style="width:50%;" > -->
-                    <a href="{% url 'escalatorForm' btID=esc.escalatorID%}" class="disabled">
-                        <span>{{esc.escalatorID}}</span>
-                    </a>
+              {%if esc.escalatorID != '10' or esc.escalatorID != '11' or esc.escalatorID != '11' %}
+                        <span><span style="visibility: hidden;">0</span>{{esc.escalatorID}}</span>
+                {%else%}
+                <span>{{esc.escalatorID}}</span>
+                {%endif%}
+                    
                       {% if esc.Escalator_Status_Choice == 'GREEN' %}
-                            <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}} ">
+                            <!-- <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}} "> -->
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Escalator','{{esc.escalatorID}}')" class="disabled"  > 
+                              <i class="fas fa-check-circle fa-lg " id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:lime;"></i>
+                              </a>
                       {% elif esc.Escalator_Status_Choice == 'RED' %}
-                            <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}">
+                            <!-- <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}"> -->
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Escalator','{{esc.escalatorID}}')" class="disabled"  > 
+                              <i class="fas fa-times-circle fa-lg" id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:red"></i>
+                              </a>      
                       {% endif %}
                 </div>
             {% endfor %}
@@ -740,8 +479,6 @@
 </div>
 </div>
 
-
-</div>
 </section>
 
 <!-- modal container -->
@@ -753,7 +490,7 @@
 <!-- script for sending ID of a system to the view through AJAX-->
 <script>
 var sys
-      var id 
+var id 
     function setGetParameter(system, ID){
       sys = system;
       id = ID;
@@ -794,104 +531,101 @@ console.log(loc.pathname)
 console.log('CONNECTED TO RECIEVE')
    socket.onmessage = function(e){
      console.log('messageeeeeeeeee',e)
-
-            var green = '#2ECC71'
-            var yellow = '#F1C40F'
-            var red = '#E74C3C'
         var data = JSON.parse(e.data)
         if (data.fromCon == 'bridgeTable'){
                 var bridgeTableId = data.bridgeTableID
                 var bridgeStat = data.bridgeStat
-                var pcaStat = data.pcaStat
-                var gpuStat = data.gpuStat
-
-
-
-
-                    var bridge = 'bridge ' + bridgeTableId
-                    var pca = 'PCA ' + bridgeTableId
-                    var gpu = 'GPU ' + bridgeTableId
-
-             
-
-                  //  var bridgeIMG = document.getElementsByClassName(bridge)[0]
-                  var bridgeIMG = document.getElementById(bridge)
-                   //console.log('brigeIMG ' + bridgeIMG)
-                   //var pcaIMG = document.getElementsByClassName(pca)[0]
-                   var pcaIMG = document.getElementById(pca)
-                   var gpuIMG = document.getElementsByClassName(gpu)[0]
-
-                    //  alert('about to change pic')
+                var bridge = 'bridge ' + bridgeTableId
+                var bridgeIMG = document.getElementById(bridge)
                     if (bridgeStat == 'GREEN'){
-                        // bridgeIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
                         $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
                          bridgeIMG.style.color = "lime"
                     }
                      else if (bridgeStat == 'YELLOW'){
                       $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
                       bridgeIMG.style.color = "gold"
-
-                      //   bridgeIMG.setAttribute("class","fas fa-check-circle fa-lg")
                      }
                      else if (bridgeStat == 'RED'){
-                        // bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
                         $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
                           bridgeIMG.style.color = "red"
-                     }
+                     }           
+        }
+        else if (data.fromCon == 'pcaTable'){
+          var bridgeTableId = data.bridgeTableID
+          var pcaStat = data.pcaStat
+          var pca = 'PCA ' + bridgeTableId
+          var pcaIMG = document.getElementById(pca)
 
-                     if (pcaStat == 'GREEN'){
-                      $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-                      pcaIMG.style.color = "lime"
-                     }
-                     else if (pcaStat == 'YELLOW'){
-                      $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
-                      bridgeIMG.style.color = "gold"
-
-                      //   bridgeIMG.setAttribute("class","fas fa-check-circle fa-lg")
-                     }
-                     else if (pcaStat == 'RED'){
-                        // bridgeIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
-                        $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-                          bridgeIMG.style.color = "red"
-                     }
-                        
-                    //  if (pcaStat == 'GREEN')
-                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                    //  else if (pcaStat == 'YELLOW')
-                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                    //  else if (pcaStat == 'RED')
-                    //     pcaIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
-
-                    //  if (gpuStat     == 'GREEN')
-                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/gCheck2.png'%}")
-                    //  else if (gpuStat == 'YELLOW')
-                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/yC.png'%}")
-                    //  else if (gpuStat == 'RED')
-                    //     gpuIMG.setAttribute("src","{% static 'status_board/images/rX.png'%}")
+          if (pcaStat == 'GREEN'){
+              $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                pcaIMG.style.color = "lime"
+              }
+          else if (pcaStat == 'YELLOW'){
+            $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+             pcaIMG.style.color = "gold"
+            }
+          else if (pcaStat == 'RED'){
+             $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+              pcaIMG.style.color = "red"
+            }
+        }
+        else if (data.fromCon == 'gpuTable'){
+          var bridgeTableId = data.bridgeTableID
+          var gpuStat = data.gpuStat
+          var gpu = 'GPU ' + bridgeTableId
+          var gpuIMG = document.getElementById(gpu)
+          
+          if (gpuStat == 'GREEN'){
+            $(gpuIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+             gpuIMG.style.color = "lime"
+          }
+          else if (gpuStat == 'YELLOW'){
+            $(gpuIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+            gpuIMG.style.color = "gold"
+            }
+          else if (gpuStat == 'RED'){
+             $(gpuIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+             gpuIMG.style.color = "red"
+            }
+        }
+        else if (data.fromCon == 'msg'){
+          msgID = data.msgID
+          msg = data.msg
+          changeMsg = document.getElementById('adHocMsg').innerHTML = msg
         }
         else if (data.fromCon == 'elevator'){
              var elevatorID = data.elevatorID
                 var elevatorStat = data.elevatorStat
 
                 var elev = 'Elev ' + elevatorID
-
-                 var elevIMG = document.getElementsByClassName(elev)[0]
-                  if (elevatorStat == 'GREEN')
-                        elevIMG.setAttribute("src","{% static 'status_board/images/greenElev.png'%}")
-                     else if (elevatorStat == 'RED')
-                        elevIMG.setAttribute("src","{% static 'status_board/images/redElev.png'%}")
+                console.log('elev' + elev)
+                 var elevIMG = document.getElementById(elev)
+                  if (elevatorStat == 'GREEN'){
+                    $(elevIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                    elevIMG.style.color = "lime"
+                  }                     
+                  else if (elevatorStat == 'RED'){
+                      $(elevIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                      elevIMG.style.color = "red"
+                     }            
         }
         else if (data.fromCon == 'escalator'){
+          console.log('IN EsC')
              var escalatorID = data.escalatorID
                 var escalatorStat = data.escalatorStat
 
                 var esc = 'Esc ' + escalatorID
-
-                 var escIMG = document.getElementsByClassName(esc)[0]
+                console.log('IN EsC' + esc)
+                 var escIMG = document.getElementById(esc)
                   if (escalatorStat == 'GREEN')
-                        escIMG.setAttribute("src","{% static 'status_board/images/greenEsc.png'%}")
+                  {
+                    $(escIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                    escIMG.style.color = "lime"
+                  }  
                      else if (escalatorStat == 'RED')
-                        escIMG.setAttribute("src","{% static 'status_board/images/redEsc.png'%}")
+                        {$(escIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                        escIMG.style.color = "red"
+                     }            
         }
 
         else if (data.fromCon == 'domIntBag'){
@@ -954,14 +688,7 @@ console.log('CONNECTED TO RECIEVE')
                         tbBagOverTXT.style.color = yellow
                      else if (tbOversizeStatus == 'RED')
                         tbBagOverTXT.style.color = red
-        }
-
-
-
-
-           <!--console.log(index)-->
-          <!--var index = $('#newTing')-->
-         <!--index.attr("src",'{% static "systems/green.png" %}')-->
+        }  
     }
 
     socket.onopen = function(e){
@@ -978,13 +705,3 @@ console.log('closedddddddddddddddddd',e)
 </script>
 
 {% endblock content %}
-
-{% block footer %}
-<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
-  {% for mes in fixedMessages %}
-    <a href="{% url 'messageForm' btID=mes.messageID %}" class="disabled">
-        <span>{{mes.message}}</span>
-    </a> 
-  {% endfor %}
-</footer>
-{% endblock footer%}

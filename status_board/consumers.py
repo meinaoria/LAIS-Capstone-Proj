@@ -81,17 +81,39 @@ class bridgeTableConsumer(AsyncConsumer):
            if (loaded_dict_data.get('from') == 'bridge'):
                bridgeTableID = loaded_dict_data.get('bridgeTableID')
                bridgeStatus = loaded_dict_data.get('bridgeStat')
-               pcaStatus = loaded_dict_data.get('pcaStat')
-               gpuStatus = loaded_dict_data.get('gpuStat')
                fromCon = 'bridgeTable'
-
                response = {
                    "bridgeTableID": bridgeTableID,
                    'bridgeStat': bridgeStatus,
-                   'pcaStat': pcaStatus,
-                   'gpuStat': gpuStatus,
                    'fromCon': fromCon,
                }
+           elif (loaded_dict_data.get('from') == 'pca'):
+               bridgeTableID = loaded_dict_data.get('bridgeTableID')
+               pcaStat = loaded_dict_data.get('pcaStat')
+               fromCon = 'pcaTable'
+               response = {
+                   "bridgeTableID": bridgeTableID,
+                   'pcaStat': pcaStat,
+                   'fromCon': fromCon,
+               }
+           elif (loaded_dict_data.get('from') == 'gpu'):
+               bridgeTableID = loaded_dict_data.get('bridgeTableID')
+               gpuStat = loaded_dict_data.get('gpuStat')
+               fromCon = 'gpuTable'
+               response = {
+                   "bridgeTableID": bridgeTableID,
+                   'gpuStat': gpuStat,
+                   'fromCon': fromCon,
+               }
+           elif(loaded_dict_data.get('from') == 'mes'):
+                    msgID = loaded_dict_data.get('mesID')
+                    msg = loaded_dict_data.get('msg')
+                    fromCon = 'msg'
+                    response= {
+                        'msgID':msgID,
+                        'msg':msg,
+                        'fromCon': fromCon,
+                    }  
            elif (loaded_dict_data.get('from') == 'elev'):
                elevatorID = loaded_dict_data.get('elevatorID')
                elevatorStatus = loaded_dict_data.get('elevatorStat')

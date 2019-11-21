@@ -1,22 +1,23 @@
 {% load crispy_forms_tags %}
 
 <div class="modal-dialog modal-sm" role="document">
-    <form action="{% url 'update' id=id sys=system%}" method="post" id="form" name="myform" class="form">{% csrf_token %}
+    <form action="{% url 'update' id=id sys=system %}"  method="post" id="form" name="myform" class="form">{% csrf_token %}
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color: lightgrey;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
             </div>
             <div class="modal-body">
-                {{system}}
-                {{id}}
+                {{system}} {{id}}
                 {{ form|crispy }}
                {%if status == 'GREEN' %}
-               <p>UpTime is {{downTime}}</p>
+               <p>UpTime is (HH:MM:SS) {{downTime}}</p>
                {%elif status == 'RED'%}
-                <p>DownTIme is {{downTime}}</p>
+                <p>DownTime is (HH:MM:SS) {{downTime}}</p>
+                {%elif status == 'YELLOW'%}
+                <p>In maintenance for (HH:MM:SS) {{downTime}}</p>
                 {%endif%}
                 
             </div>
@@ -40,45 +41,81 @@ console.log('host = ' + loc.host)
 console.log('pathname = ' + loc.pathname)
  var socket = new WebSocket(endpoint)
 
+ var oldStatus = '{{status}}'
  socket.onopen = function(e){
         console.log('openEDDD',e)
         var from
              var elevatorID
               var elevatorStatus
+           
               console.log('befor Send' + '')
         form.submit(function(event){
+   
                     console.log('form saved')
                     var final_data
                     console.log(' system is {{system}}')
-                    if( '{{system}}' === 'elev' ){
-                       
-                        elevatorID = '{{id}}'
-                            elevatorStatus = document.myform.Elevator_Status_Choice.value
-                            from = 'elev'
-                              final_data = {
-                                'elevatorID': elevatorID,
-                                'elevatorStat':elevatorStatus,
-                                'from':from,
-                            }
-                            }
-                    else if( '{{system}}' === 'bridge'  || '{{system}}' === 'PCA'  || '{{system}}' === 'GPU' ){
-                       
-                        bridgeTableID = '{{id}}'
-                            bridgeStatus = document.myform.Bridge_Status_Choice.value
+                    switch('{{system}}'){
+                        case 'Elevator':
+                            elevatorID = '{{id}}'
+                                elevatorStatus = document.myform.Elevator_Status_Choice.value
+                                from = 'elev'
+                                final_data = {
+                                    'elevatorID': elevatorID,
+                                    'elevatorStat':elevatorStatus,
+                                    'from':from,
+                                }
+                                break;
+                        case 'Escalator':
+                                escalatorStatus = document.myform.Escalator_Status_Choice.value
+                                from = 'esc'
+                                final_data = {
+                                    'escalatorID': '{{id}}',
+                                    'escalatorStatus':escalatorStatus,
+                                    'from':from,
+                                }
+                                break;
+                        case 'bridge':
+                                bridgeStatus = document.myform.Bridge_Status_Choice.value
+                                from = 'bridge'
+                                final_data = {
+                                    'bridgeTableID':'{{id}}',
+                                    'bridgeStat':bridgeStatus,
+                                    'from': from,
+                                }
+                                break;
+                        case 'PCA':
                             pcaStatus = document.myform.PCA_Status_Choice.value
-                             gpuStatus = document.myform.GPU_Status_Choice.value
-                            from = 'bridge'
-                             final_data = {
-                                'bridgeTableID': bridgeTableID,
-                                'bridgeStat':bridgeStatus,
-                                'pcaStat': pcaStatus,
-                                'gpuStat': gpuStatus,
-                                'from': from,
+                            from = 'pca'
+                                final_data = {
+                                    'bridgeTableID':'{{id}}',
+                                    'pcaStat': pcaStatus,
+                                    'from': from,
+                                }
+                                break;
+                        case  'GPU':
+                                gpuStatus = document.myform.GPU_Status_Choice.value
+                                from = 'gpu'
+                                final_data = {
+                                    'bridgeTableID':'{{id}}',
+                                    'gpuStat': gpuStatus,
+                                    'from': from,
+                                }
+                                break;
+                        case 'mes':
+                            msg = document.myform.message.value
+                            final_data = {
+                                'mesID':'{{id}}',
+                                'msg':msg,
+                                'from':'{{system}}'
                             }
-                           }
+                            console.log('sending mes')
+                                break;
+                        }
+                    
 
                             socket.send(JSON.stringify(final_data));
                             console.log('sent data')
+            
         });
                             
  }

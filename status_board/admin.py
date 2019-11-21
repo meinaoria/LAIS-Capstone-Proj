@@ -12,7 +12,7 @@ admin.site.register(domIntBaggageSystems)
 admin.site.register(tbBaggageSystems)
 admin.site.register(tbOversize)
 admin.site.register(domIntOversize)
-admin.site.register(lavHut)
+
 admin.site.register(electricalCharging)
 admin.site.register(waterFill)
 

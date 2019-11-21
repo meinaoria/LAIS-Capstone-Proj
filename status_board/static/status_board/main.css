@@ -47,46 +47,24 @@
         animation: 10s slide-left;
          margin:0;
     }
-    .slide-right p {
-        -moz-animation: 10s slide-right;
+    .slide-right span {
+        /* -moz-animation: 10s slide-right;
         -webkit-animation: 10s slide-right;
-        -o-animation: 10s slide-right;
-        animation: 10s slide-right;
-        margin:0;
+        -o-animation: 10s slide-right; */
+        position:relative;
+        white-space: nowrap;
+        animation:  slide-right 15s infinite ease-in-out;
+        /* margin:0; */
       }
-      div.slide-left p {
-        -moz-animation: 10s slide-left;
-        -webkit-animation: 10s slide-left;
-        -o-animation: 10s slide-left;
-        animation: 10s slide-left;
-        margin:0;
+      @keyframes slide-right { 
+        from {right:-5%}
+        to {right:200%}
       }
-      @-webkit-keyframes slide-right { from { margin-left: 100%;width: 300%; }
+
+     
+      /* @-webkit-keyframes slide-right { from { margin-left: 100%;width: 300%; }
         to {margin-left: 0%;width: 100%;} }
       @-moz-keyframes slide-right { from { margin-left: 100%;width: 300%; }
         to {margin-left: 0%;width: 100%;} }
        @-o-keyframes slide-right { from { margin-left: 100%;width: 300%; }
-        to {margin-left: 0%;width: 100%;} }
-      @keyframes slide-right { from { margin-left: 100%;width: 300%; }
-        to {margin-left: 0%;width: 100%;} }
-      
-      @-webkit-keyframes slide-left { from {margin-left: 0%;width: 100%;}
-       to {margin-left: -100%;width: 300%;} }
-      @-moz-keyframes slide-left { from {margin-left: 0%;width: 100%;}
-       to {margin-left: -100%;width: 300%;} }
-      @-o-keyframes slide-left { from {margin-left: 0%;width: 100%;}
-       to {margin-left: -100%;width: 300%;} }
-      @keyframes slide-left { from {margin-left: 0%;width: 100%;}
-       to {margin-left: -100%;width: 300%;} }
-    @keyframes slide { from {margin-left: 0%;width: 100%;}
-        to {margin-left: -100%;width: 300%;} }
-    /* @media(min-width:575.98px) {
-     /* .no-gutters{
-     height:100%;
-     } */
-    
-    } */
-    
-    }
-    
-    
+        to {margin-left: 0%;width: 100%;} } */

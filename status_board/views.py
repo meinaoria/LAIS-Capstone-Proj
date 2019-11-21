@@ -26,16 +26,50 @@ def updateSys(request):
 	if request.method == 'POST':
 		sys = request.POST.get('system')
 		id = request.POST.get('ID') 
-		if sys == 'elev':
+		if sys == 'Elevator':
 			context = updateElev(sys,id)
-		elif sys == 'bridge' or  sys == 'PCA' or  sys == 'GPU':
+		elif sys == 'Escalator':
+			context = updateEsc(sys,id)
+		elif sys == 'bridge':
 			context = updateBridge(sys,id)
+		elif sys == 'PCA':
+			context = updatePCA(sys,id)
+		elif sys == 'GPU':
+			context = updateGPU(sys,id)
 		elif sys == 'carousel':
 			context = updateCarousel(sys,id)
+		elif sys == 'mes':
+			context = updateMes(sys,id)
 	return render(request, 'status_board/ModalForms.html', context)
 
 def updateCarousel(sys,id):
 	return
+
+def updateEsc(sys,id):
+	escalator = Escalators.objects.filter(escalatorID=id).first()
+	form = escalatorForm(instance=escalator)
+	downTime = escalator.updated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = escalator.Escalator_Status_Choice
+	context= {
+		'system':sys,
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
+
+def updateMes(sys,id):
+	mes = message.objects.filter(messageID=id).first()
+	form =  messageForm(instance=mes)
+	context={
+		'system':sys,
+		'id':id,
+		'form':form,
+	}
+	return context
 
 def updateElev(sys,id):
 	elevator = Elevators.objects.filter(elevatorID=id).first()
@@ -43,8 +77,7 @@ def updateElev(sys,id):
 	# print(elevator.Elevator_Status_Choice)
 	form = elevatorForm(instance=elevator)
 	downTime = elevator.updated
-	dif
-	f = datetime.now()- downTime
+	diff = datetime.now() - downTime
 	dif = format_timedelta(diff)
 	# print((diff))
 	# print('the diff time is')
@@ -58,15 +91,58 @@ def updateElev(sys,id):
 	}
 	return context
 
+#Bring up Bridge form
 def updateBridge(sys,id):
+	print('updateBridge')
 	bridge = bridgeTable.objects.filter(bridgeTableID=id).first()
 	form = bridgeTableForm(instance=bridge)
+	downTime = bridge.bridgeUpdated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = bridge.Bridge_Status_Choice
 	context = {
 		'system':sys,
 				'id':id,
+				'downTime':dif,
 				'form':form,
+				'status': Status,
 	}
 	return context
+
+# Bring up PCA form
+def updatePCA(sys,id):
+	pca = bridgeTable.objects.filter(bridgeTableID=id).first()
+	form = pcaTableForm(instance=pca)
+	downTime = pca.pcaUpdated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = pca.PCA_Status_Choice
+	context = {
+		'system':sys,
+				'id':id,
+				'downTime':dif,
+				'form':form,
+				'status': Status,
+	}
+	return context
+
+# Bring up GPU form
+def updateGPU(sys,id):
+	gpu = bridgeTable.objects.filter(bridgeTableID=id).first()
+	form = gpuTableForm(instance=gpu)
+	downTime = gpu.gpuUpdated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = gpu.GPU_Status_Choice
+	context = {
+		'system':sys,
+				'id':id,
+				'downTime':dif,
+				'form':form,
+				'status': Status,
+	}
+	return context
+
 def format_timedelta(td):
     minutes, seconds = divmod(td.seconds + td.days * 86400, 60)
     hours, minutes = divmod(minutes, 60)
@@ -74,20 +150,33 @@ def format_timedelta(td):
 
 def update(request,id,sys):
 	if request.method == 'POST':
-		if sys == 'elev':
-			elevator=get_object_or_404(Elevators, elevatorID=id)
-			form = elevatorForm(request.POST, instance=elevator)
-		elif sys == 'bridge' or  sys =='PCA' or sys == 'GPU':
-			bridge=get_object_or_404(bridgeTable, bridgeTableID=id)
-			form = bridgeTableForm(request.POST, instance = bridge)
+		context ={
+			'sys':sys,
+			'id':id,
+		}
+		if sys == 'Elevator':
+				elevator=get_object_or_404(Elevators, elevatorID=id)
+				form = elevatorForm(request.POST, instance=elevator)
+		elif sys == 'Escalator':
+				escalator=get_object_or_404(Escalators, escalatorID=id)
+				form = escalatorForm(request.POST, instance=escalator)
+		elif sys == 'bridge':
+				bridge=get_object_or_404(bridgeTable, bridgeTableID=id)
+				form = bridgeTableForm(request.POST, instance = bridge)
+		elif sys =='PCA':
+				pca=get_object_or_404(bridgeTable, bridgeTableID=id)
+				form = pcaTableForm(request.POST, instance = pca)
+		elif sys == 'GPU':
+				gpu=get_object_or_404(bridgeTable, bridgeTableID=id)
+				form = gpuTableForm(request.POST, instance = gpu)
+		elif sys == 'mes':
+				mes=get_object_or_404(message,messageID=id)
+				form = messageForm(request.POST, instance=mes)
+				print('SAVING MES')
 		if form.is_valid():
-			form.save()
-	return render(request, 'status_board/form_saved.html')
+				form.save()
+	return render(request, 'status_board/form_saved.html',context)
 
-# def form_valid(self, form):
-# 			self.object = form.save()
-# 			print('VALIDAAAAAAAAATE')       
-# 			return render(self.request,'status_board/form_saved.html')	
 
 def home(request):
 	# Display all systems ie user is authenticated
@@ -95,7 +184,7 @@ def home(request):
 		bridgeTableData = bridgeTable.objects.order_by('bridgeTableID')
 		rows = {1,2,5,6,9,10,13,14,17,18,21,22,25,26,29,30}
 		elevatorData = Elevators.objects.order_by('elevatorTableID')
-		escalatorData = Escalators.objects.order_by('escalatorID')
+		escalatorData = Escalators.objects.order_by('escalatorTableID')
 		messageData = message.objects.order_by('messageID')
 		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
 		tbPBSData = tbPBS.objects.order_by('tbPBSID')
@@ -103,7 +192,7 @@ def home(request):
 		tbBaggageSystemData = tbBaggageSystems.objects.order_by('tbBaggageID')
 		domIntOversizeData = domIntOversize.objects.order_by('domIntOversizeID')
 		tbOversizeData = tbOversize.objects.order_by('tbOversizeID')
-		lavHutData = lavHut.objects.order_by('lavHutID')
+	
 		waterFillData = waterFill.objects.order_by('waterFillID')
 
 		context = {
@@ -118,7 +207,7 @@ def home(request):
 			'tbBaggage': tbBaggageSystemData,
 			'domIntOversize': domIntOversizeData,
 			'tbOversize': tbOversizeData, 
-			'lavHut': lavHutData, 
+			 
 			'waterFill': waterFillData
 		}
 		return render(request, 'status_board/home.html', context)
@@ -310,22 +399,9 @@ def domIntOversizeUpdate(request, btID):
 	}
 	return render(request, 'status_board/forms.html', context)
 
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
+
 # Update lav hut table
-def lavHutUpdate(request, btID):
-	
-	tableID = lavHut.objects.filter(lavHutID=btID).first()
-	form = lavHutForm(request.POST or None, instance=tableID)
-	path = 'fromLavHut'
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)
+
 
 @user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update electrical Charging table
