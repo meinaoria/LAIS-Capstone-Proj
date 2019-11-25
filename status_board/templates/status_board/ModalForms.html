@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 
 <div class="modal-dialog modal-sm" role="document">
-    <form action="{% url 'update' id=id sys=system %}"  method="post" id="form" name="myform" class="form">{% csrf_token %}
+    <form action="{% url 'update' id=id sys=system oldStat=status %}"  method="post" id="form" name="myform" class="form">{% csrf_token %}
         <div class="modal-content">
             <div class="modal-header" style="background-color: lightgrey;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -71,6 +71,15 @@ console.log('pathname = ' + loc.pathname)
                                 final_data = {
                                     'escalatorID': '{{id}}',
                                     'escalatorStatus':escalatorStatus,
+                                    'from':from,
+                                }
+                                break;
+                        case 'Carousel':
+                                carouselStatus = document.myform.bagCarousel_Status_Choice.value
+                                from = 'Carousel'
+                                final_data = {
+                                    'carouselID': '{{id}}',
+                                    'carouselStatus':carouselStatus,
                                     'from':from,
                                 }
                                 break;

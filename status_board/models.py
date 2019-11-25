@@ -71,21 +71,23 @@ class bridgeTable(models.Model):
 class message(models.Model):
     message = models.CharField(max_length=240)
     messageID = models.IntegerField(primary_key=True,default = 0)
+    updated = models.DateTimeField(auto_now=True)
 
-class lavHut(models.Model):
+class bagCarousel(models.Model):
     GREEN = 'GR'
     RED = 'RE'
     YELLOW = 'YE'
     NA = 'N/A'
-    lavHutID = models.CharField(max_length=4, primary_key=True)
+    bagCarouselID = models.IntegerField(primary_key=True)
 
-    LavHut_Status = (
+    bagCarousel_Status = (
         ('GREEN', 'Green'),
         ('YELLOW', 'Yellow'),
         ('RED', 'Red'),
 
     )
-    LavHut_Status_Choice = models.CharField(max_length=6, choices=LavHut_Status, default=NA)
+    bagCarousel_Status_Choice = models.CharField(max_length=6, choices=bagCarousel_Status, default=NA)
+    updated = models.DateTimeField(auto_now=True)
 
 
 # Baggage systems
@@ -103,6 +105,7 @@ class domIntBaggageSystems(models.Model):
         ('RED', 'Red'),
     )
     DomIntBaggage_Status_Choice = models.CharField(max_length=6, choices=DomIntBaggage_Status, default=NA)
+    updated = models.DateTimeField(auto_now=True)
 
 # TB Baggage System
 class tbBaggageSystems(models.Model):
@@ -120,6 +123,7 @@ class tbBaggageSystems(models.Model):
 
     )
     TbBaggage_Status_Choice = models.CharField(max_length=6, choices=TbBaggage_Status, default=NA)
+    updated = models.DateTimeField(auto_now=True)
 
 # TB Oversize Baggage
 class tbOversize(models.Model):
@@ -136,6 +140,7 @@ class tbOversize(models.Model):
 
     )
     TbOversize_Status_Choice = models.CharField(max_length=6, choices=TbOversize_Status, default=NA)
+    updated = models.DateTimeField(auto_now=True)
 
 # Dom/Int Oversize Baggage
 class domIntOversize(models.Model):
@@ -153,68 +158,10 @@ class domIntOversize(models.Model):
 
     )
     DomIntOversize_Status_Choice = models.CharField(max_length=6, choices=DomIntOversize_Status, default=NA)
-
-# Pre Board Screening Systems
-# Dom/Int PBS
-class domIntPBS(models.Model):
-    GREEN = 'GR'
-    RED = 'RE'
-    YELLOW = 'YE'
-    NA = 'N/A'
-    domIntPBSID = models.CharField(max_length=4, primary_key=True)
-
-    DomIntPBS_Status = (
-        ('GREEN', 'Green'),
-        ('YELLOW', 'Yellow'),
-        ('RED', 'Red'),
+    updated = models.DateTimeField(auto_now=True)
 
 
-    )
-    DomIntPBS_Status_Choice = models.CharField(max_length=6, choices=DomIntPBS_Status, default=NA)
-# tb PBS
-class tbPBS(models.Model):
-    GREEN = 'GR'
-    RED = 'RE'
-    YELLOW = 'YE'
-    NA = 'N/A'
-    tbPBSID = models.CharField(max_length=4, primary_key=True)
-
-    TbPBS_Status = (
-        ('GREEN', 'Green'),
-        ('YELLOW', 'Yellow'),
-        ('RED', 'Red'),
 
 
-    )
-    TbPBS_Status_Choice = models.CharField(max_length=6, choices=TbPBS_Status, default=NA)
 
 
-class electricalCharging(models.Model):
-    GREEN = 'GR'
-    RED = 'RE'
-    YELLOW = 'YE'
-    NA = 'N/A'
-    electricalChargingID = models.CharField(max_length=4, primary_key=True)
-
-    ElectricalCharging_Status = (
-        ('GREEN', 'Green'),
-        ('YELLOW', 'Yellow'),
-        ('RED', 'Red'),
-
-    )
-    ElectricalCharging_Status_Choice = models.CharField(max_length=6, choices=ElectricalCharging_Status, default=NA)
-
-class waterFill(models.Model):
-    GREEN = 'GR'
-    RED = 'RE'
-    YELLOW = 'YE'
-    NA = 'N/A'
-    waterFillID = models.CharField(max_length=4, primary_key=True)
-
-    WaterFill_Status = (
-        ('GREEN', 'Green'),
-        ('YELLOW', 'Yellow'),
-        ('RED', 'Red'),
-
-    )
-    WaterFill_Status_Choice = models.CharField(max_length=6, choices=WaterFill_Status, default=NA)

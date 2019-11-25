@@ -168,6 +168,16 @@ class bridgeTableConsumer(AsyncConsumer):
                    'tbOversizeStatus': tbOversizeStat,
                    'fromCon': fromCon,
                }
+           elif (loaded_dict_data.get('from') == 'Carousel'):
+               carouselID = loaded_dict_data.get('carouselID')
+               carouselStat = loaded_dict_data.get('carouselStatus')
+               fromCon = 'Carousel'
+               response = {
+                   "carouselID": carouselID,
+                   'carouselStat': carouselStat,
+                   'fromCon': fromCon,
+               }
+            
 
 
            # Broadcasts message

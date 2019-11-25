@@ -3,7 +3,7 @@ from bootstrap_modal_forms.forms import BSModalForm
 from .models import *
 from django.urls import reverse
 
-
+# bridge Form
 class bridgeTableForm(forms.ModelForm):
    def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
@@ -17,6 +17,7 @@ class bridgeTableForm(forms.ModelForm):
             'Bridge_Status_Choice',
         ]
 
+# pca Form
 class pcaTableForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
@@ -27,6 +28,8 @@ class pcaTableForm(forms.ModelForm):
         fields = [
             'PCA_Status_Choice',
         ]
+
+# gpu Form
 class gpuTableForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
@@ -38,7 +41,7 @@ class gpuTableForm(forms.ModelForm):
             'GPU_Status_Choice',
         ]
  
-   
+  # elevator Form 
 class elevatorForm(forms.ModelForm):
    # post =forms.CharField()
     class Meta:
@@ -47,9 +50,7 @@ class elevatorForm(forms.ModelForm):
             'Elevator_Status_Choice',
         ]
 
-    
-
-
+# escalator Form
 class escalatorForm(forms.ModelForm):
    # post =forms.CharField()
     class Meta:
@@ -58,6 +59,7 @@ class escalatorForm(forms.ModelForm):
             'Escalator_Status_Choice',
         ]
 
+# message Form
 class messageForm(forms.ModelForm):
    # post =forms.CharField()
     class Meta:
@@ -65,6 +67,8 @@ class messageForm(forms.ModelForm):
         fields = [
             'message',
         ]
+
+# domIntBaggageSystem Form
 class domIntBaggageSystemsForm(forms.ModelForm):
     class Meta:
         model = domIntBaggageSystems
@@ -73,13 +77,15 @@ class domIntBaggageSystemsForm(forms.ModelForm):
             'DomIntBaggage_Status_Choice',
         ]
 
-class tbBaggageSystemsForm (forms.ModelForm):
+# tbBaggageSystem Form
+class tbBaggageSystemsForm(forms.ModelForm):
     class Meta:
         model = tbBaggageSystems
         fields = [
             'TbBaggage_Status_Choice',
         ]
 
+# tbOverSize Form
 class tbOversizeForm(forms.ModelForm):
     class Meta:
         model = tbOversize
@@ -87,6 +93,7 @@ class tbOversizeForm(forms.ModelForm):
             'TbOversize_Status_Choice'
         }
 
+# domIntOversize Form
 class domIntOversizeForm(forms.ModelForm):
     class Meta:
         model = domIntOversize
@@ -94,33 +101,10 @@ class domIntOversizeForm(forms.ModelForm):
             'DomIntOversize_Status_Choice'
         }
 
-class domIntPBSForm(forms.ModelForm):
-    # post=forms.CharField()
+# bagCarousel Form
+class bagCarouselForm(forms.ModelForm):
     class Meta:
-        model = domIntPBS
-        fields = [
-            'DomIntPBS_Status_Choice',
-        ]
-
-class tbPBSForm(forms.ModelForm):
-    class Meta:
-        model = tbPBS
+        model = bagCarousel
         fields = {
-            'TbPBS_Status_Choice'
-        }
-
-
-
-class electricalChargingForm(forms.ModelForm):
-    class Meta:
-        model = electricalCharging
-        fields = {
-            'ElectricalCharging_Status_Choice'
-        }
-
-class waterFillForm(forms.ModelForm):
-    class Meta:
-        model = waterFill
-        fields = {
-            'WaterFill_Status_Choice'
+            'bagCarousel_Status_Choice'
         }

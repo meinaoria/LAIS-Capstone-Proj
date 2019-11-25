@@ -36,13 +36,27 @@ def updateSys(request):
 			context = updatePCA(sys,id)
 		elif sys == 'GPU':
 			context = updateGPU(sys,id)
-		elif sys == 'carousel':
+		elif sys == 'Carousel':
 			context = updateCarousel(sys,id)
 		elif sys == 'mes':
 			context = updateMes(sys,id)
 	return render(request, 'status_board/ModalForms.html', context)
 
 def updateCarousel(sys,id):
+	carousel = bagCarousel.objects.filter(bagCarouselID=id).first()
+	form = bagCarouselForm(instance=carousel)
+	downTime = carousel.updated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = carousel.bagCarousel_Status_Choice
+	context= {
+		'system':sys,
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
 	return
 
 def updateEsc(sys,id):
@@ -148,33 +162,45 @@ def format_timedelta(td):
     hours, minutes = divmod(minutes, 60)
     return '{:d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
 
-def update(request,id,sys):
-	if request.method == 'POST':
-		context ={
+def update(request,id,sys,oldStat):
+	context ={
 			'sys':sys,
 			'id':id,
 		}
+	if request.method == 'POST':		
 		if sys == 'Elevator':
 				elevator=get_object_or_404(Elevators, elevatorID=id)
 				form = elevatorForm(request.POST, instance=elevator)
+				status = 'Elevator_Status_Choice'
 		elif sys == 'Escalator':
 				escalator=get_object_or_404(Escalators, escalatorID=id)
 				form = escalatorForm(request.POST, instance=escalator)
+				status = 'Escalator_Status_Choice'
 		elif sys == 'bridge':
 				bridge=get_object_or_404(bridgeTable, bridgeTableID=id)
 				form = bridgeTableForm(request.POST, instance = bridge)
+				status = 'Bridge_Status_Choice'
 		elif sys =='PCA':
 				pca=get_object_or_404(bridgeTable, bridgeTableID=id)
 				form = pcaTableForm(request.POST, instance = pca)
+				status = 'PCA_Status_Choice'
 		elif sys == 'GPU':
 				gpu=get_object_or_404(bridgeTable, bridgeTableID=id)
 				form = gpuTableForm(request.POST, instance = gpu)
+				status = 'GPU_Status_Choice'
 		elif sys == 'mes':
 				mes=get_object_or_404(message,messageID=id)
 				form = messageForm(request.POST, instance=mes)
-				print('SAVING MES')
+				status = 'message'
+		elif sys == 'Carousel':
+				carousel = get_object_or_404(bagCarousel,bagCarouselID=id)
+				form = bagCarouselForm(request.POST, instance = carousel)
+				status = 'bagCarousel_Status_Choice'
 		if form.is_valid():
-				form.save()
+			newStat = form.cleaned_data[status]
+			if (oldStat == newStat):
+				return render(request, 'status_board/form_notSaved.html',context)
+			form.save()
 	return render(request, 'status_board/form_saved.html',context)
 
 
@@ -185,30 +211,26 @@ def home(request):
 		rows = {1,2,5,6,9,10,13,14,17,18,21,22,25,26,29,30}
 		elevatorData = Elevators.objects.order_by('elevatorTableID')
 		escalatorData = Escalators.objects.order_by('escalatorTableID')
-		messageData = message.objects.order_by('messageID')
-		domIntPBSData = domIntPBS.objects.order_by('domIntPBSID')
-		tbPBSData = tbPBS.objects.order_by('tbPBSID')
+		bagCarousels = bagCarousel.objects.order_by('bagCarouselID')
 		domIntBaggageData = domIntBaggageSystems.objects.order_by('domIntBaggageID')
 		tbBaggageSystemData = tbBaggageSystems.objects.order_by('tbBaggageID')
 		domIntOversizeData = domIntOversize.objects.order_by('domIntOversizeID')
 		tbOversizeData = tbOversize.objects.order_by('tbOversizeID')
+		messageData = message.objects.order_by('messageID')
 	
-		waterFillData = waterFill.objects.order_by('waterFillID')
+	
 
 		context = {
 			'bridges': bridgeTableData,
-			 'rows':rows,
+			'rows':rows,
 			'elevators': elevatorData,
 			'escalators': escalatorData,
+			'bagCarousel': bagCarousels,
 			'fixedMessages': messageData,
-			'domIntPBS': domIntPBSData,
-			'tbPBS': tbPBSData,
 			'domIntBaggage': domIntBaggageData,
 			'tbBaggage': tbBaggageSystemData,
 			'domIntOversize': domIntOversizeData,
-			'tbOversize': tbOversizeData, 
-			 
-			'waterFill': waterFillData
+			'tbOversize': tbOversizeData,
 		}
 		return render(request, 'status_board/home.html', context)
 

@@ -3,6 +3,7 @@
  <!--for testing purposes, mainContent should be changed to cssLink and h1 tags removed-->
 {% block mainContent %}
   <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
+<script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
   <script src="http://malsup.github.com/jquery.form.js"></script>
     {% if user.is_authenticated and perms.catalog.has_write_access %}
         <!-- <span>Auth and has permission</span> -->
@@ -22,86 +23,8 @@
 {% block content %}
 <section role="main" style="height: 95%">
   <div class="row no-gutters" id="main" style="height: 100%">
-
-      <!-- <div class="col-sm"  style="height: inherit;"> -->
-    <!-- Vertical navbar -->
-    
-<!-- <div class="vertical-nav bg-white" id="sidebar">
-    <div class="py-4 px-3 mb-4 bg-light">
-      <div class="media d-flex align-items-center">
-          <h4 class="m-0">Live Airport Information System</h4>
-      </div>
-    </div>
-  
-    <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
-  
-    <ul class="nav flex-column bg-white mb-0">
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link " href="#" style="color:black">Legend</a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link " href="{% url 'logout' %}" style="color:black">Logout</a>
-          </li>
-          {% else %}
-					  <li class="nav-item">
-						  <a class="nav-link " href="#" style="color:black">Legend</a>
-					  </li>
-					  <li class="nav-item">
-						 <a class="nav-link " href="{% url 'login' %}" style="color:black">Login</a>
-            </li>
-            {% endif %}
-            <li class="nav-item" style="color:black">
-                <a class="nav-link " > OPERATIONS <br>613-248-2200 </a>
-              </li>
-              <li class="nav-item " style="color:black">
-                  <a class="nav-link " > EMERGENCY <br>613-248-2111 </a>
-              </li>
-         
-    </ul>
-      
-
-  </div>
-</div> -->
-  <!-- End vertical navbar -->
-      <!--Bridge Table 1st Column-->
       <div class="col-sm-6"  style="height: inherit;background-color:#282828">
-        <!-- <div>
-        <div style="width: 50%; color:white">
-            <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Bridge</th>
-                  <th scope="col">PCA</th>
-                  <th scope="col">GPU</th>
-                </tr>
-              </thead>
-        </div>
-        <div style="width: 50%; color:white"">
-            <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Bridge</th>
-                  <th scope="col">PCA</th>
-                  <th scope="col">GPU</th>
-                </tr>
-              </thead>
-        </div>
-      </div> -->
-          <div class="bridgeFlexContainer border border-left-0">
-              <!-- <div style="width: 50%; color:white">
-                  <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Bridge</th>
-                        <th scope="col">PCA</th>
-                        <th scope="col">GPU</th>
-                      </tr>
-                    </thead>
-              </div>
-               -->
-               
-               <div style="display: inline-block;width:50%;">
+          <div class="bridgeFlexContainer border border-left-0"> <div style="display: inline-block;width:50%;">
              
                   <div style="display: inline-block;">#</div>
                     <div style="display: inline-block;width:25%;text-align: center;">Bridge</div>
@@ -117,9 +40,6 @@
                       <div style="display: inline-block;width:25%;text-align: center;">GPU</div>
                
                </div>
-               <!-- <div style="display: inline-block;width:50%;">
-                  aksfhn
-                 </div> -->
               {% for bridge in bridges %}
                 {% if bridge.bridgeTableID in rows %}
                   <div id="bridgeFlexItem" style="background-color:#454d55">
@@ -137,22 +57,18 @@
                  {%endif%}
                   {% if bridge.Bridge_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
-                      <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}"> -->
-                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                        <!-- <span class="fas fa-check-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:lime;"></span> -->
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled">
                         <i id="bridge {{bridge.bridgeTableID}}" class="myClass fas fa-check-circle fa-lg"  style="color:lime;"></i>
                         </a>
                     </span>
                       {% elif bridge.Bridge_Status_Choice == 'RED' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                        <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" > -->
                         <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
                         <i class="fas fa-times-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:red"></i>
                           </a>
                       </span>
                       {% else %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                            <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="bridge {{bridge.bridgeTableID}}" > -->
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
                               <i class="fas fa-minus-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:yellow" ></i>
                             </a>
@@ -160,21 +76,18 @@
                   {% endif %}
                   {% if bridge.PCA_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
-                      <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
                         <i class="fas fa-check-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:lime;"></i>
                       </a>
                     </span>
                         {% elif bridge.PCA_Status_Choice == 'RED' %}
                         <span style="display: inline-block;width:25%;text-align: center;">
-                          <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
                           <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
                           <i class="fas fa-times-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:red"></i>
                           </a>
                         </span>
                         {% else %}
                         <span style="display: inline-block;width:25%;text-align: center;">
-                              <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="PCA {{bridge.bridgeTableID}}" > -->
                               <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
                               <i class="fas fa-minus-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:gold"></i>
                               </a>
@@ -182,21 +95,18 @@
                   {% endif %}
                       {% if bridge.GPU_Status_Choice == 'GREEN' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
-                              <!-- <img src='{% static "status_board/images/gCheck2.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
                               <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
                               <i class="fas fa-check-circle fa-lg " id="GPU {{bridge.bridgeTableID}}" style="color:lime;"></i>
                               </a>
                             </span>
                           {% elif bridge.GPU_Status_Choice == 'RED' %}
                           <span style="display: inline-block;width:25%;text-align: center;">
-                            <!-- <img src='{% static "status_board/images/rX.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" > -->
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
                             <i class="fas fa-times-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:red"></i>
                               </a>
                           </span>
                           {% else %}
                           <span style="display: inline-block;width:25%;text-align: center;">
-                                <!-- <img src='{% static "status_board/images/yC.png" %}' alt="My image" class="GPU {{bridge.bridgeTableID}}" >-->
                                 <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
                                 <i class="fas fa-minus-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
                                 </a>
@@ -207,18 +117,16 @@
               {% endfor %}
           </div>
     </div>
-    <!--Elevators 2nd Column-->
+    </div>
+
+    <!--2nd Column; Elevators & Baggage Carousel -->
     <div class="col-sm-3 text-white" style="height: inherit" >
         <div class="height" style="background-color:#282828;" >
             <div class="border" id="elevators" style="height: 100%">
             <p style="text-align:center">Elevators</p>
-        <!--<div class="d-flex flex-wrap justify-content-around" style="background-color:#282828">-->
                    <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
-                <div class="flexItem" >       
-                  <!-- <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled">  
-                  </a> -->
-                    <!-- 'elevatorForm' elevBtID=elev.elevatorID -->
+                <div class="flexItem">
                     {%if elev.elevatorID == '2' or elev.elevatorID == '3' or elev.elevatorID == '4' or elev.elevatorID == '7'  or elev.elevatorID == '8' or elev.elevatorID == '9'  %} 
                     <spans><span style="visibility: hidden;">0</span>{{elev.elevatorID}} </span>
                     {%else%}
@@ -229,121 +137,66 @@
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled"  > 
                         <i class="fas fa-check-circle fa-lg " id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:lime;"></i>
                         </a>
-                            <!-- <img src='{% static "status_board/images/greenElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}"> -->
                       {% elif elev.Elevator_Status_Choice == 'RED' %}
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled"  > 
                         <i class="fas fa-times-circle fa-lg" id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:red"></i>
-                        </a>      
-                      <!-- <img src='{% static "status_board/images/redElev.png" %}' alt="My image" class="Elev {{elev.elevatorID}}" title="Status changed on : {{elev.updated}}"> -->
+                        </a>
                       {% endif %}
                 </div>
             {% endfor %}
             </div>
             </div>
-            </div>
-                  <!--hide when user is not authenticated-->
-            <!--DOM / INT PBS-->
+            </div> <!--End of Elevators div tag-->
+          <!--hidden when user is not authenticated-->
+            <!--Baggage Carousel-->
             <div  class="notAuth" style="height:50%">
-              <div class="bg-dark border" id ="pbs" style="height:50%">
-                     <p style="text-align:center">Pre Board Screening</p>
-                     <div class="col sysContainer"  >
-                     {% for dmPBS  in domIntPBS %}
-                        <div  style="flex:0 0 100%; text-align:center ">
-                            {% if dmPBS.DomIntPBS_Status_Choice == 'GREEN' %}
-                            <p class="domPBS {{dmPBS.domIntPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a> </p>
-                             {% elif dmPBS.DomIntPBS_Status_Choice == 'YELLOW' %}
-                              <p class="domPBS {{dmPBS.domIntPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </p>
-                            {% elif  dmPBS.DomIntPBS_Status_Choice == 'RED' %}
-                              <p class="domPBS {{dmPBS.domIntPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntPBSForm' btID=dmPBS.domIntPBSID%}" class="disabled" style="color:inherit"> <span>DOM/INT PBS</span>  </a>  </p>
-                            {% endif %}
-
-  
-                     {% endfor %}
-
-                    </div>
-  
-             <!-- Yellow selection does not work for below!!!!-->
-             <!-- TB PBS System-->
-                <!--<div class="col notAuth">-->
-                     {% for tPBS in tbPBS %}
-                        <div style="flex:0 0 100%; text-align:center ">
-                            {% if tPBS.TbPBS_Status_Choice == 'GREEN' %}
-                            <p class="tbPBS {{tPBS.tbPBSID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </p>
-                             {% elif tPBS.TbPBS_Status_Choice == 'YELLOW' %}
-                              <p class="tbPBS {{tPBS.tbPBSID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </p>
-                            {% elif  tPBS.TbPBS_Status_Choice == 'RED' %}
-                              <p class="tbPBS {{tPBS.tbPBSID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbPBSForm' btID=tPBS.tbPBSID%}" class="disabled" style="color:inherit"> <span>TB PBS</span></a> </p>
-                            {% endif %}
-                        </div>
-  
-                     {% endfor %}
-                      </div>
+              <div class="bg-dark border" id ="Carousel" style="height:100%">
+                     <p style="text-align:center">Baggage Carousel</p>
+                     <div class="flexContainer" style="height: 80%" >
+                      {% for bCar in bagCarousel %}
+                      <div class="flexItem" >       
+                      <spans>{{bCar.bagCarouselID}} </span>
+                      
+                      {% if bCar.bagCarousel_Status_Choice == 'GREEN' %}
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Carousel','{{bCar.bagCarouselID}}')" class="disabled"  > 
+                        <i class="fas fa-check-circle fa-lg " id="bCar {{bCar.bagCarouselID}}" title="Status changed on: {{bCar.updated}}" style="color:lime;"></i>
+                        </a>
+                      {% elif bCar.bagCarousel_Status_Choice == 'RED' %}
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Carousel','{{bCar.bagCarouselID}}')" class="disabled"  > 
+                        <i class="fas fa-times-circle fa-lg" id="bCar {{bCar.bagCarouselID}}" title="Status changed on: {{bCar.updated}}" style="color:red"></i>
+                        </a>
+                      {% else %}
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Carousel','{{bCar.bagCarouselID}}')" class="disabled"  > 
+                              <i class="fas fa-minus-circle fa-lg" id="bCar {{bCar.bagCarouselID}}" style="color:yellow" ></i>
+                            </a>
+                          
+                      {% endif %}
                 </div>
-
-
-              <!-- Other Systems-->
-                <!-- Lav Hut -->
-                <div class="border" style="background-color: #282828;height:50%" id ="other">
-                
-                    <p style="text-align:center ;flex:0 0 100%; ">Other Systems</p>
-                    <div class="col notAuth othSysContainer" >
-                  {% for lHut in lavHut %}
-                     <div style="flex:0 0 100%; text-align:center ">
-                         {% if lHut.LavHut_Status_Choice == 'GREEN' %}
-                         <p class="lHut {{lHut.lavHutID}}" style="color: #2ECC71; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </p>
-                          {% elif lHut.LavHut_Status_Choice == 'YELLOW' %}
-                           <p class="lHut {{lHut.lavHutID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </p>
-                         {% elif  lHut.LavHut_Status_Choice == 'RED' %}
-                           <p class="lHut {{lHut.lavHutID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'lavHutForm' btID=lHut.lavHutID%}" class="disabled" style="color:inherit"> <span>LAV HUT</span></a> </p>
-                         {% endif %}
+            {% endfor %}
                      </div>
-  
-                  {% endfor %}
+              </div>
+            </div> 
+  </div> <!--Ending div tag for 2nd column-->
 
-
-             <!-- Water Fill -->
-
-         
-
-
-                         <!--Electrical Charging-->
-
-
-
-         </div>
-        </div>
-        </div>
-  </div>
-
-
-             
-    
-    
-    <!--Escalators 3rd Column-->
+    <!--3rd Column Escalators and Baggage-->
     <div class="col-sm-3 text-white" style="height: inherit;">
       <div class="height" style="background-color:#343a40;" >
         <div class="border" id="escalator" style="height: 100%">
-        <!-- <div class="border bg-dark notAuthHeight" id="escalators" style="height:min-content"> -->
             <p style="text-align:center">Escalators</p>
-
-        <!-- <div class="d-flex flex-wrap justify-content-around text-white"> -->
           <div class="flexContainer" style="height: 80%">
               {% for esc in escalators %}
             <div class="flexItem">
-            <!-- <div class="p-2 align-self-center" style="width:50%;" > -->
               {%if esc.escalatorID != '10' or esc.escalatorID != '11' or esc.escalatorID != '11' %}
                         <span><span style="visibility: hidden;">0</span>{{esc.escalatorID}}</span>
                 {%else%}
                 <span>{{esc.escalatorID}}</span>
                 {%endif%}
-                    
+
                       {% if esc.Escalator_Status_Choice == 'GREEN' %}
-                            <!-- <img src='{% static "status_board/images/greenEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}} "> -->
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Escalator','{{esc.escalatorID}}')" class="disabled"  > 
                               <i class="fas fa-check-circle fa-lg " id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:lime;"></i>
                               </a>
                       {% elif esc.Escalator_Status_Choice == 'RED' %}
-                            <!-- <img src='{% static "status_board/images/redEsc.png" %}' alt="My image" class="Esc {{esc.escalatorID}}"> -->
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Escalator','{{esc.escalatorID}}')" class="disabled"  > 
                               <i class="fas fa-times-circle fa-lg" id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:red"></i>
                               </a>      
@@ -352,21 +205,16 @@
             {% endfor %}
             </div>
            </div>
-           </div>
+           </div> <!-- Ending div tag for Escalators-->
     
-             <!--hide when user is not authenticated-->
+        <!--hidden when user is not authenticated-->
             <!--DOM / INT Baggage System-->
-
-        <!-- <div  style="height:min-content"> -->
           <div class="notAuth" style="height:50%">
-           <!-- <div class ="border text-white" id="baggagge"> -->
               <div class="bg-dark border" id ="baggagge" style="height:100%">
-            <!-- <div class="col notAuth"> -->
                  <p style="text-align:center">Baggage</p>
                  <div class="col sysContainer"  >
                     <div  style="flex:0 0 100%; text-align:center ">
                  {% for domIntBag in domIntBaggage %}
-                    <!-- <div class="p-2" > -->
                         
                         {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
                         <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </p>
@@ -421,84 +269,30 @@
                 </div>
             </div>
   
-         <!-- TB Baggage System
-            <div class="col notAuth">
-                 {% for tbBag in tbBaggage %}
-                    <div class="p-2" >
-                        {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
-                        <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
-                         {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
-                          <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
-                        {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
-                          <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
-                        {% endif %}
-                    </div>
-  
-                 {% endfor %}
-            </div>
-  
-                 DOM / INT Baggage Oversize 
-            <div class="col notAuth">
-                 {% for domOversize in domIntOversize %}
-                    <div class="p-2" >
-                        {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
-                        <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
-                         {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
-                          <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
-                        {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
-                          <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
-                        {% endif %}
-                    </div>
-  
-                 {% endfor %}
-            </div>
-  
-                 TB Oversize 
-                 <div class="col notAuth">
-  
-  
-                 {% for tbOver in tbOversize %}
-                    <div class="p-2" >
-                        {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
-                             <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </p>
-                         {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
-                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
-                        {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
-                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
-                        {% endif %}
-                    </div>
-  
-                 {% endfor %}
-            </div> -->
           </div>
-          </div>
+          </div> <!--Ending div tag for Baggage-->
         
 
-    </div>
+    </div> <!--Ending div tag for 3rd Column-->
 
-</div>
-</div>
-
+</div> <!--Ending div tag for Row-->
 </section>
 
 <!-- modal container -->
 <div class="modal" id="modal"></div>
 
-<script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
-
-
-<!-- script for sending ID of a system to the view through AJAX-->
+<!-- script for setting the system name and id of systen to be updated -->
 <script>
-var sys
-var id 
+    var sys
+    var id 
     function setGetParameter(system, ID){
       sys = system;
       id = ID;
 
     }
-    </script>
+</script>
 
- <!-- script for showing BS modal -->
+ <!-- script for sending ID of a system to the view through AJAX before showing BS modal -->
  <script>
     $('#modal').on('show.bs.modal', function (event) {
       console.log('im in modal before show');
@@ -514,11 +308,11 @@ var id
         });
     })
     </script>
-
+    
+<!--Websocket scripts; onMessage, onOpen, onClose, onError  -->
 <script>
 
 var loc = window.location
-//var form = $('#formData')
 var wsStart = 'ws://'
 if (loc.protocol == 'https:'){
     wsStart = 'wss://'
@@ -528,10 +322,10 @@ console.log(loc.host)
 console.log(loc.pathname)
 
  var socket = new WebSocket(endpoint)
-console.log('CONNECTED TO RECIEVE')
    socket.onmessage = function(e){
      console.log('messageeeeeeeeee',e)
         var data = JSON.parse(e.data)
+        // Updating bridges UI symbols
         if (data.fromCon == 'bridgeTable'){
                 var bridgeTableId = data.bridgeTableID
                 var bridgeStat = data.bridgeStat
@@ -550,6 +344,7 @@ console.log('CONNECTED TO RECIEVE')
                           bridgeIMG.style.color = "red"
                      }           
         }
+        // Updating pca UI symbols 
         else if (data.fromCon == 'pcaTable'){
           var bridgeTableId = data.bridgeTableID
           var pcaStat = data.pcaStat
@@ -569,6 +364,7 @@ console.log('CONNECTED TO RECIEVE')
               pcaIMG.style.color = "red"
             }
         }
+        // Updating gpu UI symbols
         else if (data.fromCon == 'gpuTable'){
           var bridgeTableId = data.bridgeTableID
           var gpuStat = data.gpuStat
@@ -588,18 +384,19 @@ console.log('CONNECTED TO RECIEVE')
              gpuIMG.style.color = "red"
             }
         }
+           // Updating messages in UI
         else if (data.fromCon == 'msg'){
           msgID = data.msgID
           msg = data.msg
           changeMsg = document.getElementById('adHocMsg').innerHTML = msg
         }
+           // Updating elevator UI symbols
         else if (data.fromCon == 'elevator'){
              var elevatorID = data.elevatorID
-                var elevatorStat = data.elevatorStat
+             var elevatorStat = data.elevatorStat
+             var elev = 'Elev ' + elevatorID
+             var elevIMG = document.getElementById(elev)
 
-                var elev = 'Elev ' + elevatorID
-                console.log('elev' + elev)
-                 var elevIMG = document.getElementById(elev)
                   if (elevatorStat == 'GREEN'){
                     $(elevIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
                     elevIMG.style.color = "lime"
@@ -609,6 +406,27 @@ console.log('CONNECTED TO RECIEVE')
                       elevIMG.style.color = "red"
                      }            
         }
+           // Updating Carousel UI symbols
+        else if (data.fromCon == 'Carousel'){
+          var bCarID = data.carouselID
+          var bCarStat = data.carouselStat
+          var bCar = 'bCar ' + bCarID
+          var bCarIMG = document.getElementById(bCar)
+
+          if (bCarStat == 'GREEN'){
+            $(bCarIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+            bCarIMG.style.color = "lime"
+          }
+          else if (bCarStat == 'YELLOW'){
+            $(bCarIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+            bCarIMG.style.color = "gold"
+            }
+          else if (bCarStat == 'RED'){
+             $(bCarIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+             bCarIMG.style.color = "red"
+            }
+        }
+           // Updating Escalator UI symbols
         else if (data.fromCon == 'escalator'){
           console.log('IN EsC')
              var escalatorID = data.escalatorID
@@ -627,7 +445,7 @@ console.log('CONNECTED TO RECIEVE')
                         escIMG.style.color = "red"
                      }            
         }
-
+           // Updating domIntBag UI symbols
         else if (data.fromCon == 'domIntBag'){
             var domIntBagID = data.domIntBagId
             var domIntBagStat = data.domIntBagStat
@@ -643,7 +461,7 @@ console.log('CONNECTED TO RECIEVE')
                      else if (domIntBagStat == 'RED')
                         domIntBagTXT.style.color = red
         }
-
+           // Updating tbBag UI symbols
         else if (data.fromCon == 'tbBag'){
             var tbBagID = data.tbBagID
             var tbBagStat = data.tbBagStat
@@ -659,6 +477,7 @@ console.log('CONNECTED TO RECIEVE')
                      else if (tbBagStat == 'RED')
                         tbBagTXT.style.color = red
         }
+           // Updating domIntOversize UI symbols
         else if (data.fromCon == 'domIntOversize'){
             var domIntOversizeID = data.domIntOversizeID
             var domIntOversizeStat = data.domIntOversizeStat
@@ -674,6 +493,7 @@ console.log('CONNECTED TO RECIEVE')
                      else if (domIntOversizeStat == 'RED')
                         domIntOverTXT.style.color = red
         }
+           // Updating tbOversize UI symbols
         else if (data.fromCon == 'tbOversize'){
             var tbOversizeID = data.tbOversizeID
             var tbOversizeStatus = data.tbOversizeStatus
