@@ -3,7 +3,7 @@
  <!--for testing purposes, mainContent should be changed to cssLink and h1 tags removed-->
 {% block mainContent %}
   <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
-<script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
+
   <script src="http://malsup.github.com/jquery.form.js"></script>
     {% if user.is_authenticated and perms.catalog.has_write_access %}
         <!-- <span>Auth and has permission</span> -->
@@ -21,31 +21,111 @@
 {% endblock mainContent%}
 
 {% block content %}
-<section role="main" style="height: 95%">
-  <div class="row no-gutters" id="main" style="height: 100%">
-      <div class="col-sm-6"  style="height: inherit;background-color:#282828">
-          <div class="bridgeFlexContainer border border-left-0"> <div style="display: inline-block;width:50%;">
-             
+<div  style="height: 95%">
+  <div class="row no-gutters" style="height: 100%" >
+      <div class="col-sm-6" style="height: inherit;background-color:#353C42">
+
+        <!-- <div class="pl-table bridgeFlexContainer border border-left-0">
+          <div class="pl-thead">
+            <div class="row">
+              <div class="col">#</div>
+              <div class="col">Bridge</div>
+              <div class="col">PCA</div>
+              <div class="col">GPU</div>
+            </div>
+          </div>
+          <div class="pl-tbody">
+              {% for bridge in bridges %}
+            <div class="row" id="bridgeFlexItem">
+              <div class="col">{{bridge.bridgeTableID}}</div>
+              <div class="col">
+                  {% if bridge.Bridge_Status_Choice == 'GREEN' %}
+                  <span style="display: inline-block;width:25%;text-align: center;">
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled">
+                        <i id="bridge {{bridge.bridgeTableID}}" class="myClass fas fa-check-circle fa-lg"  style="color:#20C05C;"></i>
+                        </a>
+                    </span>
+                      {% elif bridge.Bridge_Status_Choice == 'RED' %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                        <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                        <i class="fas fa-times-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:#ED4949"></i>
+                          </a>
+                      </span>
+                      {% else %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                              <i class="fas fa-minus-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:yellow" ></i>
+                            </a>
+                          </span>
+                  {% endif %}
+              </div>
+              <div class="col"> 
+                  {% if bridge.PCA_Status_Choice == 'GREEN' %}
+                  <span style="display: inline-block;width:25%;text-align: center;">
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                        <i class="fas fa-check-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:#20C05C;"></i>
+                      </a>
+                    </span>
+                        {% elif bridge.PCA_Status_Choice == 'RED' %}
+                        <span style="display: inline-block;width:25%;text-align: center;">
+                          <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                          <i class="fas fa-times-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:#ED4949"></i>
+                          </a>
+                        </span>
+                        {% else %}
+                        <span style="display: inline-block;width:25%;text-align: center;">
+                              <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                              <i class="fas fa-minus-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:gold"></i>
+                              </a>
+                            </span>
+                  {% endif %}
+              </div>
+              <div class="col">  {% if bridge.GPU_Status_Choice == 'GREEN' %}
+                  <span style="display: inline-block;width:25%;text-align: center;">
+                          <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                          <i class="fas fa-check-circle fa-lg " id="GPU {{bridge.bridgeTableID}}" style="color:#20C05C;"></i>
+                          </a>
+                        </span>
+                      {% elif bridge.GPU_Status_Choice == 'RED' %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                        <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                        <i class="fas fa-times-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:#ED4949"></i>
+                          </a>
+                      </span>
+                      {% else %}
+                      <span style="display: inline-block;width:25%;text-align: center;">
+                            <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
+                            <i class="fas fa-minus-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
+                            </a>
+                          </span>
+                      {% endif %}</div>
+          
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        </div> -->
+
+
+          <div class="bridgeFlexContainer border border-left-0">
+
+             <div style="display: inline-block;width:50%;background-color: #2A3034;">
                   <div style="display: inline-block;">#</div>
                     <div style="display: inline-block;width:25%;text-align: center;">Bridge</div>
                     <div style="display: inline-block;width:25%;text-align: center;">PCA</div>
                       <div style="display: inline-block;width:25%;text-align: center;">GPU</div>
                
                </div>
-               <div style="display: inline-block;width:50%;">
+               <div style="display: inline-block;width:50%; background-color: #2A3034;">
              
                   <div style="display: inline-block;">#</div>
                     <div style="display: inline-block;width:25%;text-align: center;">Bridge</div>
                     <div style="display: inline-block;width:25%;text-align: center;">PCA</div>
                       <div style="display: inline-block;width:25%;text-align: center;">GPU</div>
-               
                </div>
               {% for bridge in bridges %}
-                {% if bridge.bridgeTableID in rows %}
-                  <div id="bridgeFlexItem" style="background-color:#454d55">
-                  {%else%}
-                  <div id="bridgeFlexItem" >
-                {%endif%}
+               
+                <div id="bridgeFlexItem" >
                 {%if bridge.bridgeTableID <= 9  %}
                 <span style="display: inline-block;">
                         <span> {{bridge.bridgeTableID}}<span style="visibility: hidden;">0</span></span>                 
@@ -58,57 +138,57 @@
                   {% if bridge.Bridge_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled">
-                        <i id="bridge {{bridge.bridgeTableID}}" class="myClass fas fa-check-circle fa-lg"  style="color:lime;"></i>
+                        <i id="bridge {{bridge.bridgeTableID}}" class="myClass fas fa-check-circle fa-lg"  style="color:#20C05C;"></i>
                         </a>
                     </span>
                       {% elif bridge.Bridge_Status_Choice == 'RED' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
                         <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                        <i class="fas fa-times-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:red"></i>
+                        <i class="fas fa-times-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:#ED4949"></i>
                           </a>
                       </span>
                       {% else %}
                       <span style="display: inline-block;width:25%;text-align: center;">
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('bridge','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                              <i class="fas fa-minus-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:yellow" ></i>
+                              <i class="fas fa-minus-circle fa-lg" id="bridge {{bridge.bridgeTableID}}" style="color:#F1C40F" ></i>
                             </a>
                           </span>
                   {% endif %}
                   {% if bridge.PCA_Status_Choice == 'GREEN' %}
                   <span style="display: inline-block;width:25%;text-align: center;">
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                        <i class="fas fa-check-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:lime;"></i>
+                        <i class="fas fa-check-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:#20C05C;"></i>
                       </a>
                     </span>
                         {% elif bridge.PCA_Status_Choice == 'RED' %}
                         <span style="display: inline-block;width:25%;text-align: center;">
                           <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                          <i class="fas fa-times-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:red"></i>
+                          <i class="fas fa-times-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:#ED4949"></i>
                           </a>
                         </span>
                         {% else %}
                         <span style="display: inline-block;width:25%;text-align: center;">
                               <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('PCA','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                              <i class="fas fa-minus-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:gold"></i>
+                              <i class="fas fa-minus-circle fa-lg" id="PCA {{bridge.bridgeTableID}}" style="color:#F1C40F"></i>
                               </a>
                             </span>
                   {% endif %}
                       {% if bridge.GPU_Status_Choice == 'GREEN' %}
                       <span style="display: inline-block;width:25%;text-align: center;">
                               <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                              <i class="fas fa-check-circle fa-lg " id="GPU {{bridge.bridgeTableID}}" style="color:lime;"></i>
+                              <i class="fas fa-check-circle fa-lg " id="GPU {{bridge.bridgeTableID}}" style="color:#20C05C;"></i>
                               </a>
                             </span>
                           {% elif bridge.GPU_Status_Choice == 'RED' %}
                           <span style="display: inline-block;width:25%;text-align: center;">
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                            <i class="fas fa-times-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:red"></i>
+                            <i class="fas fa-times-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:#ED4949"></i>
                               </a>
                           </span>
                           {% else %}
                           <span style="display: inline-block;width:25%;text-align: center;">
                                 <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('GPU','{{bridge.bridgeTableID}}')" class="disabled"  > 
-                                <i class="fas fa-minus-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:gold"></i> 
+                                <i class="fas fa-minus-circle fa-lg" id="GPU {{bridge.bridgeTableID}}" style="color:#F1C40F"></i> 
                                 </a>
                               </span>
                           {% endif %}
@@ -116,30 +196,30 @@
               </div>
               {% endfor %}
           </div>
-    </div>
-    </div>
-
+    
+     </div>
+     <!--Ending div tag for bridges-->
     <!--2nd Column; Elevators & Baggage Carousel -->
     <div class="col-sm-3 text-white" style="height: inherit" >
-        <div class="height" style="background-color:#282828;" >
+        <div class="height" style="background-color:#353C42;" >
             <div class="border" id="elevators" style="height: 100%">
-            <p style="text-align:center">Elevators</p>
+            <p style="text-align:center" class="title">Elevators</p>
                    <div class="flexContainer" style="height: 80%" >
               {% for elev in elevators %}
                 <div class="flexItem">
                     {%if elev.elevatorID == '2' or elev.elevatorID == '3' or elev.elevatorID == '4' or elev.elevatorID == '7'  or elev.elevatorID == '8' or elev.elevatorID == '9'  %} 
-                    <spans><span style="visibility: hidden;">0</span>{{elev.elevatorID}} </span>
+                    <span><span style="visibility: hidden;">0</span>{{elev.elevatorID}} </span>
                     {%else%}
-                    <spans>{{elev.elevatorID}} </span>
+                    <span>{{elev.elevatorID}} </span>
                     {%endif%}
     
                       {% if elev.Elevator_Status_Choice == 'GREEN' %}
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled"  > 
-                        <i class="fas fa-check-circle fa-lg " id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:lime;"></i>
+                        <i class="fas fa-check-circle fa-lg " id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:#20C05C;"></i>
                         </a>
                       {% elif elev.Elevator_Status_Choice == 'RED' %}
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Elevator','{{elev.elevatorID}}')" class="disabled"  > 
-                        <i class="fas fa-times-circle fa-lg" id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:red"></i>
+                        <i class="fas fa-times-circle fa-lg" id="Elev {{elev.elevatorID}}" title="Status changed on: {{elev.updated}}" style="color:#ED4949"></i>
                         </a>
                       {% endif %}
                 </div>
@@ -151,23 +231,23 @@
             <!--Baggage Carousel-->
             <div  class="notAuth" style="height:50%">
               <div class="bg-dark border" id ="Carousel" style="height:100%">
-                     <p style="text-align:center">Baggage Carousel</p>
+                     <p style="text-align:center;" class="title">Baggage Carousel</p>
                      <div class="flexContainer" style="height: 80%" >
                       {% for bCar in bagCarousel %}
                       <div class="flexItem" >       
-                      <spans>{{bCar.bagCarouselID}} </span>
+                      <span>{{bCar.bagCarouselID}} </span>
                       
                       {% if bCar.bagCarousel_Status_Choice == 'GREEN' %}
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Carousel','{{bCar.bagCarouselID}}')" class="disabled"  > 
-                        <i class="fas fa-check-circle fa-lg " id="bCar {{bCar.bagCarouselID}}" title="Status changed on: {{bCar.updated}}" style="color:lime;"></i>
+                        <i class="fas fa-check-circle fa-lg " id="bCar {{bCar.bagCarouselID}}" title="Status changed on: {{bCar.updated}}" style="color:#20C05C;"></i>
                         </a>
                       {% elif bCar.bagCarousel_Status_Choice == 'RED' %}
                       <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Carousel','{{bCar.bagCarouselID}}')" class="disabled"  > 
-                        <i class="fas fa-times-circle fa-lg" id="bCar {{bCar.bagCarouselID}}" title="Status changed on: {{bCar.updated}}" style="color:red"></i>
+                        <i class="fas fa-times-circle fa-lg" id="bCar {{bCar.bagCarouselID}}" title="Status changed on: {{bCar.updated}}" style="color:#ED4949"></i>
                         </a>
                       {% else %}
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Carousel','{{bCar.bagCarouselID}}')" class="disabled"  > 
-                              <i class="fas fa-minus-circle fa-lg" id="bCar {{bCar.bagCarouselID}}" style="color:yellow" ></i>
+                              <i class="fas fa-minus-circle fa-lg" id="bCar {{bCar.bagCarouselID}}" style="color:#F1C40F" ></i>
                             </a>
                           
                       {% endif %}
@@ -182,7 +262,7 @@
     <div class="col-sm-3 text-white" style="height: inherit;">
       <div class="height" style="background-color:#343a40;" >
         <div class="border" id="escalator" style="height: 100%">
-            <p style="text-align:center">Escalators</p>
+            <p style="text-align:center" class="title">Escalators</p>
           <div class="flexContainer" style="height: 80%">
               {% for esc in escalators %}
             <div class="flexItem">
@@ -194,11 +274,11 @@
 
                       {% if esc.Escalator_Status_Choice == 'GREEN' %}
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Escalator','{{esc.escalatorID}}')" class="disabled"  > 
-                              <i class="fas fa-check-circle fa-lg " id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:lime;"></i>
+                              <i class="fas fa-check-circle fa-lg " id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:#20C05C;"></i>
                               </a>
                       {% elif esc.Escalator_Status_Choice == 'RED' %}
                             <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('Escalator','{{esc.escalatorID}}')" class="disabled"  > 
-                              <i class="fas fa-times-circle fa-lg" id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:red"></i>
+                              <i class="fas fa-times-circle fa-lg" id="Esc {{esc.escalatorID}}" title="Status changed on: {{esc.updated}}" style="color:#ED4949"></i>
                               </a>      
                       {% endif %}
                 </div>
@@ -211,7 +291,7 @@
             <!--DOM / INT Baggage System-->
           <div class="notAuth" style="height:50%">
               <div class="bg-dark border" id ="baggagge" style="height:100%">
-                 <p style="text-align:center">Baggage</p>
+                 <p style="text-align:center" class="title">Baggage</p>
                  <div class="col sysContainer"  >
                     <div  style="flex:0 0 100%; text-align:center ">
                  {% for domIntBag in domIntBaggage %}
@@ -271,16 +351,14 @@
   
           </div>
           </div> <!--Ending div tag for Baggage-->
-        
-
     </div> <!--Ending div tag for 3rd Column-->
-
-</div> <!--Ending div tag for Row-->
-</section>
+  </div> <!--Ending div tag for Row-->
+</div>
 
 <!-- modal container -->
 <div class="modal" id="modal"></div>
 
+<script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-replace-svg="nest"></script>
 <!-- script for setting the system name and id of systen to be updated -->
 <script>
     var sys
@@ -333,15 +411,15 @@ console.log(loc.pathname)
                 var bridgeIMG = document.getElementById(bridge)
                     if (bridgeStat == 'GREEN'){
                         $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-                         bridgeIMG.style.color = "lime"
+                         bridgeIMG.style.color = "#20C05C"
                     }
                      else if (bridgeStat == 'YELLOW'){
                       $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
-                      bridgeIMG.style.color = "gold"
+                      bridgeIMG.style.color = "#F1C40F"
                      }
                      else if (bridgeStat == 'RED'){
                         $(bridgeIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-                          bridgeIMG.style.color = "red"
+                          bridgeIMG.style.color = "#ED4949"
                      }           
         }
         // Updating pca UI symbols 
@@ -353,15 +431,15 @@ console.log(loc.pathname)
 
           if (pcaStat == 'GREEN'){
               $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-                pcaIMG.style.color = "lime"
+                pcaIMG.style.color = "#20C05C"
               }
           else if (pcaStat == 'YELLOW'){
             $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
-             pcaIMG.style.color = "gold"
+             pcaIMG.style.color = "#F1C40F"
             }
           else if (pcaStat == 'RED'){
              $(pcaIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-              pcaIMG.style.color = "red"
+              pcaIMG.style.color = "#ED4949"
             }
         }
         // Updating gpu UI symbols
@@ -373,15 +451,15 @@ console.log(loc.pathname)
           
           if (gpuStat == 'GREEN'){
             $(gpuIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-             gpuIMG.style.color = "lime"
+             gpuIMG.style.color = "#20C05C"
           }
           else if (gpuStat == 'YELLOW'){
             $(gpuIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
-            gpuIMG.style.color = "gold"
+            gpuIMG.style.color = "#F1C40F"
             }
           else if (gpuStat == 'RED'){
              $(gpuIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-             gpuIMG.style.color = "red"
+             gpuIMG.style.color = "#ED4949"
             }
         }
            // Updating messages in UI
@@ -399,11 +477,11 @@ console.log(loc.pathname)
 
                   if (elevatorStat == 'GREEN'){
                     $(elevIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-                    elevIMG.style.color = "lime"
+                    elevIMG.style.color = "#20C05C"
                   }                     
                   else if (elevatorStat == 'RED'){
                       $(elevIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-                      elevIMG.style.color = "red"
+                      elevIMG.style.color = "#ED4949"
                      }            
         }
            // Updating Carousel UI symbols
@@ -415,15 +493,15 @@ console.log(loc.pathname)
 
           if (bCarStat == 'GREEN'){
             $(bCarIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-            bCarIMG.style.color = "lime"
+            bCarIMG.style.color = "#20C05C"
           }
           else if (bCarStat == 'YELLOW'){
             $(bCarIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
-            bCarIMG.style.color = "gold"
+            bCarIMG.style.color = "#FED42A"
             }
           else if (bCarStat == 'RED'){
              $(bCarIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-             bCarIMG.style.color = "red"
+             bCarIMG.style.color = "#ED4949"
             }
         }
            // Updating Escalator UI symbols
@@ -438,11 +516,11 @@ console.log(loc.pathname)
                   if (escalatorStat == 'GREEN')
                   {
                     $(escIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
-                    escIMG.style.color = "lime"
+                    escIMG.style.color = "#20C05C"
                   }  
                      else if (escalatorStat == 'RED')
                         {$(escIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
-                        escIMG.style.color = "red"
+                        escIMG.style.color = "#ED4949"
                      }            
         }
            // Updating domIntBag UI symbols
@@ -455,11 +533,11 @@ console.log(loc.pathname)
             var domIntBagTXT = document.getElementsByClassName(domIntBag)[0]
 
                  if (domIntBagStat == 'GREEN')
-                        domIntBagTXT.style.color = green
+                        domIntBagTXT.style.color = "#20C05C"
                    else if (domIntBagStat == 'YELLOW')
-                        domIntBagTXT.style.color = yellow
+                        domIntBagTXT.style.color = "#F1C40F"
                      else if (domIntBagStat == 'RED')
-                        domIntBagTXT.style.color = red
+                        domIntBagTXT.style.color = "#ED4949"
         }
            // Updating tbBag UI symbols
         else if (data.fromCon == 'tbBag'){
@@ -471,11 +549,11 @@ console.log(loc.pathname)
             var tbBagTXT = document.getElementsByClassName(tbBag)[0]
 
                  if (tbBagStat == 'GREEN')
-                        tbBagTXT.style.color = green
+                        tbBagTXT.style.color = "#20C05C"
                    else if (tbBagStat == 'YELLOW')
-                        tbBagTXT.style.color = yellow
+                        tbBagTXT.style.color = "#F1C40F"
                      else if (tbBagStat == 'RED')
-                        tbBagTXT.style.color = red
+                        tbBagTXT.style.color = "#ED4949"
         }
            // Updating domIntOversize UI symbols
         else if (data.fromCon == 'domIntOversize'){
@@ -487,11 +565,11 @@ console.log(loc.pathname)
             var domIntOverTXT = document.getElementsByClassName(domIntOversize)[0]
 
                  if (domIntOversizeStat == 'GREEN')
-                        domIntOverTXT.style.color = green
+                        domIntOverTXT.style.color = "#20C05C"
                    else if (domIntOversizeStat == 'YELLOW')
-                        domIntOverTXT.style.color = yellow
+                        domIntOverTXT.style.color = "#F1C40F"
                      else if (domIntOversizeStat == 'RED')
-                        domIntOverTXT.style.color = red
+                        domIntOverTXT.style.color = "#ED4949"
         }
            // Updating tbOversize UI symbols
         else if (data.fromCon == 'tbOversize'){
@@ -503,11 +581,11 @@ console.log(loc.pathname)
             var tbBagOverTXT = document.getElementsByClassName(tbOversize)[0]
 
                  if (tbOversizeStatus == 'GREEN')
-                        tbBagOverTXT.style.color = green
+                        tbBagOverTXT.style.color = "#20C05C"
                    else if (tbOversizeStatus == 'YELLOW')
-                        tbBagOverTXT.style.color = yellow
+                        tbBagOverTXT.style.color = "#F1C40F"
                      else if (tbOversizeStatus == 'RED')
-                        tbBagOverTXT.style.color = red
+                        tbBagOverTXT.style.color = "#ED4949"
         }  
     }
 

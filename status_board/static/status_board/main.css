@@ -1,3 +1,8 @@
+.title{
+  background-color: #2A3034;
+
+  border-bottom: 2px solid  lightslategray ;
+}
 .bridgeFlexContainer{
   display: flex;
   flex-flow: row wrap;
@@ -35,7 +40,7 @@
     }
     
     .fixedMessage{
-        background-color:black;
+        background-color:#1C1515;
         color:white
     }
     
@@ -44,27 +49,23 @@
     }
     #fixedFooter{
         overflow:hidden;
-        animation: 10s slide-left;
-         margin:0;
+        
     }
-    .slide-right span {
-        /* -moz-animation: 10s slide-right;
-        -webkit-animation: 10s slide-right;
-        -o-animation: 10s slide-right; */
-        position:relative;
+    .slide-right div {
+       transform: translate(100%);
+        -moz-animation: slide-right 15s linear infinite;
+        -webkit-animation: slide-right 15s linear infinite;
+        -o-animation: slide-right 15s linear infinite;
+        position:absolute;
         white-space: nowrap;
-        animation:  slide-right 15s infinite ease-in-out;
+        
+        animation: slide-right 15s linear infinite;
         /* margin:0; */
       }
       @keyframes slide-right { 
-        from {right:-5%}
-        to {right:200%}
+        0% { transform: translateX(100%);}
+        100% { transform: translateX(-100%);}
       }
 
+   
      
-      /* @-webkit-keyframes slide-right { from { margin-left: 100%;width: 300%; }
-        to {margin-left: 0%;width: 100%;} }
-      @-moz-keyframes slide-right { from { margin-left: 100%;width: 300%; }
-        to {margin-left: 0%;width: 100%;} }
-       @-o-keyframes slide-right { from { margin-left: 100%;width: 300%; }
-        to {margin-left: 0%;width: 100%;} } */

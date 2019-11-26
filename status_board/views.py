@@ -39,7 +39,9 @@ def updateSys(request):
 		elif sys == 'Carousel':
 			context = updateCarousel(sys,id)
 		elif sys == 'mes':
+			print('befpre update mes')
 			context = updateMes(sys,id)
+			print('mes context recieved')
 	return render(request, 'status_board/ModalForms.html', context)
 
 def updateCarousel(sys,id):
@@ -76,12 +78,17 @@ def updateEsc(sys,id):
 	return context
 
 def updateMes(sys,id):
+	print('IN UPDATE MES ID is ' + id)
 	mes = message.objects.filter(messageID=id).first()
+	print(' Got MES')
 	form =  messageForm(instance=mes)
+	print('Got MES Form')
+	Status = mes.message
 	context={
 		'system':sys,
 		'id':id,
 		'form':form,
+		'status': Status
 	}
 	return context
 
@@ -163,11 +170,12 @@ def format_timedelta(td):
     return '{:d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
 
 def update(request,id,sys,oldStat):
-	context ={
+	
+	if request.method == 'POST':	
+		context ={
 			'sys':sys,
 			'id':id,
-		}
-	if request.method == 'POST':		
+		}	
 		if sys == 'Elevator':
 				elevator=get_object_or_404(Elevators, elevatorID=id)
 				form = elevatorForm(request.POST, instance=elevator)

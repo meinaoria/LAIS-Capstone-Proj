@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 
 <div class="modal-dialog modal-sm" role="document">
-    <form action="{% url 'update' id=id sys=system oldStat=status %}"  method="post" id="form" name="myform" class="form">{% csrf_token %}
+    <form action="{% url 'update' id=id sys=system oldStat=status %}"  method="POST" id="form" name="myform" class="form">{% csrf_token %}
         <div class="modal-content">
             <div class="modal-header" style="background-color: lightgrey;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -45,8 +45,7 @@ console.log('pathname = ' + loc.pathname)
  socket.onopen = function(e){
         console.log('openEDDD',e)
         var from
-             var elevatorID
-              var elevatorStatus
+             
            
               console.log('befor Send' + '')
         form.submit(function(event){

@@ -4,14 +4,8 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
-	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"> -->
-	<!-- <link rel="stylesheet" htef="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-	<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	
 	<link rel="stylesheet" type="text/css" href="{% static 'status_board/main.css' %}">
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  -->
 		
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -25,11 +19,11 @@
 
 	<title> Status Board</title>
 </head>
-<body class="bodyClass" style="height:100%; " id="body">
+<body class="bodyClass" style="height:100%; font-family: 'Roboto', sans-serif; " id="body">
 		<!--Nav Bar-->
 	
-	<nav class="navbar navbar-expand-sm " style="background-color:#263238; padding:0" id="navBar">
-
+	<nav class="navbar navbar-expand-sm " style="background-color:#272C30; padding:0" id="navBar"> 
+		<!-- s#263238 -->
 		<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
    			 <span class="navbar-toggler-icon"></span>
   		</button>
@@ -77,70 +71,28 @@
 	</nav>
 		<div style="display: flex;height: 100%; flex-direction: column;justify-content: start">
 	
-		
-		{% block content %}
-		{% endblock %}
 				
 		{% block mainContent %}
 		{% endblock %}
+
+		{% block content %}
+		{% endblock %}
+
+		{% for mes in fixedMessages %}
+	<a  data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('mes','{{mes.messageID}}')"  class="disabled">	
+		<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
+	
 		
-{% block footer %}
-<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
-  {% for mes in fixedMessages %}
-    <a  data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('mes','{{mes.messageID}}')"  class="disabled">
-        <span id='adHocMsg'>{{mes.message}}</span>
-    </a> 
-  {% endfor %}
-</footer>
-{% endblock footer%}
-	</div>
-<!-- <script>
-	function change_left() {
-    $('div').removeClass('slide-right').addClass('slide-left');
-}
-
-function change_right() {
-    $('div').removeClass('slide-left').addClass('slide-right');
-    change_title();
-}
-
-function to_left() {
-setInterval(change_left, 10000);
-};
-
-function to_right() {
-    setInterval(change_right, 20000);
-};
-
-to_left();
-to_right();
-</script> -->
-
-<script>
-		function openNav() {
-		  document.getElementById("mySidenav").style.width = "250px";
-		}
+				<div id='adHocMsg'>{{mes.message}}</div>
 		
-		function closeNav() {
-		  document.getElementById("mySidenav").style.width = "0";
-		}
-		</script>
+		{% endfor %}
+		</footer>
+	</a> 
+</div>
 
-<!-- <script>
-		// var navBar = document.getElementById('navBar').offsetHeight;
-		// console.log('nav ' + navBar);
-		var footer = document.getElementById('fixedFooter').offsetHeight;
-		console.log('footer ' + footer);
-		// var bodyHeight = document.getElementById('body').offsetHeight;
-		// console.log('body ' + bodyHeight);
-		// var mainHeight = bodyHeight -navBar - footer;
-		var mainHeight =  document.getElementById('main').offsetHeight;
-		console.log('main ' + mainHeight);
-		var newMainH = mainHeight - footer;
-		var main = document.getElementById('main').style.height = 40;
-		console.log(newMainH);
-	  
-	  </script> -->
+	
+
+
 
 
 </body>
