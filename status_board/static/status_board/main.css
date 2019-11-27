@@ -51,15 +51,17 @@
         overflow:hidden;
         
     }
-    .slide-right div {
-       transform: translate(100%);
-        -moz-animation: slide-right 15s linear infinite;
-        -webkit-animation: slide-right 15s linear infinite;
-        -o-animation: slide-right 15s linear infinite;
+   #adHocMsg {
+     width:100%;
+     font-weight: 600;
+       transform: translateX(100%);
+        -moz-animation: slide-right 35s linear infinite;
+        -webkit-animation: slide-right 35s linear infinite;
+        -o-animation: slide-right 35s linear infinite;
         position:absolute;
         white-space: nowrap;
         
-        animation: slide-right 15s linear infinite;
+        animation: slide-right 25s linear infinite;
         /* margin:0; */
       }
       @keyframes slide-right { 

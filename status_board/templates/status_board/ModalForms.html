@@ -118,6 +118,45 @@ console.log('pathname = ' + loc.pathname)
                             }
                             console.log('sending mes')
                                 break;
+                        case 'Domestic and International Baggage':
+                            domIntBagStat = document.myform.DomIntBaggage_Status_Choice.value
+                            from = 'domIntBag'
+                            final_data = {
+                                'domIntBaggageID': '{{id}}',
+                                'domIntBaggageStat': domIntBagStat,
+                                'from':from,
+                            }
+                            console.log('stat is ' + domIntBagStat  )
+                            break;
+                        case 'Transborder Baggage System':
+                            tbBagStat = document.myform.TbBaggage_Status_Choice.value
+                            from = 'tbBag'
+                            final_data = {
+                                'tbBagID': '{{id}}',
+                                'tbBagStat': tbBagStat,
+                                'from':from,
+                            }
+                            break;
+                        case 'Domestic and International Oversize':
+                            console.log('HEEEEEEERE')
+                            domIntOversizeStat = document.myform.DomIntOversize_Status_Choice.value
+                            from = 'domIntOversize'
+                            final_data = {
+                                'domIntOversizeID': '{{id}}',
+                                'domIntOversizeStat': domIntOversizeStat,
+                                'from':from,
+                            }
+                            break;
+                        case 'Transborder Oversize':
+                            console.log('HEEEEEEERE')
+                            tbOversizeStat = document.myform.TbOversize_Status_Choice.value
+                            from = 'tbOversize'
+                            final_data = {
+                                'tbOversizeID': '{{id}}',
+                                'tbOversizeStat': tbOversizeStat,
+                                'from':from,
+                            }
+                            break;
                         }
                     
 

@@ -39,10 +39,82 @@ def updateSys(request):
 		elif sys == 'Carousel':
 			context = updateCarousel(sys,id)
 		elif sys == 'mes':
-			print('befpre update mes')
 			context = updateMes(sys,id)
-			print('mes context recieved')
+		elif sys == 'tbOversize':
+			context = updateTbOversize(sys,id)
+		elif sys == 'domIntOversize':
+			context = updateDomIntOversize(sys,id)
+		elif sys == 'tbBaggage':
+			context = updateTbBaggage(sys,id)
+		elif sys =='domIntBaggage':
+			context = updateDomIntBaggage(sys,id)
+			
 	return render(request, 'status_board/ModalForms.html', context)
+
+def updateDomIntBaggage(sys,id):
+	domIntBag = domIntBaggageSystems.objects.filter(domIntBaggageID=id).first()
+	form = domIntBaggageSystemsForm(instance=domIntBag)
+	downTime = domIntBag.updated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = domIntBag.DomIntBaggage_Status_Choice
+	context= {
+		'system':'Domestic and International Baggage',
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
+
+def updateTbBaggage(sys,id):
+	tbBag = tbBaggageSystems.objects.filter(tbBaggageID=id).first()
+	form = tbBaggageSystemsForm(instance=tbBag)
+	downTime = tbBag.updated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = tbBag.TbBaggage_Status_Choice
+	context= {
+		'system':'Transborder Baggage System',
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
+
+def updateDomIntOversize(sys,id):
+	domIntOver = domIntOversize.objects.filter(domIntOversizeID=id).first()
+	form = domIntOversizeForm(instance=domIntOver)
+	downTime = domIntOver.updated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = domIntOver.DomIntOversize_Status_Choice
+	context= {
+		'system':'Domestic and International Oversize',
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
+
+
+def updateTbOversize(sys,id):
+	tbOver = tbOversize.objects.filter(tbOversizeID=id).first()
+	form = tbOversizeForm(instance=tbOver)
+	downTime = tbOver.updated
+	diff = datetime.now()- downTime
+	dif = format_timedelta(diff)
+	Status = tbOver.TbOversize_Status_Choice
+	context= {
+		'system':'Transborder Oversize',
+		'id':id,
+		'downTime':dif,
+		'form':form,
+		'status':Status,
+	}
+	return context
 
 def updateCarousel(sys,id):
 	carousel = bagCarousel.objects.filter(bagCarouselID=id).first()
@@ -59,7 +131,7 @@ def updateCarousel(sys,id):
 		'status':Status,
 	}
 	return context
-	return
+	
 
 def updateEsc(sys,id):
 	escalator = Escalators.objects.filter(escalatorID=id).first()
@@ -176,39 +248,70 @@ def update(request,id,sys,oldStat):
 			'sys':sys,
 			'id':id,
 		}	
+		print('SYS IS ' + sys)
 		if sys == 'Elevator':
-				elevator=get_object_or_404(Elevators, elevatorID=id)
-				form = elevatorForm(request.POST, instance=elevator)
+				system=get_object_or_404(Elevators, elevatorID=id)
+				form = elevatorForm(request.POST, instance=system)
 				status = 'Elevator_Status_Choice'
+				fieldsToUpdate = 'all'
 		elif sys == 'Escalator':
-				escalator=get_object_or_404(Escalators, escalatorID=id)
-				form = escalatorForm(request.POST, instance=escalator)
+				system=get_object_or_404(Escalators, escalatorID=id)
+				form = escalatorForm(request.POST, instance=system)
 				status = 'Escalator_Status_Choice'
+				fieldsToUpdate = 'all'
 		elif sys == 'bridge':
-				bridge=get_object_or_404(bridgeTable, bridgeTableID=id)
-				form = bridgeTableForm(request.POST, instance = bridge)
+				system = get_object_or_404(bridgeTable, bridgeTableID=id)
+				form = bridgeTableForm(request.POST, instance = system)
 				status = 'Bridge_Status_Choice'
+				fieldsToUpdate = ['Bridge_Status_Choice','bridgeUpdated']
 		elif sys =='PCA':
-				pca=get_object_or_404(bridgeTable, bridgeTableID=id)
-				form = pcaTableForm(request.POST, instance = pca)
+				system=get_object_or_404(bridgeTable, bridgeTableID=id)
+				form = pcaTableForm(request.POST, instance = system)
 				status = 'PCA_Status_Choice'
+				fieldsToUpdate = ['PCA_Status_Choice','pcaUpdated']
 		elif sys == 'GPU':
-				gpu=get_object_or_404(bridgeTable, bridgeTableID=id)
-				form = gpuTableForm(request.POST, instance = gpu)
+				system=get_object_or_404(bridgeTable, bridgeTableID=id)
+				form = gpuTableForm(request.POST, instance = system)
 				status = 'GPU_Status_Choice'
+				fieldsToUpdate = ['GPU_Status_Choice','gpuUpdated']
 		elif sys == 'mes':
-				mes=get_object_or_404(message,messageID=id)
-				form = messageForm(request.POST, instance=mes)
+				system =get_object_or_404(message,messageID=id)
+				form = messageForm(request.POST, instance=system)
 				status = 'message'
+				fieldsToUpdate = 'all'
 		elif sys == 'Carousel':
-				carousel = get_object_or_404(bagCarousel,bagCarouselID=id)
-				form = bagCarouselForm(request.POST, instance = carousel)
+				system = get_object_or_404(bagCarousel,bagCarouselID=id)
+				form = bagCarouselForm(request.POST, instance = system)
 				status = 'bagCarousel_Status_Choice'
+				fieldsToUpdate = 'all'
+		elif sys == 'Transborder Oversize':
+				system = get_object_or_404(tbOversize,tbOversizeID=id)
+				form = tbOversizeForm(request.POST, instance = system)
+				status = 'TbOversize_Status_Choice'
+				fieldsToUpdate = 'all'
+		elif sys == 'Domestic and International Oversize':
+				system = get_object_or_404(domIntOversize,domIntOversizeID=id)
+				form = domIntOversizeForm(request.POST, instance = system)
+				status = 'DomIntOversize_Status_Choice'
+				fieldsToUpdate = 'all'
+		elif sys == 'Transborder Baggage System':
+				system = get_object_or_404(tbBaggageSystems,tbBaggageID=id)
+				form = tbBaggageSystemsForm(request.POST, instance = system)
+				status = 'TbBaggage_Status_Choice'
+				fieldsToUpdate = 'all'
+		elif sys == 'Domestic and International Baggage':
+				system = get_object_or_404(domIntBaggageSystems,domIntBaggageID=id)
+				form = domIntBaggageSystemsForm(request.POST, instance = system)
+				status = 'DomIntBaggage_Status_Choice'
+				fieldsToUpdate = 'all'
 		if form.is_valid():
-			newStat = form.cleaned_data[status]
-			if (oldStat == newStat):
-				return render(request, 'status_board/form_notSaved.html',context)
-			form.save()
+				newStat = form.cleaned_data[status]
+				if (oldStat == newStat):
+					return render(request, 'status_board/form_notSaved.html',context)
+				if (fieldsToUpdate == 'all'):
+					form.save()
+				else:
+					system.save(update_fields=fieldsToUpdate)
 	return render(request, 'status_board/form_saved.html',context)
 
 
@@ -225,9 +328,6 @@ def home(request):
 		domIntOversizeData = domIntOversize.objects.order_by('domIntOversizeID')
 		tbOversizeData = tbOversize.objects.order_by('tbOversizeID')
 		messageData = message.objects.order_by('messageID')
-	
-	
-
 		context = {
 			'bridges': bridgeTableData,
 			'rows':rows,
@@ -243,89 +343,6 @@ def home(request):
 		return render(request, 'status_board/home.html', context)
 
 
-	# Display only bridgeTable, elevaotrData, escalatorData ie view for airline employees
-	# else:
-	
-# 		elevatorData = Elevators.objects.order_by('elevatorID')
-# 		escalatorData = Escalators.object.order_by('escalatorID')
-	#
-	#
-	# 	context = {
-	# 		'bridges': bridgeTableData,
-	# 		'elevators': elevatorData,
-	#		'escalators': escalatorData,
-	# 	}
-	# 	return render(request, 'status_board/home.html', context)
-
-
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-#Update the bridge table
-def bridgeTableUpdate(request, btID):
-	
-	
-	form = bridgeTableForm(request.POST or None, instance=tableID)
-	path = 'fromBridgeTable'
-
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)
-
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-#Update the elevator table
-def elevatorUpdate(request, elevBtID):
-	
-	tableID = Elevators.objects.filter(elevatorID=elevBtID).first()
-	form = elevatorForm(request.POST or None, instance=tableID)
-	path = 'fromElevator'
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html',context)
-
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-#Update the escalator table
-def escalatorUpdate(request, btID):
-	
-	tableID = Escalators.objects.filter(escalatorID=btID).first()
-	form = escalatorForm(request.POST or None, instance=tableID)
-	path = 'fromEscalator'
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)
-
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-#Update the message table
-def messageUpdate(request, btID ):
-	tableID = message.objects.filter(messageID=btID).first()
-	form = messageForm(request.POST or None, instance=tableID)
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)
-
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
 # Update pre board screening tables
 # Update domIntPBS Table
 def domIntPBSUpdate(request, btID):
@@ -433,39 +450,8 @@ def domIntOversizeUpdate(request, btID):
 # Update lav hut table
 
 
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-# Update electrical Charging table
-def electricalChargingUpdate(request, btID):
-	
-	tableID = electricalCharging.objects.filter(domIntBaggageID=btID).first()
-	form = electricalChargingForm(request.POST or None, instance=tableID)
-	path = 'fromElectricalCharging'
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)
 
-@user_passes_test(lambda u: u.has_perm('LAIS.has_write_access'))
-# Update water Fill table
-def waterFillUpdate(request, btID):
-	
-	tableID = waterFill.objects.filter(domIntBaggageID=btID).first()
-	form = waterFillForm(request.POST or None, instance=tableID)
-	path = 'fromWaterFill'
-	if form.is_valid():
-		form.save()
-		return redirect('status-board-home') #need to change redirect
-	context = {
-		'form': form,
-		'obj': tableID,
-		'path': path,
-	}
-	return render(request, 'status_board/forms.html', context)
+
 
 		
 

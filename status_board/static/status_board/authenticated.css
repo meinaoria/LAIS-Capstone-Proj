@@ -40,6 +40,11 @@ color:white;
   text-align:center ;
 }
 
+.flexItemBag{
+  flex-basis: 100%; 
+  text-align:center ;
+}
+
 #pbs{
   height:50%;
 }

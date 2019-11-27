@@ -36,8 +36,8 @@
 			  <li class="nav-item" style="flex-grow: 1; text-align:center;color:white">
 				  OPERATIONS 613-248-2200
 			  </li>
-			<li class="nav-item " style="flex-grow: 1; text-align:center;color:white">
-				  <strong> Live Airport Information System </strong>
+			<li class="nav-item " style="flex-grow: 1; text-align:center;color:white;">
+				  <a href="{% url 'status-board-home' %}"  style="color:white;font-weight: 500;"> Live Airport Information System </a>
 			  </li>
 			  <li class="nav-item " style="flex-grow: 1; text-align:center;color:white">
 				  EMERGENCY 613-248-2111
@@ -83,7 +83,7 @@
 		<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
 	
 		
-				<div id='adHocMsg'>{{mes.message}}</div>
+				<div style="width=100%; position:relative" ><div id='adHocMsg'>{{mes.message}}</div></div>
 		
 		{% endfor %}
 		</footer>

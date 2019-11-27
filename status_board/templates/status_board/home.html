@@ -292,28 +292,41 @@
           <div class="notAuth" style="height:50%">
               <div class="bg-dark border" id ="baggagge" style="height:100%">
                  <p style="text-align:center" class="title">Baggage</p>
-                 <div class="col sysContainer"  >
-                    <div  style="flex:0 0 100%; text-align:center ">
+                 <div class="flexContainer" style="height: 80%">                   
                  {% for domIntBag in domIntBaggage %}
-                        
+                  <div class="flexItemBag">
+                    Domestic & International Baggage :
                         {% if domIntBag.DomIntBaggage_Status_Choice == 'GREEN' %}
-                        <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a> </p>
+                        <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('domIntBaggage','{{domIntBag.domIntBaggageID}}')" class="disabled"  > 
+                            <i class="fas fa-check-circle fa-lg " id="DomIntBag {{domIntBag.domIntBaggageID}}" title="Status changed on: {{domIntBag.updated}}" style="color:#20C05C;"></i>
+                            </a>
                          {% elif domIntBag.DomIntBaggage_Status_Choice == 'YELLOW' %}
-                          <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </p>
+                         <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('domIntBaggage','{{domIntBag.domIntBaggageID}}')" class="disabled"  > 
+                          <i class="fas fa-minus-circle fa-lg " id="DomIntgBag {{domIntBag.domIntBaggageID}}" title="Status changed on: {{domIntBag.updated}}" style="color:#F1C40F;"></i>
+                          </a>
                         {% elif  domIntBag.DomIntBaggage_Status_Choice == 'RED' %}
-                          <p class="domBag {{domIntBag.domIntBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'domIntBaggageForm' btID=domIntBag.domIntBaggageID%}" class="disabled" style="color:inherit"> <span>DOM/INT BAGGAGE SYSTEM</span>  </a>  </p>
+                        <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('domIntBaggage','{{domIntBag.domIntBaggageID}}')" class="disabled"  > 
+                          <i class="fas fa-times-circle fa-lg " id="DomIntBag {{domIntBag.domIntBaggageID}}" title="Status changed on: {{domIntBag.updated}}" style="color:#E74C3C;"></i>
+                          </a>
                         {% endif %}
                  {% endfor %}
-
+                  </div>
                  <!-- TB Baggage -->
                  {% for tbBag in tbBaggage %}
-                 <div class="p-2" >
+                 <div class="flexItemBag">
+                  Transborder Baggage System : 
                      {% if tbBag.TbBaggage_Status_Choice == 'GREEN' %}
-                     <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
+                     <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('tbBaggage','{{tbBag.tbBaggageID}}')" class="disabled"  > 
+                      <i class="fas fa-check-circle fa-lg " id="tbBag {{tbBag.tbBaggageID}}" title="Status changed on: {{tbBag.updated}}" style="color:#20C05C;"></i>
+                      </a>
                       {% elif tbBag.TbBaggage_Status_Choice == 'YELLOW' %}
-                       <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
+                      <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('tbBaggage','{{tbBag.tbBaggageID}}')" class="disabled"  > 
+                          <i class="fas fa-minus-circle fa-lg " id="tbBag {{tbBag.tbBaggageID}}" title="Status changed on: {{tbBag.updated}}" style="color:#F1C40F;"></i>
+                          </a>
                      {% elif  tbBag.TbBaggage_Status_Choice == 'RED' %}
-                       <p class="tbBag {{tbBag.tbBaggageID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbBaggageSystemsForm' btID=tbBag.tbBaggageID%}" class="disabled" style="color:inherit"> <span>TB BAGGAGE SYSTEM</span></a> </p>
+                     <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('tbBaggage','{{tbBag.tbBaggageID}}')" class="disabled"  > 
+                      <i class="fas fa-times-circle fa-lg " id="tbBag {{tbBag.tbBaggageID}}" title="Status changed on: {{tbBag.updated}}" style="color:#E74C3C;"></i>
+                      </a>
                      {% endif %}
                  </div>
 
@@ -321,13 +334,20 @@
 
             <!-- DOM/INT  -->
             {% for domOversize in domIntOversize %}
-            <div class="p-2" >
+            <div class="flexItemBag">
+              Domestic & International Oversize : 
                 {% if domOversize.DomIntOversize_Status_Choice == 'GREEN' %}
-                <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#2ECC71; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
+                <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('domIntOversize','{{domOversize.domIntOversizeID}}')" class="disabled"  > 
+                    <i class="fas fa-check-circle fa-lg " id="domOversize {{domOversize.domIntOversizeID}}" title="Status changed on: {{domOversize.updated}}" style="color:#20C05C;"></i>
+                    </a>
                  {% elif domOversize.DomIntOversize_Status_Choice == 'YELLOW' %}
-                  <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
-                {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
-                  <p class="domBagOver {{domOversize.domIntOversizeID}}" style="color:#E74C3C; text-align:center"><a href="{% url 'domIntOversizeForm' btID=domOversize.domIntOversizeID%}" class="disabled" style="color:inherit"> <span> DOM / INT OVERSIZE</span></a> </p>
+                 <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('domIntOversize','{{domOversize.domIntOversizeID}}')" class="disabled"  > 
+                    <i class="fas fa-minus-circle fa-lg " id="domOversize {{domOversize.domIntOversizeID}}" title="Status changed on: {{domOversize.updated}}" style="color:#F1C40F;"></i>
+                    </a>
+                 {% elif  domOversize.DomIntOversize_Status_Choice == 'RED' %}
+                 <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('domIntOversize','{{domOversize.domIntOversizeID}}')" class="disabled"  > 
+                  <i class="fas fa-times-circle fa-lg " id="domOversize {{domOversize.domIntOversizeID}}" title="Status changed on: {{domOversize.updated}}" style="color:#E74C3C;"></i>
+                  </a>
                 {% endif %}
             </div>
 
@@ -335,13 +355,20 @@
 
          <!-- TB OVERSIZE -->
          {% for tbOver in tbOversize %}
-                    <div class="p-2" >
+         <div class="flexItemBag">
+          Transborder Oversize : 
                         {% if tbOver.TbOversize_Status_Choice == 'GREEN' %}
-                             <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#2ECC71; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a>  </p>
+                        <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('tbOversize','{{tbOver.tbOversizeID}}')" class="disabled"  > 
+                          <i class="fas fa-check-circle fa-lg " id="tbOversize {{tbOver.tbOversizeID}}" title="Status changed on: {{tbOver.updated}}" style="color:#20C05C;"></i>
+                          </a>
                          {% elif tbOver.TbOversize_Status_Choice == 'YELLOW' %}
-                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#F1C40F; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
+                         <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('tbOversize','{{tbOver.tbOversizeID}}')" class="disabled"  > 
+                          <i class="fas fa-minus-circle fa-lg " id="tbOversize {{tbOver.tbOversizeID}}" title="Status changed on: {{tbOver.updated}}" style="color:#F1C40F;"></i>
+                          </a>
                         {% elif  tbOver.TbOversize_Status_Choice == 'RED' %}
-                          <p class="tbOver {{tbOver.tbOversizeID}}" style="color:#E74C3C; text-align:center"> <a href="{% url 'tbOversizeForm' btID=tbOver.tbOversizeID%}" style="color:inherit" class="disabled"> <span>TB OVERSIZE</span> </a> </p>
+                          <a data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('tbOversize','{{tbOver.tbOversizeID}}')" class="disabled"  > 
+                            <i class="fas fa-times-circle fa-lg " id="tbOversize {{tbOver.tbOversizeID}}" title="Status changed on: {{tbOver.updated}}" style="color:#E74C3C;"></i>
+                            </a>
                         {% endif %}
                     </div>
   
@@ -508,11 +535,10 @@ console.log(loc.pathname)
         else if (data.fromCon == 'escalator'){
           console.log('IN EsC')
              var escalatorID = data.escalatorID
-                var escalatorStat = data.escalatorStat
-
-                var esc = 'Esc ' + escalatorID
-                console.log('IN EsC' + esc)
-                 var escIMG = document.getElementById(esc)
+             var escalatorStat = data.escalatorStat
+             var esc = 'Esc ' + escalatorID
+             var escIMG = document.getElementById(esc)
+             
                   if (escalatorStat == 'GREEN')
                   {
                     $(escIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
@@ -527,65 +553,82 @@ console.log(loc.pathname)
         else if (data.fromCon == 'domIntBag'){
             var domIntBagID = data.domIntBagId
             var domIntBagStat = data.domIntBagStat
+            var domIntBag = 'DomIntBag ' + domIntBagID
+            var domIntBagIMG = document.getElementById(domIntBag)
 
-            var domIntBag = 'domBag ' + domIntBagID
-
-            var domIntBagTXT = document.getElementsByClassName(domIntBag)[0]
-
-                 if (domIntBagStat == 'GREEN')
-                        domIntBagTXT.style.color = "#20C05C"
-                   else if (domIntBagStat == 'YELLOW')
-                        domIntBagTXT.style.color = "#F1C40F"
-                     else if (domIntBagStat == 'RED')
-                        domIntBagTXT.style.color = "#ED4949"
-        }
+            if (domIntBagStat == 'GREEN'){
+                        $(domIntBagIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                        domIntBagIMG.style.color = "#20C05C"
+                    }
+                     else if (domIntBagStat == 'YELLOW'){
+                      $(domIntBagIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+                      domIntBagIMG.style.color = "#F1C40F"
+                     }
+                     else if (domIntBagStat == 'RED'){
+                        $(domIntBagIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                        domIntBagIMG.style.color = "#ED4949"
+                     }
+              }
            // Updating tbBag UI symbols
         else if (data.fromCon == 'tbBag'){
             var tbBagID = data.tbBagID
             var tbBagStat = data.tbBagStat
-
             var tbBag = 'tbBag ' + tbBagID
-
-            var tbBagTXT = document.getElementsByClassName(tbBag)[0]
-
-                 if (tbBagStat == 'GREEN')
-                        tbBagTXT.style.color = "#20C05C"
-                   else if (tbBagStat == 'YELLOW')
-                        tbBagTXT.style.color = "#F1C40F"
-                     else if (tbBagStat == 'RED')
-                        tbBagTXT.style.color = "#ED4949"
+            var tbBagIMG = document.getElementById(tbBag)
+                
+            if (tbBagStat == 'GREEN'){
+                        $(tbBagIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                        tbBagIMG.style.color = "#20C05C"
+                    }
+                     else if (tbBagStat == 'YELLOW'){
+                      $(tbBagIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+                      tbBagIMG.style.color = "#F1C40F"
+                     }
+                     else if (tbBagStat == 'RED'){
+                        $(tbBagIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                        tbBagIMG.style.color = "#ED4949"
+                     }
         }
            // Updating domIntOversize UI symbols
         else if (data.fromCon == 'domIntOversize'){
             var domIntOversizeID = data.domIntOversizeID
             var domIntOversizeStat = data.domIntOversizeStat
-
-            var domIntOversize = 'domBagOver ' + domIntOversizeID
-
-            var domIntOverTXT = document.getElementsByClassName(domIntOversize)[0]
-
-                 if (domIntOversizeStat == 'GREEN')
-                        domIntOverTXT.style.color = "#20C05C"
-                   else if (domIntOversizeStat == 'YELLOW')
-                        domIntOverTXT.style.color = "#F1C40F"
-                     else if (domIntOversizeStat == 'RED')
-                        domIntOverTXT.style.color = "#ED4949"
+            var domIntOversize = 'domOversize ' + domIntOversizeID
+            var domIntOverIMG = document.getElementById(domIntOversize)
+          
+            if (domIntOversizeStat == 'GREEN'){
+                        $(domIntOverIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                        domIntOverIMG.style.color = "#20C05C"
+                    }
+                     else if (domIntOversizeStat == 'YELLOW'){
+                      $(domIntOverIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+                      domIntOverIMG.style.color = "#F1C40F"
+                     }
+                     else if (domIntOversizeStat == 'RED'){
+                        $(domIntOverIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                        domIntOverIMG.style.color = "#ED4949"
+                     }
         }
            // Updating tbOversize UI symbols
         else if (data.fromCon == 'tbOversize'){
             var tbOversizeID = data.tbOversizeID
             var tbOversizeStatus = data.tbOversizeStatus
+            var tbOversize = 'tbOversize ' + tbOversizeID
+            var tbBagOverIMG = document.getElementById(tbOversize)
 
-            var tbOversize = 'tbOver ' + tbOversizeID
+            if (tbOversizeStatus == 'GREEN'){
+                        $(tbBagOverIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-check-circle');
+                        tbBagOverIMG.style.color = "#20C05C"
+                    }
+                     else if (tbOversizeStatus == 'YELLOW'){
+                      $(tbBagOverIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-minus-circle');
+                      tbBagOverIMG.style.color = "#F1C40F"
+                     }
+                     else if (tbOversizeStatus == 'RED'){
+                        $(tbBagOverIMG).find('[data-fa-i2svg]').toggleClass('').toggleClass('fa-times-circle');
+                        tbBagOverIMG.style.color = "#ED4949"
+                     }
 
-            var tbBagOverTXT = document.getElementsByClassName(tbOversize)[0]
-
-                 if (tbOversizeStatus == 'GREEN')
-                        tbBagOverTXT.style.color = "#20C05C"
-                   else if (tbOversizeStatus == 'YELLOW')
-                        tbBagOverTXT.style.color = "#F1C40F"
-                     else if (tbOversizeStatus == 'RED')
-                        tbBagOverTXT.style.color = "#ED4949"
         }  
     }
 
