@@ -4,7 +4,7 @@
 {% block mainContent %}
   <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
 
-  <script src="http://malsup.github.com/jquery.form.js"></script>
+  <script src="https://malsup.github.com/jquery.form.js"></script>
     {% if user.is_authenticated and perms.catalog.has_write_access %}
         <!-- <span>Auth and has permission</span> -->
         <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">

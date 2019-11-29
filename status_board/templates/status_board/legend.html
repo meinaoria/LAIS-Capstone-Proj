@@ -1,5 +1,6 @@
 {% extends "status_board/base.html" %}
 {% load static %}
+{% load i18n %}
 {% block mainContent %}
   <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
   <script src="http://malsup.github.com/jquery.form.js"></script>
@@ -19,16 +20,16 @@
 {% endblock mainContent%}
 
 
-{% block content %}
+{% block content %}  
 <section role="main" style="height: 95%">
     <div class="row no-gutters" id="main" style="height: 100%">
         <!-- <div class="col-sm"  style="height: inherit"> -->
         <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
             <thead>
             <tr>
-                <th>Elevator</th>
-                <th>Floors</th>
-                <th>Description</th>
+                <th> {% trans "Elevator"%}</th>
+                <th> {% trans "Floors"%}</th>
+                <th> Desctiptions</th>
             </tr>
             </thead>
             <tbody>
@@ -74,7 +75,7 @@
                     </tr> -->
                     <tr>
                             <td>7</td>
-                            <td>1, 2/td>
+                            <td>1, 2</td>
                             <td>Arrivals, by carrousel 5 (Public).</td>
                         </tr>
                         <tr>

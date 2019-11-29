@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html style="height:100%">
 <head>
@@ -63,6 +64,26 @@
 					  <li class="nav-item">
 						 <a class="nav-link " href="{% url 'login' %}" style="color:white">Login</a>
 					  </li>
+					  <li class="nav-item">
+							{% get_current_language as LANGUAGE_CODE %}
+						<form action="{% url 'set_language'%}" method="post">{%csrf_token%}
+							<select name="language" id="" class="form-control form-control-sm"> 
+								{% get_available_languages as LANGUAGES %}
+								{% get_language_info_list for LANGUAGES as languages %}
+								{% for language in languages %}
+									<option value="{{ language.code }}"
+									 {% if language.code == LANGUAGE_CODE %} 
+									 	selected 
+									 {% endif %} >
+									{{language.name_locale}} {{ language.code}}
+									</option>
+								{%endfor%}
+							</select>
+							<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+							
+
+						</form>
+					 </li>
 						{% endif %}
 					</ul>
 
