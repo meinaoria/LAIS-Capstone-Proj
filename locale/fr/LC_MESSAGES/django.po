@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-28 22:25-0500\n"
+"POT-Creation-Date: 2019-12-03 22:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\status_board\templates\status_board\legend.html:31
+#: .\status_board\templates\status_board\base.html:38
+msgid "Operations"
+msgstr "Opérations"
+
+#: .\status_board\templates\status_board\base.html:44
+msgid "Emergency"
+msgstr "Urgence"
+
+#: .\status_board\templates\status_board\base.html:55
+#: .\status_board\templates\status_board\base.html:84
+msgid "Legend"
+msgstr "Légende"
+
+#: .\status_board\templates\status_board\base.html:58
+msgid "Logout"
+msgstr "Déconnecter"
+
+#: .\status_board\templates\status_board\base.html:87
+msgid "Login"
+msgstr "Connecter"
+
+#: .\status_board\templates\status_board\home.html:131
+msgid "Elevators"
+msgstr "Ascenseurs"
+
+#: .\status_board\templates\status_board\home.html:194
+msgid "Escalators"
+msgstr "Escalier mécanique"
+
+#: .\status_board\templates\status_board\legend.html:30
 msgid "Elevator"
 msgstr "Ascenseur"
 
-#: .\status_board\templates\status_board\legend.html:32
+#: .\status_board\templates\status_board\legend.html:31
 msgid "Floors"
 msgstr "Sol"

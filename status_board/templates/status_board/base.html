@@ -4,10 +4,12 @@
 <html style="height:100%">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- load bootstran cdn -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	
+	<!-- load main csss -->
 	<link rel="stylesheet" type="text/css" href="{% static 'status_board/main.css' %}">
-		
+	<!-- load favicon -->
+	<link rel="icon" href="{% static 'status_board/images/favicon.ico' %}"/>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Popper JS -->
@@ -35,13 +37,13 @@
 
 				<ul class="navbar-nav "  style="display: flex">
 			  <li class="nav-item" style="flex-grow: 1; text-align:center;color:white">
-				  OPERATIONS 613-248-2200
+					{% trans "Operations" %} 613-248-2200
 			  </li>
 			<li class="nav-item " style="flex-grow: 1; text-align:center;color:white;">
 				  <a href="{% url 'status-board-home' %}"  style="color:white;font-weight: 500;"> Live Airport Information System </a>
 			  </li>
 			  <li class="nav-item " style="flex-grow: 1; text-align:center;color:white">
-				  EMERGENCY 613-248-2111
+					{% trans "Emergency" %} 613-248-2111
 			  </li>
 
 			</ul>
@@ -52,40 +54,73 @@
 					<ul class="navbar-nav">
 						{% if user.is_authenticated %}
 							<li class="nav-item">
-							  <a class="nav-link " href="{% url 'legend' %}" style="color:white">Legend</a>
+							  <a class="nav-link " href="{% url 'legend' %}" style="color:white"> {% trans "Legend" %}</a>
 						  </li>
 							<li class="nav-item">
-							 <a class="nav-link " href="{% url 'logout' %}" style="color:white">Logout</a>
+							 <a class="nav-link " href="{% url 'logout' %}" style="color:white"> {% trans "Logout"%}</a>
 						  </li>
+						  <li class="nav-item">
+								{% get_current_language as LANGUAGE_CODE %}
+							<form action="{% url 'set_language'%}" method="post">{%csrf_token%}
+									{% if LANGUAGE_CODE == "en"%}
+											<input name="next" type="hidden" value="{{ redirect_to }}">
+										<select  name="language" style="display: none;">
+													<option value="{{ 'fr' }}">
+													</option>
+											</select>
+											<button type="submit" class="btn btn-dark btn-sm" style="margin-top: 4px;">Fr</button>
+									{%elif LANGUAGE_CODE == "fr"%}
+											<input name="next" type="hidden" value="{{ redirect_to }}">
+											<select  name="language" style="display: none;">
+														<option value="{{ 'en' }}">
+														</option>
+												</select>
+												<button type="submit" class="btn btn-dark btn-sm" style="margin-top: 4px;">En</button>
+									{%endif%}
+											
+	
+							</form>
+						 </li>
 					{% else %}
 					  <li class="nav-item">
-						  <a class="nav-link " href="{% url 'legend' %}" style="color:white">Legend</a>
+						  <a class="nav-link " href="{% url 'legend' %}" style="color:white"> {% trans "Legend"%}</a>
 					  </li>
 					  <li class="nav-item">
-						 <a class="nav-link " href="{% url 'login' %}" style="color:white">Login</a>
+						 <a class="nav-link " href="{% url 'login' %}" style="color:white">{% trans "Login"%}</a>
 					  </li>
 					  <li class="nav-item">
 							{% get_current_language as LANGUAGE_CODE %}
 						<form action="{% url 'set_language'%}" method="post">{%csrf_token%}
-							<select name="language" id="" class="form-control form-control-sm"> 
-								{% get_available_languages as LANGUAGES %}
-								{% get_language_info_list for LANGUAGES as languages %}
-								{% for language in languages %}
-									<option value="{{ language.code }}"
-									 {% if language.code == LANGUAGE_CODE %} 
-									 	selected 
-									 {% endif %} >
-									{{language.name_locale}} {{ language.code}}
-									</option>
-								{%endfor%}
-							</select>
-							<button type="submit" class="btn btn-primary btn-sm">Submit</button>
-							
+								{% if LANGUAGE_CODE == "en"%}
+										<input name="next" type="hidden" value="{{ redirect_to }}">
+									<select  name="language" style="display: none;">
+												<option value="{{ 'fr' }}">
+												</option>
+										</select>
+										<button type="submit" class="btn btn-dark btn-sm" style="margin-top: 4px;">Fr</button>
+								{%elif LANGUAGE_CODE == "fr"%}
+										<input name="next" type="hidden" value="{{ redirect_to }}">
+										<select  name="language" style="display: none;">
+													<option value="{{ 'en' }}">
+													</option>
+											</select>
+											<button type="submit" class="btn btn-dark btn-sm" style="margin-top: 4px;">En</button>
+								{%endif%}
+										
 
 						</form>
 					 </li>
 						{% endif %}
 					</ul>
+					<!-- 
+							{% if LANGUAGE_CODE == "en"%}
+							<input name="next" type="hidden" value="{{ redirect_to }}">
+							<button type="submit" class="btn btn-primary btn-sm" >FR</button>
+							{% elif LANGUAGE_CODE == fr%}
+							<input name="next" type="hidden" value="{{ redirect_to }}">
+							<button type="submit" class="btn btn-primary btn-sm">EN</button>
+							{%endif%}
+					 -->
 
 				</div>
 		  </div>
@@ -99,12 +134,13 @@
 		{% block content %}
 		{% endblock %}
 
+		<!-- AdHoc message  -->
 		{% for mes in fixedMessages %}
 	<a  data-toggle="modal" data-target="#modal" href="{% url 'updateSys' %}" onclick="setGetParameter('mes','{{mes.messageID}}')"  class="disabled">	
 		<footer class="fixed-bottom fixedMessage slide-right"  id="fixedFooter">
 	
 		
-				<div style="width=100%; position:relative" ><div id='adHocMsg'>{{mes.message}}</div></div>
+				<div style="width:100%; position:relative" ><div id='adHocMsg'>{{mes.message}}</div></div>
 		
 		{% endfor %}
 		</footer>

@@ -1,7 +1,8 @@
+/* CSS for dashboard : user type independent */
 .title{
   background-color: #2A3034;
 
-  border-bottom: 2px solid  lightslategray ;
+  border-bottom: 0.5px solid  lightslategray ;
 }
 .bridgeFlexContainer{
   display: flex;
@@ -10,13 +11,14 @@
   align-items: flex-start;
   height: inherit;
   color: white;
-  background-color: #343a40;
+  background-color:#30363C;
 }
 
 #bridgeFlexItem{
   flex-grow: 0;
   align-self: flex-start;
   flex-basis: 50%;
+  border-bottom: 1px solid rgba(36, 41, 44, 0.5);
 }
 
 .titleFlexItem{

@@ -2,28 +2,27 @@
 {% load static %}
 {% load i18n %}
 {% block mainContent %}
-  <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
-  <script src="http://malsup.github.com/jquery.form.js"></script>
+
     {% if user.is_authenticated and perms.catalog.has_write_access %}
-        <!-- <span>Auth and has permission</span> -->
+         <!-- CSS : User has permission and is Authenticated-->
         <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}">
     {% elif user.is_authenticated %}
-        <span> No permission</span>
-        <!-- <link rel="stylesheet" type="text/css" href="{% static 'status_board/authenticated.css' %}"> -->
-        <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
+         <!-- CSS : User has no permission-->
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/noPerm.css' %}">
     {% elif not user.is_authenicated %}
-        <!--<span>Not Auth</span>-->
-           <!--<script src="{% static 'status_board/loggedOut.js' %}"></script>-->
-        <link rel="stylesheet" type="text/css" href="{% static 'status_board/notAuthenticated.css' %}">
+        <!-- CSS : User Not Authenticated-->
+         
+        <link rel="stylesheet" type="text/css" href="{% static 'status_board/legend.css' %}"
     {% endif %}
 
 {% endblock mainContent%}
 
 
 {% block content %}  
-<section role="main" style="height: 95%">
+    <section role="main" style="height: 100%" id="sectionLegend">
     <div class="row no-gutters" id="main" style="height: 100%">
         <!-- <div class="col-sm"  style="height: inherit"> -->
+            <!-- Elevator Table -->
         <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
             <thead>
             <tr>
@@ -38,11 +37,6 @@
                 <td>0,1,2,3</td>
                 <td>US CBP Transborder North (Secure).</td>
             </tr>
-            <!-- <tr>
-                <td>1B</td>
-                <td>0,1,2,3</td>
-                <td>US CBP Transborder North (Secure).</td>
-            </tr> -->
             <tr>
                 <td>2</td>
                 <td>0,1,2,3</td>
@@ -58,21 +52,11 @@
                         <td>1, 2, 3</td>
                         <td>Main lobby North PTB (Public).</td>
                     </tr>
-                    <!-- <tr>
-                        <td>5B</td>
-                        <td>1, 2, 3</td>
-                        <td>Main lobby North PTB (Public).</td>
-                    </tr> -->
                     <tr>
                     <td>6A & 6B</td>
                     <td>1, 2, 3</td>
                     <td>Main lobby South PTB (Public).</td>
                 </tr>
-                <!-- <tr>
-                        <td>6B</td>
-                        <td>1, 2, 3</td>
-                        <td>Main lobby South PTB (Public).</td>
-                    </tr> -->
                     <tr>
                             <td>7</td>
                             <td>1, 2</td>
@@ -108,6 +92,7 @@
         </table>
         <!-- </div> -->
         <!-- <div class="col-sm"  style="height: inherit"> -->
+            <!-- Escalator Table -->
                 <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
                         <thead>
                         <tr>
@@ -170,7 +155,8 @@
         
         <!-- </div> -->
         <!-- <div class="col-sm"  style="height: inherit;background-color:#282828"> -->
-                <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white">
+            <!-- Carousel table -->
+                <table class="table table-bordered table-sm table-responsive-sm table-striped table-dark" style="color:white" id="carouselLegend">
                         <thead>
                         <tr>
                             <th>Carousel</th>

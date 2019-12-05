@@ -3,3 +3,5 @@ htmlcov
 .html.coverage
 .coverage
 htmlcov.zip
+req.txt
+req2.txt

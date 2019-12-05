@@ -1,3 +1,4 @@
+/* CSS for authenticated user */
 html{
   height: 100vh;
 }
@@ -15,12 +16,6 @@ footer{
   height:5%;
 }
 
-/* .disabled{
-  pointer-events: none;
-cursor: default;
-color:white;
-} */
-
 /* 2nd and 3rd row 50% when authenticated */
 .height{
   height:50%;
@@ -29,9 +24,8 @@ color:white;
 
 .flexContainer{
   display:flex;
-  justify-content: end;
+  justify-content: flex-start;
    flex-wrap:wrap;
-  
    align-content: stretch;
 }
 

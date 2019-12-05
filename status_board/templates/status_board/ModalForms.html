@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-
+<!-- Modal form to update status of a system -->
 <div class="modal-dialog modal-sm" role="document">
     <form action="{% url 'update' id=id sys=system oldStat=status %}"  method="POST" id="form" name="myform" class="form">{% csrf_token %}
         <div class="modal-content">
@@ -28,6 +28,8 @@
         </div><!-- /.modal-content -->
     </form>
 </div><!-- /.modal-dialog -->
+
+<!-- Websocket script: gets form data onsubmit and sends it to consumers (websocket) -->
 <script>
 var loc = window.location
 console.log(loc)
@@ -53,6 +55,7 @@ console.log('pathname = ' + loc.pathname)
                     console.log('form saved')
                     var final_data
                     console.log(' system is {{system}}')
+                    // switch case to determine system to be updated
                     switch('{{system}}'){
                         case 'Elevator':
                             elevatorID = '{{id}}'
@@ -159,7 +162,7 @@ console.log('pathname = ' + loc.pathname)
                             break;
                         }
                     
-
+                            // sending data to backend
                             socket.send(JSON.stringify(final_data));
                             console.log('sent data')
             
