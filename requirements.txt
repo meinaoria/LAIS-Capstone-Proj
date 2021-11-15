@@ -22,7 +22,7 @@ hyperlink==19.0.0
 idna==2.8
 incremental==17.5.0
 msgpack==0.6.1
-pip==19.2.3
+pip==21.1
 psycopg2==2.7.7
 pyasn1==0.4.7
 pyasn1-modules==0.2.7
